@@ -1,0 +1,857 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Cocoapods," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="项目中有第三方库？不用 Cocoapods 真是你的损失呐。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocoapods 的安装、使用及其配置">
+<meta property="og:url" content="http://joehill.me/2015/08/10/2015-08-10-Cocoapods/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="项目中有第三方库？不用 Cocoapods 真是你的损失呐。">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/pic.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/1.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/2.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/3.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/4.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/5.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/6.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/7.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/8.png">
+<meta property="og:updated_time" content="2015-08-12T10:54:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocoapods 的安装、使用及其配置">
+<meta name="twitter:description" content="项目中有第三方库？不用 Cocoapods 真是你的损失呐。">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/pic.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/08/10/2015-08-10-Cocoapods/"/>
+
+  <title> Cocoapods 的安装、使用及其配置 | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocoapods 的安装、使用及其配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-10T11:33:28+08:00" content="2015-08-10">
+              2015-08-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/10/2015-08-10-Cocoapods/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/10/2015-08-10-Cocoapods/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/pic.png" alt=""></p>
+<blockquote class="blockquote-center">项目中有第三方库？<br><br>不用 Cocoapods 真是你的损失呐。<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h1><p>如果你只是想用 <a href="https://cocoapods.org" target="_blank" rel="external">Cocoapods</a> 把第三方库导入你的工程，本章内容目的就是以最快速度让你把 Cocoapods 应用到你的项目中。</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Cocoapods 基于 Ruby，OS X 已经安装好 Ruby。限于国内的网络，此处先修改 RubyGems 源的地址。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>gem sources --remove <span class="symbol">https:</span>/<span class="regexp">/rubygems.org/</span></span><br><span class="line"><span class="variable">$ </span>gem sources -a <span class="symbol">http:</span>/<span class="regexp">/ruby.taobao.org/</span></span><br></pre></td></tr></table></figure>
+<p>执行完毕后，验证是否修改成功。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gem sources <span class="_">-l</span></span><br></pre></td></tr></table></figure>
+<p>如果显示如下信息代表修改成功。</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">*** CURRENT SOURCES ***  </span><br><span class="line"><span class="symbol">http:</span>//ruby.taobao<span class="meta">.org</span>/</span><br></pre></td></tr></table></figure>
+<p>接下来安装 Cocoapods</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ sudo gem <span class="keyword">install</span> cocoapods</span><br></pre></td></tr></table></figure>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>如果你还没装 <a href="https://github.com/supermarin/Alcatraz" target="_blank" rel="external">Alcatraz</a>，那请你先安装 Alcatraz。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -fsSL http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<p>进入你要添加第三方库的工程，按<code>command + shift + 9</code>调出 Alcatraz 搜索界面，搜索 Cocoapods 并安装。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/1.png" alt=""></p>
+<p>安装完毕后，重启 Xcode，如下图点击创建 Podfile。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/2.png" alt=""></p>
+<p>以 <code>AFNetworking</code>为例，在 Podfile 文件中写入并保存。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></span><br><span class="line"></span><br><span class="line">pod <span class="string">"AFNetworking"</span></span><br></pre></td></tr></table></figure>
+<p>这时 Cocoapods 插件已经可以选择安装了。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/3.png" alt=""></p>
+<p>点击安装</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/4.png" alt=""></p>
+<p>提示重新启动并打开 <code>.workspace</code>文件，现在你已经可以愉快的引用 <code>AFNetworking.h</code>咯！</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/5.png" alt=""></p>
+<h1 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h1><p>本章内容有助于你提高对 Cocoapods 更深层次的理解。</p>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><p><strong>1. pod install</strong></p>
+<p>根据在 Podfile 中配置好的第三方库信息来安装对应的库。</p>
+<p>如果存在 Podfile.lock 文件则根据 Podfile.lock 中锁定的版本进行安装。</p>
+<p>每次更新了Podfile文件时，都需要重新执行该命令，以便重新安装Pods依赖库。</p>
+<p><strong>2. pod update</strong></p>
+<p>很多情况下，Podfile 中的第三方库信息格式并没有指定某个库的具体版本，那么在执行 <code>pod update</code>后，第三方库都会更新到最新版本且 Podfile.lock 会一同更新。</p>
+<p><strong>3. pod search</strong></p>
+<p>执行</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>pod search AFNetworking</span><br></pre></td></tr></table></figure>
+<p>得到如下信息：</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">-&gt; AFNetworking (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">   A delightful iOS <span class="keyword">and</span> OS X networking framework.</span><br><span class="line">   pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5.4'</span></span><br><span class="line">   - Homepage:</span><br><span class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking</span><br><span class="line">   - Source:</span><br><span class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking.git</span><br><span class="line">   - Versions: <span class="number">2.5</span><span class="meta">.4</span>, <span class="number">2.5</span><span class="meta">.3</span>, <span class="number">2.5</span><span class="meta">.2</span>, <span class="number">2.5</span><span class="meta">.1</span>, <span class="number">2.5</span><span class="meta">.0</span>, <span class="number">2.4</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">2.4</span><span class="meta">.0</span>, <span class="number">2.3</span><span class="meta">.1</span>, <span class="number">2.3</span><span class="meta">.0</span>, <span class="number">2.2</span><span class="meta">.4</span>, <span class="number">2.2</span><span class="meta">.3</span>, <span class="number">2.2</span><span class="meta">.2</span>, <span class="number">2.2</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">2.2</span><span class="meta">.0</span>, <span class="number">2.1</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.3</span>, <span class="number">2.0</span><span class="meta">.2</span>, <span class="number">2.0</span><span class="meta">.1</span>, <span class="number">2.0</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.0</span>-RC3,</span><br><span class="line">   <span class="number">2.0</span><span class="meta">.0</span>-RC2, <span class="number">2.0</span><span class="meta">.0</span>-RC1, <span class="number">1.3</span><span class="meta">.4</span>, <span class="number">1.3</span><span class="meta">.3</span>, <span class="number">1.3</span><span class="meta">.2</span>, <span class="number">1.3</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">1.3</span><span class="meta">.0</span>, <span class="number">1.2</span><span class="meta">.1</span>, <span class="number">1.2</span><span class="meta">.0</span>, <span class="number">1.1</span><span class="meta">.0</span>, <span class="number">1.0</span><span class="meta">.1</span>, <span class="number">1.0</span>, <span class="number">1.</span>0RC3,</span><br><span class="line">   <span class="number">1.</span>0RC2, <span class="number">1.</span>0RC1, <span class="number">0.10</span><span class="meta">.1</span>, <span class="number">0.10</span><span class="meta">.0</span>, <span class="number">0.9</span><span class="meta">.2</span>, <span class="number">0.9</span><span class="meta">.1</span>, <span class="number">0.9</span><span class="meta">.0</span>,</span><br><span class="line">   <span class="number">0.7</span><span class="meta">.0</span>, <span class="number">0.5</span><span class="meta">.1</span> [master repo]</span><br><span class="line">   - Subspecs:</span><br><span class="line">     - AFNetworking/Serialization (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/Security (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/Reachability (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/NSURLConnection (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/NSURLSession (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/UIKit (<span class="number">2.5</span><span class="meta">.4</span>)</span><br></pre></td></tr></table></figure>
+<p>选择你的目的版本配置到 Podfile 文件中。</p>
+<p><strong>4. pod setup</strong></p>
+<p>在本地 Cocoapods 会保存一个 Pods 依赖库的 tree，这个 tree 和服务端的 tree 可能会不同步。因为大量第三方库的作者每天都在维护自己的库，会更新库的版本，执行</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">$ pod <span class="built_in">setup</span></span><br></pre></td></tr></table></figure>
+<p>可以让本地依赖库的 tree 与服务端同步。</p>
+<h2 id="Usage-1"><a href="#Usage-1" class="headerlink" title="Usage"></a>Usage</h2><p>上一章中，介绍了通过 Xcode 插件来实现利用 Cocoapods 引入第三方库的方法。然而很多程序员觉得还是用命令行界面去操作这一切才更 Cool。</p>
+<p>下文以 <code>YOUR_PROJECT</code>代替项目路径为例，介绍下命令行中 Cocoapods 的使用方法。 </p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cd YOUR_PROJECT</span><br><span class="line"><span class="variable">$ </span>touch Podfile</span><br></pre></td></tr></table></figure>
+<p>打开你的 Xcode 或者 其他编辑器也行，开始编辑 Podfile，此处依旧以 <code>AFNetworking</code>为例</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></span><br><span class="line"></span><br><span class="line">pod <span class="string">"AFNetworking"</span></span><br></pre></td></tr></table></figure>
+<p>编辑好后，还在<code>YOUR_PROJECT</code>路径下，执行</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>正常情况下将会出现如下提示</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">Updating local specs <span class="keyword">repositories</span></span><br><span class="line">Analyzing <span class="keyword">dependencies</span></span><br><span class="line">Downloading <span class="keyword">dependencies</span></span><br><span class="line">Installing AFNetworking (<span class="number">2.5</span>.<span class="number">4</span>)</span><br><span class="line">Generating Pods <span class="keyword">project</span></span><br><span class="line">Integrating client <span class="keyword">project</span></span><br><span class="line">Sending stats</span><br></pre></td></tr></table></figure>
+<p>然后打开你项目的 <code>.workspace</code>文件，就可以轻松的使用第三方库了。</p>
+<h2 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h2><p>为什么我们执行这几条指令就可以使用第三方库了？</p>
+<p>首先我们注意到，用 Cocoapods 安装第三方库后，不再打开原工程文件，而是打开一个<code>.workspace</code>的文件。实际上在 Cocoapods 为我们安装第三方库的过程中，它做了如下几件事：</p>
+<ul>
+<li>将目的第三方库以 target 的方式导入</li>
+<li>将这些 target 组合成一个名为 Pods 的工程</li>
+<li>生成 libPods.a 静态库供原工程使用</li>
+<li>原工程和第三方库生成的 Pods 工程组合成新的 <code>.workspace</code></li>
+</ul>
+<h2 id="Podfile"><a href="#Podfile" class="headerlink" title="Podfile"></a>Podfile</h2><p>Podfile 就是用来描述一个或者多个 Xcode 工程中 targets 和第三方库的依赖关系。默认情况下只在用户工程的<em>第一个 target</em>中生效。</p>
+<p><strong>1. 多个 target 共用依赖 Pods</strong></p>
+<p>以两个 target 分别为 MyApp1 和 MyApp2 为例，用<code>link_with</code>即可。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:osx</span>, <span class="string">'10.7'</span></span><br><span class="line"></span><br><span class="line">link_with <span class="string">'MyApp1'</span>, <span class="string">'MyApp2'</span></span><br><span class="line">pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span></span><br><span class="line">pod <span class="string">'Objection'</span>, <span class="string">'0.9'</span></span><br></pre></td></tr></table></figure>
+<p><strong>2. 多个 target 依赖不同 Pods</strong></p>
+<p>第一个名为 MyApp1 的 target 依赖于 ObjectiveSugar 和 Artsy+UILabels，第二个名为 MyApp2 的 target 依赖于 OCMock。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></span><br><span class="line"></span><br><span class="line">target <span class="symbol">:MyApp1</span> <span class="keyword">do</span></span><br><span class="line">  pod <span class="string">'ObjectiveSugar'</span>, <span class="string">'~&gt; 0.5'</span></span><br><span class="line">  pod <span class="string">'Artsy+UILabels'</span>, <span class="string">'~&gt; 1.0'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">target <span class="symbol">:MyApp2</span> <span class="keyword">do</span></span><br><span class="line">    pod <span class="string">'OCMock'</span>, <span class="string">'~&gt; 2.0.1'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><strong>3. 关于版本</strong></p>
+<p>可以不写版本，也可以指定某个版本，当然也可以使用一些逻辑运算符。</p>
+<ul>
+<li><code>&#39;&gt; 0.1&#39;</code> 比 0.1 高的所有版本</li>
+<li><code>&#39;&gt;= 0.1’</code> 高于或者等于 0.1 的所有版本</li>
+<li><code>&#39;&lt; 0.1’</code> 低于 0.1 的所有版本</li>
+<li><code>&#39;&lt;= 0.1&#39;</code> 低于或者等于 0.1 的所有版本</li>
+</ul>
+<p>CocoaPods 中有个特殊的逻辑运算符 <code>~&gt;</code>:</p>
+<ul>
+<li><code>&#39;~&gt; 0.1.2’</code> 包含 0.1.2 这个版本，最高不超过 0.2，不包括 0.2 或者更高版本</li>
+<li><code>&#39;~&gt; 0.1’</code> 包含 0.1 这个版本，最高不超过 1.0，不包括 1.0 或者更高版本</li>
+<li><code>&#39;~&gt; 0’</code> 版本 0 或者更高，和没写一样。</li>
+</ul>
+<p>更多关于版本的相关信息和规则，下方扩展阅读：</p>
+<ul>
+<li><a href="http://semver.org/" target="_blank" rel="external">Semantic Versioning</a></li>
+<li><a href="http://guides.rubygems.org/patterns/#semantic-versioning" target="_blank" rel="external">RubyGems Versioning Policies</a></li>
+</ul>
+<h2 id="Podfile-lock"><a href="#Podfile-lock" class="headerlink" title="Podfile.lock"></a>Podfile.lock</h2><h3 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h3><p>很多人都有一种困惑，从 GitHub 行 clone 下来别人的工程，看 Podfile 中对 <code>AFNetworking</code>这个第三方库的描述是这样</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> <span class="string">"AFNetworking"</span>, <span class="string">'~&gt; 2.5.2'</span></span><br></pre></td></tr></table></figure>
+<p>而经过</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> search afnetworking</span><br></pre></td></tr></table></figure>
+<p>发现当前最新的版本已经是 2.5.6</p>
+<p>这时当你在项目目录下执行了</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>按理说应该安装 2.6.0 版本以内的最近版本，也就是 2.5.6，实际上发现还是安装了 2.5.2 ，这就是 Podfile.lock 存在的意义。</p>
+<h3 id="Necessity"><a href="#Necessity" class="headerlink" title="Necessity"></a>Necessity</h3><p>假如没有 Podfile.lock，那么在团队开发中绝对是一种灾难。假设 A 君和 B 君在协作开发同一个项目。A君作为这个项目的创建者，在 Podfile 中对<code>AFNetworking</code>的描述是</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> <span class="string">"AFNetworking"</span>, <span class="string">'~&gt; 2.5.2'</span></span><br></pre></td></tr></table></figure>
+<p>当 B 君 check out 这个项目时，<code>AFNetworking</code>这个库已经更新到了 2.5.5，那他在</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>之后，他本地的这个项目就会依赖于 2.5.5 版本的 <code>AFNetworking</code>。如果这几代版本更迭修改了一些方法的名称，那项目里将会各种 error。</p>
+<p>很多人会说，那直接锁定某个版本的<code>AFNetworking</code>，不就不会出现这个问题了？但是开源库的优化是随时进行的，同时还伴随修复 Bug 等操作，所以锁定某个版本的行为是不可取的。</p>
+<p>好在有 Podfile.lock，在 A 君第一次执行</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>之后，会在 Podfile.lock 中生成如下描述</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">PODS:</span><br><span class="line">  -<span class="ruby"> AFNetworking (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLConnection (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLSession (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/UIKit (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/NSURLConnection (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/NSURLSession (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Reachability (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Security (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Serialization (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/UIKit (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLConnection</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLSession</span><br><span class="line"></span></span><br><span class="line">DEPENDENCIES:</span><br><span class="line">  -<span class="ruby"> AFNetworking (~&gt; <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span></span><br><span class="line">SPEC CHECKSUMS:</span><br><span class="line">  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36</span><br><span class="line"></span><br><span class="line">COCOAPODS: 0.38.2</span><br></pre></td></tr></table></figure>
+<p>这时 B 君 check out  此项目之后，执行</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>Cocoapods 会安装在 Podfile.lock 中描述的版本，而不会按照 Podfile 中的逻辑运算安装最新的 2.5.5 。</p>
+<p>在协同开发的时候，记得要一并同步 Podfile.lock，它会保证在 Podfile 中描述逻辑允许的情况下，锁定安装 Podfile.lock 描述中的版本。</p>
+<p>只有在</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> update</span><br></pre></td></tr></table></figure>
+<p>之后，才会检查最新的版本，并且重写 Podfile.lock 中对第三方库的版本描述。</p>
+<p>通常情况下，我们无必要手动修改 Podfile.lock 中的内容，但是将它从<code>.gitignore</code>中移除是十分必要的。</p>
+<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><p>一些可能遇到的问题和对应的解决答案，我踩过的坑，你就别踩了。</p>
+<p><strong>Q1: 用 gem 安装 Cocoapods 提示 gem 版本过老怎么办</strong></p>
+<p><strong>A1:</strong> 请升级 gem </p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> sudo gem update --<span class="keyword">system</span></span><br></pre></td></tr></table></figure>
+<p><strong>Q2: 如何升级 Cocoapods 的版本？</strong></p>
+<p><strong>A2:</strong> 升级 Cocoapods 的版本其实和安装是一样的</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ sudo gem <span class="keyword">install</span> cocoapods</span><br></pre></td></tr></table></figure>
+<p><strong>Q3: 多个版本的 Cocoapods 如何卸载？</strong></p>
+<p><strong>A3:</strong> 终端输入</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ gem <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/6.png" alt=""></p>
+<p>如果你安装（也可能是升级导致）了多个版本的 Cocoapods，本例中如图，安装了 0.38.2 和 0.36.3 两个版本。想卸载其中的旧版本，0.36.3</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gem uninstall cocoapods</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/7.png" alt=""></p>
+<p>选择 1，更低的版本就被卸载掉了。</p>
+<p>或者直接执行如下命令，老版本的都都被卸载了。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gem clean</span><br></pre></td></tr></table></figure>
+<p><strong>Q4: 我怎么搜索不到某个第三方库的最新版本？</strong></p>
+<p><strong>A4：</strong>可能是你的 Cocoapods 的版本低或者你本地的依赖库 tree 较旧所致。参见 <strong>Q2</strong> 和 <code>pod setup</code> 的使用。</p>
+<p><strong>Q5: 错误ERROR:  While executing gem … (Gem::FilePermissionError) You don’t have write permissions for the /Library/Ruby/Gems/2.0.0 directory</strong></p>
+<p><strong>A5:</strong> 这个错误往往出现在安装 Cocoapods 或者删除某个版本的 Cocoapods 的情况下，简单粗暴就是修改权限</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo chmod <span class="number">777</span> <span class="regexp">/Library/</span>Ruby<span class="regexp">/Gems/</span><span class="number">2.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><strong>Q6: 为什么 Pods 导入成功了但是无法引用头文件？</strong></p>
+<p><strong>A6:</strong> Cocoapods 把第三方库以多个 target 形式组成一个名为 Pods 的工程，编译为静态库，所以我们其实可以像引用系统框架一样来引入他们的头文件。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AFNetworking&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>如果一定要使用双引号的形式，那就设置目标项目 target 中的 User Header Search Paths，双击此选项，添加一个 <code>${SRCROOT}</code>的键，值设定为<code>recursive</code>，这样就可以递归搜索全部目录。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/8.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cocoapods/" rel="tag">#Cocoapods</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/02/2015-07-31-Zen-OC-Art-2/" rel="next" title="禅与Objective-C编程艺术-2">
+                <i class="fa fa-chevron-left"></i> 禅与Objective-C编程艺术-2
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/17/2015-08-17-Regular-Expression/" rel="prev" title="正则表达式入门守则">
+                正则表达式入门守则 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic"><span class="nav-number">1.</span> <span class="nav-text">Basic</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.2.</span> <span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced"><span class="nav-number">2.</span> <span class="nav-text">Advanced</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Commands"><span class="nav-number">2.1.</span> <span class="nav-text">Commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage-1"><span class="nav-number">2.2.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Principle"><span class="nav-number">2.3.</span> <span class="nav-text">Principle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Podfile"><span class="nav-number">2.4.</span> <span class="nav-text">Podfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Podfile-lock"><span class="nav-number">2.5.</span> <span class="nav-text">Podfile.lock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Issue"><span class="nav-number">2.5.1.</span> <span class="nav-text">Issue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Necessity"><span class="nav-number">2.5.2.</span> <span class="nav-text">Necessity</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">3.</span> <span class="nav-text">Q & A</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/08/10/2015-08-10-Cocoapods/';
+      var disqus_title = "Cocoapods 的安装、使用及其配置";
+      var disqus_url = 'http://joehill.me/2015/08/10/2015-08-10-Cocoapods/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

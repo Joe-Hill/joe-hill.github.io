@@ -1,0 +1,831 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Objective-C,Foundation," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么要重载 Hash/Equal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅拷贝深拷贝以及 Hash/Equal">
+<meta property="og:url" content="http://joehill.me/2016/01/05/2016-01-05-Copy-Hash-Equal/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="为什么要重载 Hash/Equal">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2016-01-05-Copy-Hash-Equal/pic.jpg">
+<meta property="og:updated_time" content="2016-01-09T13:11:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅拷贝深拷贝以及 Hash/Equal">
+<meta name="twitter:description" content="为什么要重载 Hash/Equal">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2016-01-05-Copy-Hash-Equal/pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2016/01/05/2016-01-05-Copy-Hash-Equal/"/>
+
+  <title> 浅拷贝深拷贝以及 Hash/Equal | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅拷贝深拷贝以及 Hash/Equal
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-05T12:21:12+08:00" content="2016-01-05">
+              2016-01-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/05/2016-01-05-Copy-Hash-Equal/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/05/2016-01-05-Copy-Hash-Equal/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2016-01-05-Copy-Hash-Equal/pic.jpg" alt=""></p>
+<blockquote class="blockquote-center"><br><br>为什么要重载 Hash/Equal<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h1><p>首先，只有遵守 NSCopying 协议的类才能发送 copy 消息。同理，遵守了 NSMutableCopying 协议的类才能发送 mutableCopy 消息。大部分 Foundation 中的类都遵守 NSCopying 协议，但是 NSObject 的子类，也就是我们自定义的类并未遵守 NSCopying 协议。</p>
+<p>浅拷贝，又称为指针拷贝，并不会分配新的内存空间，新的指针和原指针指向同一地址。</p>
+<p>深拷贝，又称对象拷贝，会分配新的内存空间，新指针和原指针指向不同的内存地址，但是存储的内容相同。</p>
+<p>依照深拷贝浅拷贝的特性，浅拷贝多用于添加引用，达到操作新对象，则所有指向同步发生变化的目的；反之深拷贝是隔离原对象和新对象，各自操作互不干扰。</p>
+<h2 id="Foundation-中非容器对象的-Copy"><a href="#Foundation-中非容器对象的-Copy" class="headerlink" title="Foundation 中非容器对象的 Copy"></a>Foundation 中非容器对象的 Copy</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>copy</th>
+<th>mutableCopy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NSString</td>
+<td>浅拷贝</td>
+<td>深拷贝</td>
+</tr>
+<tr>
+<td>NSMutableString</td>
+<td>深拷贝</td>
+<td>深拷贝</td>
+</tr>
+</tbody>
+</table>
+<p>由表格可见，除了不可变对象 NSString 的不可变副本是浅拷贝以外，其他均为深拷贝。由于对象本身为不可变对象，所以在 copy 不可变副本的时候才用了指针复制，无必要新分配空间做深拷贝。</p>
+<h2 id="Foundation-中容器对象的-Copy"><a href="#Foundation-中容器对象的-Copy" class="headerlink" title="Foundation 中容器对象的 Copy"></a>Foundation 中容器对象的 Copy</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>copy</th>
+<th>mutableCopy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NSArray</td>
+<td>浅拷贝</td>
+<td>深拷贝</td>
+</tr>
+<tr>
+<td>NSMutableArray</td>
+<td>深拷贝</td>
+<td>深拷贝</td>
+</tr>
+<tr>
+<td>Object in NSArray</td>
+<td>浅拷贝</td>
+<td>浅拷贝</td>
+</tr>
+<tr>
+<td>Object in NSMutableArray</td>
+<td>浅拷贝</td>
+<td>浅拷贝</td>
+</tr>
+</tbody>
+</table>
+<p>除了不可变对象 NSArray 的不可变副本为浅拷贝以外，其他容器对象均为深拷贝。需要指出的是，容器内的对象均为浅拷贝，这就意味着，新容器的内部的对象改变，原容器内部的对象会同步改变。</p>
+<p>如果要实现容器和内部对象的深拷贝，需要遵循 NSCoding 协议，先将对象 archive 再 unarchive。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *<span class="built_in">array</span>  = @[@<span class="number">1</span>, @<span class="number">2</span>];</span><br><span class="line">NSData *data = [NSKeyedArchiver archivedDataWithRootObject:<span class="built_in">array</span>];</span><br><span class="line">NSArray *newArray = [NSUnarchiver unarchiveObjectWithData:data];</span><br></pre></td></tr></table></figure>
+<p>此时 newArray 无论是容器本身还是容器内部对象都和原来的 array 无关联。</p>
+<h2 id="自定义对象的-Copy"><a href="#自定义对象的-Copy" class="headerlink" title="自定义对象的 Copy"></a>自定义对象的 Copy</h2><p>自定义对象继承自 NSObject，需要自己实现 NSCopying 协议下的 copyWithZone 方法。</p>
+<p><strong>Person.h</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">@interface Person : NSObject&lt;NSCopying&gt;</span><br><span class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><strong>Person.m</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#import "Person.h"</span><br><span class="line"></span><br><span class="line">@interface Person ()</span><br><span class="line">@property (nonatomic, strong) NSString *name;</span><br><span class="line">@property (nonatomic, strong) NSString *age;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Person</span><br><span class="line"></span><br><span class="line">- (Person *)initWithName:(NSString *)name age:(NSString *)age &#123;</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        self.name  = name;</span><br><span class="line">        self.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age &#123;</span><br><span class="line">    return [[self alloc] initWithName:name age:age];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (Person *)copyWithZone:(NSZone *)zone &#123;</span><br><span class="line">    Person *person = [[Person allocWithZone:zone] init];</span><br><span class="line">    person.name = [self.name copyWithZone:zone];</span><br><span class="line">    person.age = [self.age copyWithZone:zone];</span><br><span class="line">    return person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h1 id="Hash-Equal"><a href="#Hash-Equal" class="headerlink" title="Hash/Equal"></a>Hash/Equal</h1><h2 id="Equal"><a href="#Equal" class="headerlink" title="Equal"></a>Equal</h2><p>NSObject 类中的 equal 方法的判断，是包括内存地址的。换句话说，NSObject 若想判断两个对象相等，那这两个对象的地址必须相同。</p>
+<p>但实际编码中，我们常常设计一个对象，其各项属性相同， 我们就认为他们 equal，要达到这个目的，我们就要重载 equal 方法。于是我们在上述的 Person 对象中重载如下方法：</p>
+<p><strong>Person.m</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (BOOL)isEqual:(Person *)other &#123;</span><br><span class="line">    BOOL isMyClass     = [other isKindOfClass:self.<span class="keyword">class</span>];</span><br><span class="line">    BOOL isEqualToName = [other.name isEqualToString:self.name];</span><br><span class="line">    BOOL isEqualToAge  = [other.age isEqualToString:other.age];</span><br><span class="line">    <span class="keyword">if</span> (isMyClass &amp;&amp; isEqualToName &amp;&amp; isEqualToAge) &#123;</span><br><span class="line">        <span class="keyword">return</span> YES;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>main.m</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        NSLog(@<span class="string">"isEqual-----%zd"</span>, [person1 isEqual:person2]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制台打印结果为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">isEqual-----1</span><br></pre></td></tr></table></figure>
+<p>证明确实完成了属性相同，就判断两个对象 equal 的目的。</p>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p>任何 Objective-C 都有 hash 方法，该方法返回一个 NSUInteger，是该对象的 hashCode。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">-(NSUInteger)hash &#123;</span><br><span class="line">   <span class="keyword">return</span> (NSUInteger)self&gt;&gt;<span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述是 Cocotron 的 hashCode 的计算方式，简单通过移位实现。右移4位，左边补0。因为对象大多存于堆中，地址相差4位应该很正常，所以不同对象可能会有相同的 hashCode。当对象存入集合(NSSet, NSDictionary)中，他们的 hashCode 会作为 key 来决定放入哪个集合中。</p>
+<p><strong>存储表</strong></p>
+<table>
+<thead>
+<tr>
+<th>hashCode</th>
+<th>subCollection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code1</td>
+<td>value1,value2,value3,value4</td>
+</tr>
+<tr>
+<td>code2</td>
+<td>value5,value6</td>
+</tr>
+<tr>
+<td>code3</td>
+<td>value7</td>
+</tr>
+<tr>
+<td>code4</td>
+<td>value8,value9,value10</td>
+</tr>
+</tbody>
+</table>
+<p>集合的内部是一个 hash 表，由于不同对象的 hashCode 可能相同，所以同一个 hashCode 对象的将会是一个 subCollection 的集合。如果要删除或者比较集合内元素，它首先根据 hashCode 找到子集合，然后跟子集合的每个元素比较。</p>
+<p>集合内部的查找策略是，先比较 hashCode，如果 hashCode 不同，则直接判定两个对象不同；如果 hashCode 相同，则落到同一个 subCollection 中，再调用 equal 方法具体判断对象是否相同。所以，如果两个对象相同，则 hashCode 一定相同；反之，hashCode 相同的两个对象，并不一定是相同的对象。</p>
+<p>如果所有对象的 hashCode 都相同，那么每次比较都会调用 equal 方法，整个查询效率会变得很低。</p>
+<h2 id="集合中自定义对象的存取"><a href="#集合中自定义对象的存取" class="headerlink" title="集合中自定义对象的存取"></a>集合中自定义对象的存取</h2><p>本节中集合对象选定为 NSDictionary。Hash 这一节中，我们得知了集合内部实际是一个 HashTable。那自定义对象，按照新逻辑重载 equal 方法之后，在集合中的存取应该如何？</p>
+<p>参考 Cocotron 源码，NSDictionary 使用 NSMapTable 实现的。</p>
+<figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSMapTable</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">       <span class="built_in">NSMapTableKeyCallBacks</span>   *keyCallBacks;</span><br><span class="line">       <span class="built_in">NSMapTableValueCallBacks</span> *valueCallBacks;</span><br><span class="line">       <span class="built_in">NSUInteger</span>               count;</span><br><span class="line">       <span class="built_in">NSUInteger</span>               nBuckets;</span><br><span class="line">       <span class="keyword">struct</span> _NSMapNode        * *buckets;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是NSMtabtable真正的描述，可以看出来NSMapTable是一个哈希＋链表的数据结构，因此在 NSMapTable 中插入或者删除一对对象时</p>
+<ul>
+<li>为对key进行hash得到bucket的位置</li>
+</ul>
+<ul>
+<li>遍历该bucket后面冲突的value，通过链表连接起来。</li>
+</ul>
+<p>由于一对键值存入字典中之后，key 是不能随意改变的，这样会造成 value 的丢失。所以一个自定义对象作为 key 存入 NSDictionary，必定要深拷贝。正是为了实现这一目的，则 key 必须遵守 NSCopying 协议。</p>
+<p><strong>main.m</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person3 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"33"</span>];</span><br><span class="line"></span><br><span class="line">        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];</span><br><span class="line">        [dict setObject:@<span class="string">"1"</span> forKey:person1];</span><br><span class="line">        [dict setObject:@<span class="string">"2"</span> forKey:person2];</span><br><span class="line">        [dict setObject:@<span class="string">"3"</span> forKey:person3];</span><br><span class="line"></span><br><span class="line">        NSLog(@<span class="string">"person1----%@"</span>, [dict objectForKey:person1]);</span><br><span class="line">        NSLog(@<span class="string">"person2----%@"</span>, [dict objectForKey:person2]);</span><br><span class="line">        NSLog(@<span class="string">"person3----%@"</span>, [dict objectForKey:person3]);</span><br><span class="line">        NSLog(@<span class="string">"dict count: %ld"</span>, dict.count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们重载了 equal 方法，person1 和 person2 应该是相同对象，理论上 dict 的 count 应该是 2。</p>
+<p>事实上打印结果是随机的，dict 内部可能会有2或3组键值对。Person 实例化对象取出的值也是不尽相同。这是因为，在对象存入 key 时，每次都要进行 hash/equal 验证，如果为相同对象，则不增加键值对数量，直接覆盖之前 key 的 value。我们重载了 equal 方法，但是 person1 和 person2 的 hashCode 是不同的，则他们直接会被判定为不同的对象，person2 直接作为新的 key 存入了 dict。</p>
+<p>在取 key 的时候，依旧要执行 hash/equal ，由于存入 dict 中的副本是深拷贝，那副本的 hashCode 和原对象也是不同的，会判定要查找的对象在 key 中不存在，造成了能存不能查的情况。</p>
+<p>这就是我们为什么重载了 equal 就必须还要重载 hash 的根本原因。</p>
+<p>重载 hash 要保证，其 hash 算法只跟成员变量相关，即 name 和 age；同时要保证其深拷贝副本的 hashCode 与 原对象相同。</p>
+<p><strong>Person.m</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (NSUInteger)hash &#123;</span><br><span class="line">    <span class="keyword">return</span> [self.name hash] ^ [self.age hash];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>切记不能全部返回相同的 hashCode，这样会每次都调用 equal，效率很差。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/Foundation/" rel="tag">#Foundation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/25/2015-11-25-Zen-OC-Art-3/" rel="next" title="禅与Objective-C编程艺术-3(翻译中)">
+                <i class="fa fa-chevron-left"></i> 禅与Objective-C编程艺术-3(翻译中)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/08/2016-02-08-SSH-Key/" rel="prev" title="SSH-Key 与多组公钥/私钥的配置">
+                SSH-Key 与多组公钥/私钥的配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深拷贝与浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">深拷贝与浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Foundation-中非容器对象的-Copy"><span class="nav-number">1.1.</span> <span class="nav-text">Foundation 中非容器对象的 Copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Foundation-中容器对象的-Copy"><span class="nav-number">1.2.</span> <span class="nav-text">Foundation 中容器对象的 Copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义对象的-Copy"><span class="nav-number">1.3.</span> <span class="nav-text">自定义对象的 Copy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hash-Equal"><span class="nav-number">2.</span> <span class="nav-text">Hash/Equal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Equal"><span class="nav-number">2.1.</span> <span class="nav-text">Equal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-number">2.2.</span> <span class="nav-text">Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合中自定义对象的存取"><span class="nav-number">2.3.</span> <span class="nav-text">集合中自定义对象的存取</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2016/01/05/2016-01-05-Copy-Hash-Equal/';
+      var disqus_title = "浅拷贝深拷贝以及 Hash/Equal";
+      var disqus_url = 'http://joehill.me/2016/01/05/2016-01-05-Copy-Hash-Equal/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

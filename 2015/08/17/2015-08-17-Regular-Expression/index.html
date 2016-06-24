@@ -1,0 +1,1092 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Regular Expression," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="多数语言都支持的「正则表达式」这篇文章转载和整理自「原文」。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式入门守则">
+<meta property="og:url" content="http://joehill.me/2015/08/17/2015-08-17-Regular-Expression/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="多数语言都支持的「正则表达式」这篇文章转载和整理自「原文」。">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-17-Regular-Expression/pic.png">
+<meta property="og:updated_time" content="2015-08-17T09:24:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式入门守则">
+<meta name="twitter:description" content="多数语言都支持的「正则表达式」这篇文章转载和整理自「原文」。">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-17-Regular-Expression/pic.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/08/17/2015-08-17-Regular-Expression/"/>
+
+  <title> 正则表达式入门守则 | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                正则表达式入门守则
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-17T16:36:21+08:00" content="2015-08-17">
+              2015-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Reprinted/" itemprop="url" rel="index">
+                    <span itemprop="name">Reprinted</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/17/2015-08-17-Regular-Expression/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/17/2015-08-17-Regular-Expression/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-17-Regular-Expression/pic.png" alt=""></p>
+<blockquote class="blockquote-center">多数语言都支持的「正则表达式」<br><br>这篇文章转载和整理自「<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">原文</a>」。<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>学习正则表达式的最好方法是从例子开始，理解例子之后再自己对例子进行修改，实验。下面给出了不少简单的例子，并对它们作了详细的说明。</p>
+<p>假设你在一篇英文小说里查找 hi，你可以使用正则表达式<code>hi</code>。</p>
+<p>这几乎是最简单的正则表达式了，它可以精确匹配这样的字符串：由两个字符组成，前一个字符是h,后一个是i。通常，处理正则表达式的工具会提供一个忽略大小写的选项，如果选中了这个选项，它可以匹配 hi, HI, Hi, hI 这四种情况中的任意一种。</p>
+<p>不幸的是，很多单词里包含hi这两个连续的字符，比如 him, history, high 等等。用hi来查找的话，这里边的 hi 也会被找出来。如果要精确地查找hi这个单词的话，我们应该使用<code>\bhi\b</code>。</p>
+<p><code>\b</code>是正则表达式规定的一个特殊代码（好吧，某些人叫它元字符，metacharacter），代表着单词的开头或结尾，也就是单词的分界处。虽然通常英文的单词是由空格，标点符号或者换行来分隔的，但是<code>\b</code>并不匹配这些单词分隔字符中的任何一个，它<strong>只匹配一个位置</strong>。</p>
+<p>假如你要找的是hi后面不远处跟着一个Lucy，你应该用<code>\bhi\b.*\bLucy\b</code>。</p>
+<blockquote>
+<p>如果需要更精确的说法，<code>\b</code>匹配这样的位置：它的前一个字符和后一个字符不全是(一个是,一个不是或不存在)<code>\w</code>。</p>
+</blockquote>
+<p>这里，<code>.</code>是另一个元字符，匹配除了换行符以外的任意字符。<code>*</code>同样是元字符，不过它代表的不是字符，也不是位置，而是数量——它指定<code>*</code>前边的内容可以连续重复使用任意次以使整个表达式得到匹配。因此，<code>.</code>和<code>*</code>连在一起就意味着任意数量的不包含换行的字符。现在<code>bhi\b.*\bLucy\b</code>的意思就很明显了：先是一个单词 hi ,然后是任意个任意字符(但不能是换行)，最后是 Lucy 这个单词。</p>
+<blockquote>
+<p>换行符就是<code>\n</code>,ASCII编码为10(十六进制0x0A)的字符。</p>
+</blockquote>
+<p>如果同时使用其它元字符，我们就能构造出功能更强大的正则表达式。比如下面这个例子：</p>
+<p><code>0\d\d-\d\d\d\d\d\d\d\d</code>匹配这样的字符串：以0开头，然后是两个数字，然后是一个连字号“-”，最后是8个数字(也就是中国的电话号码。当然，这个例子只能匹配区号为3位的情形)。</p>
+<p>这里的<code>\d</code>是个新的元字符，匹配一位数字(0，或1，或2，或……)。<code>-</code>不是元字符，只匹配它本身——连字符(或者减号，或者中横线，或者随你怎么称呼它)。</p>
+<p>为了避免那么多烦人的重复，我们也可以这样写这个表达式：<code>0\d{2}-\d{8}</code>。这里<code>\d</code>后面的<code>{2}</code>和<code>{8}</code>的意思是前面<code>\d</code>必须连续重复匹配2次(8次)。</p>
+<h1 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h1><p>现在你已经知道几个很有用的元字符了，如<code>\b</code>,<code>.</code>,<code>*</code>，还有\d.正则表达式里还有更多的元字符，比如<code>\s</code>匹配任意的空白符，包括空格，制表符(Tab)，换行符，中文全角空格等。<code>\w</code>匹配字母或数字或下划线或汉字等。</p>
+<p>对中文/汉字的特殊处理是由.Net提供的正则表达式引擎支持的，其它环境下的具体情况请查看相关文档。</p>
+<p>下面来看看更多的例子：</p>
+<p><code>\ba\w*\b</code>匹配以字母a开头的单词——先是某个单词开始处(\b)，然后是字母a,然后是任意数量的字母或数字(<code>\w*</code>)，最后是单词结束处(<code>\b</code>)。</p>
+<blockquote>
+<p>好吧，现在我们说说正则表达式里的单词是什么意思吧：就是不少于一个的连续的<code>\w</code>。不错，这与学习英文时要背的成千上万个同名的东西的确关系不大 :)</p>
+</blockquote>
+<p><code>\d+</code>匹配1个或更多连续的数字。这里的<code>+</code>是和<code>*</code>类似的元字符，不同的是<code>*</code>匹配重复任意次(可能是0次)，而<code>+</code>则匹配重复1次或更多次。</p>
+<p><code>\b\w{6}\b</code> 匹配刚好6个字符的单词。</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td><code>\w</code></td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>匹配单词的开始或结束</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>匹配字符串的结束</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>正则表达式引擎通常会提供一个“测试指定的字符串是否匹配一个正则表达式”的方法，如JavaScript里的RegExp.test()方法或.NET里的Regex.IsMatch()方法。这里的匹配是指是字符串里有没有符合表达式规则的部分。如果不使用<code>^</code>和<code>$</code>的话，对于\d{5,12}而言，使用这样的方法就只能保证字符串里包含5到12连续位数字，而不是整个字符串就是5到12位数字。</p>
+</blockquote>
+<p>元字符<code>^</code>（和数字6在同一个键位上的符号）和<code>$</code>都匹配一个位置，这和<code>\b</code>有点类似。<code>^</code>匹配你要用来查找的字符串的开头，<code>$</code>匹配结尾。这两个代码在验证输入的内容时非常有用，比如一个网站如果要求你填写的QQ号必须为5位到12位数字时，可以使用：<code>^\d{5,12}$</code>。</p>
+<p>这里的<code>{5,12}</code>和前面介绍过的<code>{2}</code>是类似的，只不过<code>{2}</code>匹配只能不多不少重复2次，<code>{5,12}</code>则是重复的次数不能少于5次，不能多于12次，否则都不匹配。</p>
+<p>因为使用了<code>^</code>和<code>$</code>，所以输入的整个字符串都要用来和<code>\d{5,12}</code>来匹配，也就是说整个输入必须是5到12个数字，因此如果输入的QQ号能匹配这个正则表达式的话，那就符合要求了。</p>
+<p>和忽略大小写的选项类似，有些正则表达式处理工具还有一个处理多行的选项。如果选中了这个选项，<code>^</code>和<code>$</code>的意义就变成了匹配行的开始处和结束处。</p>
+<h1 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h1><p>如果你想查找元字符本身的话，比如你查找<code>.</code>,或者<code>*</code>,就出现了问题：你没办法指定它们，因为它们会被解释成别的意思。这时你就得使用<code>\</code>来取消这些字符的特殊意义。因此，你应该使用<code>\.</code>和<code>\*</code>。当然，要查找<code>\</code>本身，你也得用<code>\\</code>.</p>
+<p>例如：<code>deerchao\.net</code>匹配deerchao.net，<code>C:\\Windows</code>匹配C:\Windows。</p>
+<h1 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h1><p>你已经看过了前面的<code>*</code>,<code>+</code>,<code>{2}</code>,<code>{5,12}</code>这几个匹配重复的方式了。下面是正则表达式中所有的限定符(指定数量的代码，例如<code>*</code>,<code>{5,12}</code>等</p>
+<table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>重复零次或更多次</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td><code>{n}</code></td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td><code>{n,}</code></td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td><code>{n,m}</code></td>
+<td>重复n到m次</td>
+</tr>
+</tbody>
+</table>
+<p>下面是一些使用重复的例子：</p>
+<p><code>Windows\d+</code>匹配Windows后面跟1个或更多数字</p>
+<p><code>^\w+</code>匹配一行的第一个单词(或整个字符串的第一个单词，具体匹配哪个意思得看选项设置)</p>
+<h1 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h1><p>要想查找数字，字母或数字，空白是很简单的，因为已经有了对应这些字符集合的元字符，但是如果你想匹配没有预定义元字符的字符集合(比如元音字母a,e,i,o,u),应该怎么办？</p>
+<p>很简单，你只需要在方括号里列出它们就行了，像<code>[aeiou]</code>就匹配任何一个英文元音字母，<code>[.?!]</code>匹配标点符号(<code>.</code>或<code>?</code>或<code>!</code>)。</p>
+<p>我们也可以轻松地指定一个字符范围，像<code>[0-9]</code>代表的含意与<code>\d</code>就是完全一致的：一位数字；同理<code>[a-z0-9A-Z_]</code>也完全等同于<code>\w</code>（如果只考虑英文的话）。</p>
+<p>下面是一个更复杂的表达式：<code>\(?0\d{2}[) -]?\d{8}</code>。</p>
+<blockquote>
+<p>“(”和“)”也是元字符，后面的分组节里会提到，所以在这里需要使用转义。</p>
+</blockquote>
+<p>这个表达式可以匹配几种格式的电话号码，像(010)88886666，或022-22334455，或02912345678等。我们对它进行一些分析吧：首先是一个转义字符<code>\(</code>,它能出现0次或1次(<code>?</code>),然后是一个0，后面跟着2个数字(<code>\d{2}</code>)，然后是<code>)</code>或<code>-</code>或<code>空格</code>中的一个，它出现1次或不出现(<code>?</code>)，最后是8个数字(<code>\d{8}</code>)。</p>
+<h1 id="分枝条件"><a href="#分枝条件" class="headerlink" title="分枝条件"></a>分枝条件</h1><p>不幸的是，刚才那个表达式也能匹配010)12345678或(022-87654321这样的“不正确”的格式。要解决这个问题，我们需要用到分枝条件。正则表达式里的分枝条件指的是有几种规则，如果满足其中任意一种规则都应该当成匹配，具体方法是用|把不同的规则分隔开。听不明白？没关系，看例子：</p>
+<p><code>0\d{2}-\d{8}|0\d{3}-\d{7}</code>这个表达式能匹配两种以连字号分隔的电话号码：一种是三位区号，8位本地号(如010-12345678)，一种是4位区号，7位本地号(0376-2233445)。</p>
+<p><code>\(?0\d{2}\)?[- ]?\d{8}|0\d{2}[- ]?\d{8}</code>这个表达式匹配3位区号的电话号码，其中区号可以用小括号括起来，也可以不用，区号与本地号间可以用连字号或空格间隔，也可以没有间隔。你可以试试用分枝条件把这个表达式扩展成也支持4位区号的。</p>
+<p><code>\d{5}-\d{4}|\d{5}</code>这个表达式用于匹配美国的邮政编码。美国邮编的规则是5位数字，或者用连字号间隔的9位数字。之所以要给出这个例子是因为它能说明一个问题：<strong>使用分枝条件时，要注意各个条件的顺序</strong>。如果你把它改成<code>\d{5}|\d{5}-\d{4}</code>的话，那么就只会匹配5位的邮编(以及9位邮编的前5位)。原因是匹配分枝条件时，将会从左到右地测试每个条件，如果满足了某个分枝的话，就不会去再管其它的条件了。</p>
+<h1 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h1><p>我们已经提到了怎么重复单个字符（直接在字符后面加上限定符就行了）；但如果想要重复多个字符又该怎么办？你可以用小括号来指定子表达式(也叫做分组)，然后你就可以指定这个子表达式的重复次数了，你也可以对子表达式进行其它一些操作(后面会有介绍)。</p>
+<p><code>(\d{1,3}\.){3}\d{1,3}</code>是一个简单的IP地址匹配表达式。要理解这个表达式，请按下列顺序分析它：<code>\d{1,3}</code>匹配1到3位的数字，<code>(\d{1,3}\.){3}</code>匹配三位数字加上一个英文句号(这个整体也就是这个分组)重复3次，最后再加上一个一到三位的数字<code>(\d{1,3})</code>。</p>
+<blockquote>
+<p>IP地址中每个数字都不能大于255. 经常有人问我, 01.02.03.04 这样前面带有0的数字, 是不是正确的IP地址呢? 答案是: 是的, IP 地址里的数字可以包含有前导 0 (leading zeroes).</p>
+</blockquote>
+<p>不幸的是，它也将匹配256.300.888.999这种不可能存在的IP地址。如果能使用算术比较的话，或许能简单地解决这个问题，但是正则表达式中并不提供关于数学的任何功能，所以只能使用冗长的分组，选择，字符类来描述一个正确的IP地址：<code>((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)</code>。</p>
+<p>理解这个表达式的关键是理解<code>2[0-4]\d|25[0-5]|[01]?\d\d?</code>，这里我就不细说了，你自己应该能分析得出来它的意义。</p>
+<h1 id="反义"><a href="#反义" class="headerlink" title="反义"></a>反义</h1><p>有时需要查找不属于某个能简单定义的字符类的字符。比如想查找除了数字以外，其它任意字符都行的情况，这时需要用到反义：</p>
+<table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\W</code></td>
+<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td><code>\S</code></td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td><code>\D</code></td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td><code>\B</code></td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td><code>[^x]</code></td>
+<td>匹配除了x以外的任意字符</td>
+</tr>
+<tr>
+<td><code>[^aeiou]</code></td>
+<td>匹配除了aeiou这几个字母以外的任意字符</td>
+</tr>
+</tbody>
+</table>
+<p>例子：<code>\S+</code>匹配不包含空白符的字符串。</p>
+<p><code>&lt;a[^&gt;]+&gt;</code>匹配用尖括号括起来的以a开头的字符串。</p>
+<h1 id="后向引用"><a href="#后向引用" class="headerlink" title="后向引用"></a>后向引用</h1><p>使用小括号指定一个子表达式后，<strong>匹配这个子表达式的文本</strong>(也就是此分组捕获的内容)可以在表达式或其它程序中作进一步的处理。默认情况下，每个分组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推。</p>
+<p>其实,组号分配还不像我刚说得那么简单：</p>
+<ul>
+<li>分组0对应整个正则表达式</li>
+<li>实际上组号分配过程是要从左向右扫描两遍的：第一遍只给未命名组分配，第二遍只给命名组分配－－因此所有命名组的组号都大于未命名的组号</li>
+<li>你可以使用(?:exp)这样的语法来剥夺一个分组对组号分配的参与权．</li>
+</ul>
+<p>后向引用用于重复搜索前面某个分组匹配的文本。例如，<code>\1</code>代表分组1匹配的文本。难以理解？请看示例：</p>
+<p><code>\b(\w+)\b\s+\1\b</code>可以用来匹配重复的单词，像go go, 或者kitty kitty。这个表达式首先是一个单词，也就是单词开始处和结束处之间的多于一个的字母或数字<code>(\b(\w+)\b)</code>，这个单词会被捕获到编号为1的分组中，然后是1个或几个空白符<code>(\s+)</code>，最后是分组1中捕获的内容（也就是前面匹配的那个单词）<code>(\1)</code>。</p>
+<p>你也可以自己指定子表达式的组名。要指定一个子表达式的组名，请使用这样的语法：<code>(?&lt;Word&gt;\w+)</code>(或者把尖括号换成<code>’</code>也行：<code>(?&#39;Word&#39;\w+))</code>,这样就把<code>\w+</code>的组名指定为<code>Word</code>了。要反向引用这个分组捕获的内容，你可以使用<code>\k&lt;Word&gt;</code>,所以上一个例子也可以写成这样：<code>\b(?&lt;Word&gt;\w+)\b\s+\k&lt;Word&gt;\b</code>。</p>
+<p>使用小括号的时候，还有很多特定用途的语法。下面列出了最常用的一些：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>捕获</td>
+<td><code>(exp)</code></td>
+<td>匹配exp,并捕获文本到自动命名的组里</td>
+</tr>
+<tr>
+<td><code>(?&lt;name&gt;exp)</code></td>
+<td>匹配exp,并捕获文本到名称为name的组里，也可以写成<code>(?’name&#39;exp)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>(?:exp)</code></td>
+<td>匹配exp,不捕获匹配的文本，也不给此分组分配组号</td>
+<td></td>
+</tr>
+<tr>
+<td>零宽断言</td>
+<td><code>(?=exp)</code></td>
+<td>匹配exp前面的位置</td>
+</tr>
+<tr>
+<td><code>(?&lt;=exp)</code></td>
+<td>匹配exp后面的位置</td>
+<td></td>
+</tr>
+<tr>
+<td><code>(?!exp)</code></td>
+<td>匹配后面跟的不是exp的位置</td>
+<td></td>
+</tr>
+<tr>
+<td><code>(?&lt;!exp)</code></td>
+<td>匹配前面不是exp的位置</td>
+<td></td>
+</tr>
+<tr>
+<td>注释</td>
+<td><code>(?#comment)</code></td>
+<td>这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</td>
+</tr>
+</tbody>
+</table>
+<p>我们已经讨论了前两种语法。第三个<code>(?:exp)</code>不会改变正则表达式的处理方式，只是这样的组匹配的内容不会像前两种那样被捕获到某个组里面，也不会拥有组号。“我为什么会想要这样做？”——好问题，你觉得为什么呢？</p>
+<h2 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h2><p>接下来的四个用于查找在某些内容(但并不包括这些内容)之前或之后的东西，也就是说它们像<code>\b</code>,<code>^</code>,<code>$</code>那样用于指定一个位置，这个位置应该满足一定的条件(即断言)，因此它们也被称为零宽断言。最好还是拿例子来说明吧：</p>
+<blockquote>
+<p>断言用来声明一个应该为真的事实。正则表达式中只有当断言为真时才会继续进行匹配。</p>
+</blockquote>
+<p><code>(?=exp)</code>也叫零宽度正预测先行断言，它断言自身出现的位置的后面能匹配表达式exp。比如<code>\b\w+(?=ing\b)</code>，匹配以ing结尾的单词的前面部分(除了ing以外的部分)，如查找I’m singing while you’re dancing.时，它会匹配sing和danc。</p>
+<p><code>(?&lt;=exp)</code>也叫零宽度正回顾后发断言，它断言自身出现的位置的前面能匹配表达式exp。比如<code>(?&lt;=\bre)\w+\b</code>会匹配以re开头的单词的后半部分(除了re以外的部分)，例如在查找reading a book时，它匹配ading。</p>
+<p>假如你想要给一个很长的数字中每三位间加一个逗号(当然是从右边加起了)，你可以这样查找需要在前面和里面添加逗号的部分：<code>((?&lt;=\d)\d{3})+\b</code>，用它对1234567890进行查找时结果是234567890。</p>
+<p>下面这个例子同时使用了这两种断言：<code>(?&lt;=\s)\d+(?=\s)</code>匹配以空白符间隔的数字(再次强调，不包括这些空白符)。</p>
+<h2 id="负向零宽断言"><a href="#负向零宽断言" class="headerlink" title="负向零宽断言"></a>负向零宽断言</h2><p>前面我们提到过怎么查找<strong>不是某个字符或不在某个字符类里</strong>的字符的方法(反义)。但是如果我们只是想要<strong>确保某个字符没有出现，但并不想去匹配它</strong>时怎么办？例如，如果我们想查找这样的单词–它里面出现了字母q,但是q后面跟的不是字母u,我们可以尝试这样：</p>
+<p><code>\b\w*q[^u]\w*\b</code>匹配包含<strong>后面不是字母u的字母q</strong>的单词。但是如果多做测试(或者你思维足够敏锐，直接就观察出来了)，你会发现，如果q出现在单词的结尾的话，像<strong>Iraq</strong>,<strong>Benq</strong>，这个表达式就会出错。这是因为<code>[^u]</code>总要匹配一个字符，所以如果q是单词的最后一个字符的话，后面的<code>[^u]</code>将会匹配q后面的单词分隔符(可能是空格，或者是句号或其它的什么)，后面的<code>\w*\b</code>将会匹配下一个单词，于是<code>\b\w*q[^u]\w*\b</code>就能匹配整个Iraq fighting。负向零宽断言能解决这样的问题，因为它只匹配一个位置，并不<strong>消费</strong>任何字符。现在，我们可以这样来解决这个问题：<code>\b\w*q(?!u)\w*\b</code>。</p>
+<p>零宽度负预测先行断言<code>(?!exp)</code>，断言此位置的后面不能匹配表达式exp。例如：<code>\d{3}(?!\d)</code>匹配三位数字，而且这三位数字的后面不能是数字；<code>\b((?!abc)\w)+\b</code>匹配不包含连续字符串abc的单词。</p>
+<p>同理，我们可以用<code>(?&lt;!exp)</code>,零宽度负回顾后发断言来断言此位置的前面不能匹配表达式exp：<code>(?&lt;![a-z])\d{7}</code>匹配前面不是小写字母的七位数字。</p>
+<p>请详细分析表达式<code>(?&lt;=&lt;(\w+)&gt;).*(?=&lt;\/\1&gt;)</code>，这个表达式最能表现零宽断言的真正用途。</p>
+<p>一个更复杂的例子：<code>(?&lt;=&lt;(\w+)&gt;).*(?=&lt;\/\1&gt;)</code>匹配不包含属性的简单HTML标签内里的内容。<code>(?&lt;=&lt;(\w+)&gt;)</code>指定了这样的前缀：被尖括号括起来的单词(比如可能是<code>&lt;b&gt;</code>)，然后是<code>.*</code>(任意的字符串),最后是一个后缀<code>(?=&lt;\/\1&gt;)</code>。注意后缀里的\/，它用到了前面提过的字符转义；<code>\1</code>则是一个反向引用，引用的正是捕获的第一组，前面的<code>(\w+)</code>匹配的内容，这样如果前缀实际上是<code>&lt;b&gt;</code>的话，后缀就是<code>&lt;/b&gt;</code>了。整个表达式匹配的是<code>&lt;b&gt;</code>和<code>&lt;/b&gt;</code>之间的内容(再次提醒，不包括前缀和后缀本身)。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>小括号的另一种用途是通过语法(?#comment)来包含注释。例如：<code>2[0-4]\d(?#200-249)|25[0-5](?#250-255)|[01]?\d\d?(?#0-199)</code>。</p>
+<p>要包含注释的话，最好是启用“忽略模式里的空白符”选项，这样在编写表达式时能任意的添加空格，Tab，换行，而实际使用时这些都将被忽略。启用这个选项后，在#后面到这一行结束的所有文本都将被当成注释忽略掉。例如，我们可以前面的一个表达式写成这样：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">(?<span class="params">&lt;=    # 断言要匹配的文本的前缀</span><br><span class="line">&lt;(\w+)&gt;</span> <span class="meta"># 查找尖括号括起来的字母或数字(即HTML/XML标签)</span></span><br><span class="line">)       <span class="meta"># 前缀结束</span></span><br><span class="line">.*      <span class="meta"># 匹配任意文本</span></span><br><span class="line">(?=     <span class="meta"># 断言要匹配的文本的后缀</span></span><br><span class="line"><span class="params">&lt;\/\<span class="number">1</span>&gt;</span>  <span class="meta"># 查找尖括号括起来的内容：前面是一个<span class="string">"/"</span>，后面是先前捕获的标签</span></span><br><span class="line">)       <span class="meta"># 后缀结束</span></span><br></pre></td></tr></table></figure>
+<h1 id="贪婪与懒惰"><a href="#贪婪与懒惰" class="headerlink" title="贪婪与懒惰"></a>贪婪与懒惰</h1><p>当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配<strong>尽可能多</strong>的字符。以这个表达式为例：<code>a.*b</code>，它将会匹配最长的以a开始，以b结束的字符串。如果用它来搜索aabab的话，它会匹配整个字符串aabab。这被称为贪婪匹配。</p>
+<p>有时，我们更需要懒惰匹配，也就是匹配<strong>尽可能少</strong>的字符。前面给出的限定符都可以被转化为懒惰匹配模式，只要在它后面加上一个问号<code>?</code>。这样<code>.*?</code>就意味着匹配任意数量的重复，但是在能使整个匹配成功的前提下使用最少的重复。现在看看懒惰版的例子吧：</p>
+<p><code>a.*?b</code>匹配最短的，以a开始，以b结束的字符串。如果把它应用于aabab的话，它会匹配aab（第一到第三个字符）和ab（第四到第五个字符）。</p>
+<p>为什么第一个匹配是aab（第一到第三个字符）而不是ab（第二到第三个字符）？简单地说，因为正则表达式有另一条规则，比懒惰／贪婪规则的优先级更高：最先开始的匹配拥有最高的优先权——The match that begins earliest wins。</p>
+<table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*?</code></td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td><code>+?</code></td>
+<td>重复1次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td><code>??</code></td>
+<td>重复0次或1次，但尽可能少重复</td>
+</tr>
+<tr>
+<td><code>{n,m}?</code></td>
+<td>重复n到m次，但尽可能少重复</td>
+</tr>
+<tr>
+<td><code>{n,}?</code></td>
+<td>重复n次以上，但尽可能少重复</td>
+</tr>
+</tbody>
+</table>
+<h1 id="还有些什么东西没提到"><a href="#还有些什么东西没提到" class="headerlink" title="还有些什么东西没提到"></a>还有些什么东西没提到</h1><p>上边已经描述了构造正则表达式的大量元素，但是还有很多没有提到的东西。下面是一些未提到的元素的列表，包含语法和简单的说明。你可以在网上找到更详细的参考资料来学习它们–当你需要用到它们的时候。如果你安装了MSDN Library,你也可以在里面找到.net下正则表达式详细的文档。这里的介绍很简略，如果你需要更详细的信息，而又没有在电脑上安装MSDN Library,可以查看<a href="http://msdn.microsoft.com/zh-cn/library/az24scfc.aspx" target="_blank" rel="external">关于正则表达式语言元素的MSDN在线文档</a>。</p>
+<table>
+<thead>
+<tr>
+<th>代码/语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\a</code></td>
+<td>报警字符(打印它的效果是电脑嘀一声)</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>通常是单词分界位置，但如果在字符类里使用代表退格</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符，Tab</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>竖向制表符</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页符</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>换行符</td>
+</tr>
+<tr>
+<td><code>\e</code></td>
+<td>Escape</td>
+</tr>
+<tr>
+<td><code>\0nn</code></td>
+<td>ASCII代码中八进制代码为nn的字符</td>
+</tr>
+<tr>
+<td><code>\xnn</code></td>
+<td>ASCII代码中十六进制代码为nn的字符</td>
+</tr>
+<tr>
+<td><code>\unnnn</code></td>
+<td>Unicode代码中十六进制代码为nnnn的字符</td>
+</tr>
+<tr>
+<td><code>\cN</code></td>
+<td>ASCII控制字符。比如\cC代表Ctrl+C</td>
+</tr>
+<tr>
+<td><code>\A</code></td>
+<td>字符串开头(类似^，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td><code>\Z</code></td>
+<td>字符串结尾或行尾(不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td><code>\z</code></td>
+<td>字符串结尾(类似$，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td><code>\G</code></td>
+<td>当前搜索的开头</td>
+</tr>
+<tr>
+<td><code>\p{name}</code></td>
+<td>Unicode中命名为name的字符类，例如\p{IsGreek}</td>
+</tr>
+<tr>
+<td><code>(?&gt;exp)</code></td>
+<td>贪婪子表达式</td>
+</tr>
+<tr>
+<td><code>(?&lt;x&gt;-&lt;y&gt;exp)</code></td>
+<td>平衡组</td>
+</tr>
+<tr>
+<td><code>(?im-nsx:exp)</code></td>
+<td>在子表达式exp中改变处理选项</td>
+</tr>
+<tr>
+<td><code>(?im-nsx)</code></td>
+<td>为表达式后面的部分改变处理选项</td>
+</tr>
+<tr>
+<td><code>(?(exp)yes\</code></td>
+<td>no)</td>
+</tr>
+<tr>
+<td><code>(?(exp)yes)</code></td>
+<td>同上，只是使用空表达式作为no</td>
+</tr>
+<tr>
+<td><code>(?(name)yes\</code></td>
+<td>no)</td>
+</tr>
+<tr>
+<td><code>(?(name)yes)</code></td>
+<td>同上，只是使用空表达式作为no</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Regular-Expression/" rel="tag">#Regular Expression</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/10/2015-08-10-Cocoapods/" rel="next" title="Cocoapods 的安装、使用及其配置">
+                <i class="fa fa-chevron-left"></i> Cocoapods 的安装、使用及其配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/25/2015-11-25-Zen-OC-Art-3/" rel="prev" title="禅与Objective-C编程艺术-3(翻译中)">
+                禅与Objective-C编程艺术-3(翻译中) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元字符"><span class="nav-number">2.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符转义"><span class="nav-number">3.</span> <span class="nav-text">字符转义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重复"><span class="nav-number">4.</span> <span class="nav-text">重复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符类"><span class="nav-number">5.</span> <span class="nav-text">字符类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分枝条件"><span class="nav-number">6.</span> <span class="nav-text">分枝条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分组"><span class="nav-number">7.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反义"><span class="nav-number">8.</span> <span class="nav-text">反义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后向引用"><span class="nav-number">9.</span> <span class="nav-text">后向引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#零宽断言"><span class="nav-number">9.1.</span> <span class="nav-text">零宽断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负向零宽断言"><span class="nav-number">9.2.</span> <span class="nav-text">负向零宽断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">9.3.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪婪与懒惰"><span class="nav-number">10.</span> <span class="nav-text">贪婪与懒惰</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#还有些什么东西没提到"><span class="nav-number">11.</span> <span class="nav-text">还有些什么东西没提到</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/08/17/2015-08-17-Regular-Expression/';
+      var disqus_title = "正则表达式入门守则";
+      var disqus_url = 'http://joehill.me/2015/08/17/2015-08-17-Regular-Expression/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

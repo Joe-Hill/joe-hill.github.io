@@ -1,0 +1,851 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="禅与Objective-C编程艺术,Objective-C," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：Categories、Protocols、NSNotification、代码美化和代码组织">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅与Objective-C编程艺术-3(翻译中)">
+<meta property="og:url" content="http://joehill.me/2015/11/25/2015-11-25-Zen-OC-Art-3/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：Categories、Protocols、NSNotification、代码美化和代码组织">
+<meta property="og:image" content="http://blog.joehill.me/2015-11-25-Zen-OC-Art-3/pic.jpg">
+<meta property="og:updated_time" content="2016-06-23T14:18:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="禅与Objective-C编程艺术-3(翻译中)">
+<meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：Categories、Protocols、NSNotification、代码美化和代码组织">
+<meta name="twitter:image" content="http://blog.joehill.me/2015-11-25-Zen-OC-Art-3/pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/11/25/2015-11-25-Zen-OC-Art-3/"/>
+
+  <title> 禅与Objective-C编程艺术-3(翻译中) | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                禅与Objective-C编程艺术-3(翻译中)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-25T19:31:12+08:00" content="2015-11-25">
+              2015-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Translation/" itemprop="url" rel="index">
+                    <span itemprop="name">Translation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/25/2015-11-25-Zen-OC-Art-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/25/2015-11-25-Zen-OC-Art-3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://blog.joehill.me/2015-11-25-Zen-OC-Art-3/pic.jpg" alt=""></p>
+<blockquote class="blockquote-center">编程和「禅」有关系吗?<br><br><a href="https://github.com/objc-zen/objc-zen-book" target="_blank" rel="external">Zen and the Art of the Objective-C Craftsmanship</a>译文兼笔记<br><br>本章包含规范：Categories、Protocols、NSNotification、代码美化和代码组织<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="Categories"><a href="#Categories" class="headerlink" title="Categories"></a>Categories</h1><p>虽然很难看，但是 categories 通常会以小写前缀和下划线开头，比如<code>-(id)zoc_myCategoryMethod</code>。这种写法也是 <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html#//apple_ref/doc/uid/TP40011210-CH6-SW4" target="_blank" rel="external">苹果推荐的</a>.</p>
+<p>这是非常必要的因为如果在一个对象的扩展 category 方法或者其他 category 的实现中用了相同的方法名，会导致不可预期的后果。实际上，最终被调用的将会是最后被实现的方法。</p>
+<p>这种情况下你想保证没有任何方法的实现被你自己的 category 覆盖的话，你可以把环境变量 <code>OBJC_PRINT_REPLACED_METHODS</code>设定为<code>YES</code>，这样会在控制台打印出来被覆盖掉的方法名。</p>
+<p>现在 LLVM 5.1不会为此有任何警告或者错误提示，所以要小心不要在 categories 中重载方法。</p>
+<p>在 category 名之前加前缀是一个好习惯。</p>
+<p><strong>例如:</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">@interface NSDate (ZOCTimeExtensions)</span><br><span class="line">- (NSString *)zoc_timeAgoShort;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><strong>不要这样:</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">@interface NSDate (ZOCTimeExtensions)</span><br><span class="line">- (NSString *)timeAgoShort;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>在头文件中 category 可以被用来为相近功能的方法来分组。在 Apple 的 Framework (如下例子取自 <code>NSDate</code>头文件)中这是一种很常见的行为并且我们鼓励在你自己的代码中也这样做。</p>
+<p>我们的经验是，创建一组分类对以后的重构很有帮助:一个类的接口增加的时候，可能意味着这个类做了太多事情，违背了单一功能原则，之前创造的分组可以帮助理解不同部分的功能，并且把这个类分成更多独立的部分。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">@interface NSDate : NSObject &lt;NSCopying, NSSecureCoding&gt;</span><br><span class="line"></span><br><span class="line">@property (readonly) NSTimeInterval timeIntervalSinceReferenceDate;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface NSDate (NSDateCreation)</span><br><span class="line"></span><br><span class="line">+ (instancetype)date;</span><br><span class="line">+ (instancetype)dateWithTimeIntervalSinceNow:(NSTimeInterval)secs;</span><br><span class="line">+ (instancetype)dateWithTimeIntervalSinceReferenceDate:(NSTimeInterval)ti;</span><br><span class="line">+ (instancetype)dateWithTimeIntervalSince1970:(NSTimeInterval)secs;</span><br><span class="line">+ (instancetype)dateWithTimeInterval:(NSTimeInterval)secsToBeAdded sinceDate:(NSDate *)date;</span><br><span class="line">// ...</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h1 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h1><p>近些年，在 Objective-C 的世界中对抽象接口的理解有所偏差。Interface 术语通常指一个类的<code>.h</code>文件，但是对 Java 开发者来说还有领一个熟知的含义:用来描述一系列不必具体实现的方法。</p>
+<p>在 Objective-C 中上述情况是通过使用 protocols 来实现的。由于历史原因，protocol (Java 中的接口) 并没有在 Objective-C 社区中广泛使用。主要原因是因为 Apple 大部分代码开发者没有使用这种方法的，几乎所有的开发者都倾向于遵从 Apple 的模式和引导。Apple 开发者几乎只在 delegation 模式下使用 protocols。</p>
+<p>抽象接口的概念很强大，在计算机科学历史中早有起源，所以在 Objective-C 中也没理由拒绝使用。</p>
+<p>这里会通过一个具体例子来展现 protocols (用作抽象接口)用法的强大:从一个非常糟糕的架构设计改造为非常优秀且可复用的代码。</p>
+<p>这个例子是实现一个 RSS 订阅器(作为一个技术面试中的测试题来思考下)。</p>
+<p>需求很简单:在一个 tableView 中展示远程订阅的 RSS。</p>
+<p>一种很幼稚的实现方法可能是创建一个<code>UITableViewController</code>的子类，把订阅信息的检索，解析以及展示所有逻辑都写在一起然后展示在同一个地方，或者说是 “MVC” (Massive View Controller)。这样做是可以运行的，但是设计很糟糕，还是足以通过一些要求不高的面试。</p>
+<p>最小步骤应该遵循单一功能原则，至少创建两部分来完成不同的任务：</p>
+<ul>
+<li>一个 feed 解析器来解析从终端上获取的结果</li>
+<li>一个 feed 阅读器来显示结果</li>
+</ul>
+<p>这些类的接口应该是这样的:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCFeedParser : NSObject</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak) id &lt;ZOCFeedParserDelegate&gt; delegate;</span><br><span class="line">@property (nonatomic, strong) NSURL *url;</span><br><span class="line"></span><br><span class="line">- (id)initWithURL:(NSURL *)url;</span><br><span class="line"></span><br><span class="line">- (BOOL)start;</span><br><span class="line">- (<span class="keyword">void</span>)stop;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCTableViewController : UITableViewController</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithFeedParser:(ZOCFeedParser *)feedParser;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p><code>ZOCFeedParser</code> 通过一个指向终端的 <code>NSURL</code> 初始化来抓取 RSS 订阅(实际上可能会用 NSXMLParser 和 NSXMLParserDelegate 来创建有意义的数据)，<code>ZOCTableViewController</code> 通过 parser 来初始化。我们希望它显示 parser 取回的值，我们通过下方的 protocol 来实现 delegation:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@protocol ZOCFeedParserDelegate &lt;NSObject&gt;</span><br><span class="line">@optional</span><br><span class="line">- (<span class="keyword">void</span>)feedParserDidStart:(ZOCFeedParser *)parser;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(ZOCFeedParser *)parser didParseFeedInfo:(ZOCFeedInfoDTO *)info;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(ZOCFeedParser *)parser didParseFeedItem:(ZOCFeedItemDTO *)item;</span><br><span class="line">- (<span class="keyword">void</span>)feedParserDidFinish:(ZOCFeedParser *)parser;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(ZOCFeedParser *)parser didFailWithError:(NSError *)error;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>用合适的 protocol 来处理 RSS 很完美。视图控制器要在公共接口中遵守上述 protocol 的协议:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface ZOCTableViewController : UITableViewController &lt;ZOCFeedParserDelegate&gt;</span><br></pre></td></tr></table></figure>
+<p>最后创建的代码应该是如下的样子:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSURL *feedURL = [NSURL URLWithString:@<span class="string">"http://bbc.co.uk/feed.rss"</span>];</span><br><span class="line"></span><br><span class="line">ZOCFeedParser *feedParser = [[ZOCFeedParser alloc] initWithURL:feedURL];</span><br><span class="line"></span><br><span class="line">ZOCTableViewController *tableViewController = [[ZOCTableViewController alloc] initWithFeedParser:feedParser];</span><br><span class="line">feedParser.delegate = tableViewController;</span><br></pre></td></tr></table></figure>
+<p>到目前为止可能觉得新代码还不错，但是这些代码有多少可以有效复用呢？视图控制器只能处理 <code>ZOCFeedParser</code> 类型的对象:从这点来看，我们只是把代码拆成了两部分，却没做任何其他有价值的事情。</p>
+<p>视图控制器的职责应该是”把某某提供的东西展示出来”，但是如果我们只允许其传递 <code>ZOCFeedParser</code> 对象这就无法解决了。</p>
+<p>我们修改 parser 加入 <code>ZOCFeedParserParotocol</code> protocol (在 ZOCFeedParserProtocol.h 文件中，<code>ZOCFeedParserDelegate</code> 也在这)。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@protocol ZOCFeedParserProtocol &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak) id &lt;ZOCFeedParserDelegate&gt; delegate;</span><br><span class="line">@property (nonatomic, strong) NSURL *url;</span><br><span class="line"></span><br><span class="line">- (BOOL)start;</span><br><span class="line">- (<span class="keyword">void</span>)stop;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@protocol ZOCFeedParserDelegate &lt;NSObject&gt;</span><br><span class="line">@optional</span><br><span class="line">- (<span class="keyword">void</span>)feedParserDidStart:(id&lt;ZOCFeedParserProtocol&gt;)parser;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(id&lt;ZOCFeedParserProtocol&gt;)parser didParseFeedInfo:(ZOCFeedInfoDTO *)info;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(id&lt;ZOCFeedParserProtocol&gt;)parser didParseFeedItem:(ZOCFeedItemDTO *)item;</span><br><span class="line">- (<span class="keyword">void</span>)feedParserDidFinish:(id&lt;ZOCFeedParserProtocol&gt;)parser;</span><br><span class="line">- (<span class="keyword">void</span>)feedParser:(id&lt;ZOCFeedParserProtocol&gt;)parser didFailWithError:(NSError *)error;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>注意，<code>ZOCFeedParserDelegate</code> protocol 现在会处理那些遵循新 protocol 的对象，ZOCFeedParser 的接口文件也更加简洁了:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCFeedParser : NSObject &lt;ZOCFeedParserProtocol&gt;</span><br><span class="line"></span><br><span class="line">- (id)initWithURL:(NSURL *)url;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>由于 <code>ZOCFeedParser</code> 现在遵循 <code>ZOCFeedParserProtocol</code> 协议，它就必须实现所有 required 方法。</p>
+<p>这样一来视图控制器可以接受任何遵循新 protocol 的对象，当然对象也会响应 <code>start</code> 和 <code>stop</code> 方法，而且会通过 delegate 属性来传递信息， 视图控制器只需要知道相关对象并且不需要知道具体的实现细节。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCTableViewController : UITableViewController &lt;ZOCFeedParserDelegate&gt;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithFeedParser:(id&lt;ZOCFeedParserProtocol&gt;)feedParser;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>上面代码片的变化看起不大，但是实际上有了很大的提升，因为视图控制器工作时面相抽象接口要比具体实现更好。这样有很多好处:</p>
+<ul>
+<li>视图控制器可以通过 delegate 属性接收到由任何对象发出的信息:可以是 RSS 远程订阅解析器，本地解析器，读取其他类型远程数据服务，还可能是抓取本地数据库中数据的服务。</li>
+<li>订阅解析器对象可以完整复用(对比第一步重构之前)；</li>
+<li><code>ZOCFeedParser</code> 和 <code>ZOCFeedParserDelegate</code> 可以被其他部分复用；</li>
+<li><code>ZOCViewController</code> (UI 逻辑部分)可以被复用；</li>
+<li>测试更简单，因为可以用 mock 对象来达到 protocol 预期的效果。</li>
+</ul>
+<p>当实现一个 protocol 你应该遵守 <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank" rel="external">里氏替换原则</a>。原则的内容是:你应该在不改变客户端或者相关实现的前提下，可以随意用其他实现来替换当前接口(Objective-C 中的 “protocol”)的实现。</p>
+<p>换句话说，你的 protocol 不应该暴露任何其实现类的细节;当通过 protocol 来设计抽象表述的时候应该十分小心，时刻谨记它和低层实现是无关的，其真正作用是暴露给使用者的抽象概念。</p>
+<p>所有设计的代码以后都可以复用以为着代码的高质量，这也是开发者一直追求的目标。程序设计是区分资深开发者和初级开发者的方法。</p>
+<p>最终代码可以在<a href="http://github.com/albertodebortoli/ADBFeedReader" target="_blank" rel="external">这里</a>找到。</p>
+<h1 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h1><p>当你定义自己的 <code>NSNotification</code> 时你应该把你的通知名定义成一个字符串常量。就想任何你要暴露给其他类使用的字符串常量一样，应该在公共接口中用 <code>extern</code> 声明，并在对应的实现文件里定义。</p>
+<p>因为你在头文件中暴露了这个符号，那你应该遵循命名空间规则，用其所属的类名作为该通知名的前缀。</p>
+<p>用助动词 Did/Will 来为通知命名，以及用单词 “Notifications” 来作为通知名的后缀都是不错的做法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Foo.h</span><br><span class="line">extern NSString * const ZOCFooDidBecomeBarNotification</span><br><span class="line"></span><br><span class="line">// Foo.m</span><br><span class="line">NSString * const ZOCFooDidBecomeBarNotification = @&quot;ZOCFooDidBecomeBarNotification&quot;;</span><br></pre></td></tr></table></figure>
+<h1 id="美化代码"><a href="#美化代码" class="headerlink" title="美化代码"></a>美化代码</h1><h2 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h2><ul>
+<li>缩进用 4 个空格，不要用 tab 缩进。确定你在 Xcode 中是这样设置的。</li>
+<li>方法的大括号和其他的大括号 (<code>if</code>/<code>else</code>/<code>switch</code>/<code>while</code>等等) 通常在当前行开始，在语句结束的时候另起一行。</li>
+</ul>
+<p><strong>推荐:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (user.isHappy) &#123;</span><br><span class="line">    //Do something</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    //Do something else</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (user.isHappy)</span><br><span class="line">&#123;</span><br><span class="line">  //Do something</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  //Do something else</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>两个方法之间应该有空行，这样有助于看起来更清晰且有组织。方法内的空格应该是用来分离功能的，但是通常新功能应该用新方法来实现。</li>
+<li>优先使用 auto-synthesis。如果一定要用 <code>@synthesize</code> 和 <code>@dynamic</code> 的话应该在实现中另起一行。</li>
+<li>冒号对齐这种方法应该尽量避免使用。如果当一个方法表述包含超过 3 个冒号时，冒号对齐就会让代码可读性增强。即使包含 blocks 也要让冒号对齐。</li>
+</ul>
+<p><strong>推荐:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[UIView animateWithDuration:1.0</span><br><span class="line">                 animations:^&#123;</span><br><span class="line">                     // something</span><br><span class="line">                 &#125;</span><br><span class="line">                 completion:^(BOOL finished) &#123;</span><br><span class="line">                     // something</span><br><span class="line">                 &#125;];</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[UIView animateWithDuration:1.0 animations:^&#123;</span><br><span class="line">    // something</span><br><span class="line">&#125; completion:^(BOOL finished) &#123;</span><br><span class="line">    // something</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果自动对齐降低了可读性，那么应该提前把 block 定义为变量，或者重新考虑这个方法的格式设计。</p>
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><p>由于本指南关注代码的显示效果和可读性，所以换行是一个重要的主题。</p>
+<p>例如:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];</span><br></pre></td></tr></table></figure>
+<p>依照本指南，像上述一行很长的代码应该以一个间隔(两个空格)另起一行。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.productsRequest = [[SKProductsRequest alloc]</span><br><span class="line">  initWithProductIdentifiers:productIdentifiers];</span><br></pre></td></tr></table></figure>
+<h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><p>在如下场景使用 <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style" target="_blank" rel="external">Egyptain 括号</a>(又称 K&amp;R 风格，代码段括号的开始位于一行的末尾，而不是另外起一行的风格):</p>
+<ul>
+<li>控制语句(if-else, for, switch)</li>
+</ul>
+<p>非 Egyptain 括号在以下情况可以使用:</p>
+<ul>
+<li>类的实现(如果存在)</li>
+<li>方法的实现</li>
+</ul>
+<h1 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h1><p><a href="http://nshipster.com/pragma/" target="_blank" rel="external">引用自</a> Mattt Thompson</p>
+<blockquote>
+<p>代码组织就是卫生问题</p>
+</blockquote>
+<p>非常赞成这句话。用整洁规范的方法来组织代码，是对自己和其他要读和修改你代码的人的尊重(包括以后你自己)。</p>
+<h2 id="利用代码块"><a href="#利用代码块" class="headerlink" title="利用代码块"></a>利用代码块</h2><p>GCC 有一个很隐蔽的特性，同时 Clang 也支持这个特性，就是在闭合的大括号内部，代码块会返回最后一行语句的值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSURL *url = (&#123;</span><br><span class="line">    NSString *urlString = [NSString stringWithFormat:@&quot;%@/%@&quot;, baseURLString, endpoint];</span><br><span class="line">    [NSURL URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个特性可以很有效的组织一段代码，这段代码通常只是为了实例化一个类这个目的而存在的。</p>
+<p>这给了看代码的人一个重要的视觉提示，降低了视觉上的干扰，专注于函数最重要的变量。</p>
+<p>此外，这个技巧的好处在于，所有在代码块中定义的变量，只在括号内部有效，这就意味着不会污染堆栈轨迹，你可以重复使用变量名而不会出现 <code>duplicated symbols</code> 错误。</p>
+<h2 id="Pragma"><a href="#Pragma" class="headerlink" title="Pragma"></a>Pragma</h2><h3 id="Pragma-Mark"><a href="#Pragma-Mark" class="headerlink" title="Pragma Mark"></a>Pragma Mark</h3><p><code>#pragma mark -</code>  是类内部组织代码很有效的方法，帮助将方法实现进行分类。</p>
+<p>我们建议用 <code>#pragma mark -</code> 来分隔:</p>
+<ul>
+<li>不同组的方法</li>
+<li>protocols 的实现</li>
+<li>父类方法的重载</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)dealloc &#123; /* ... */ &#125;</span><br><span class="line">- (instancetype)init &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - View Lifecycle</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123; /* ... */ &#125;</span><br><span class="line">- (void)viewWillAppear:(BOOL)animated &#123; /* ... */ &#125;</span><br><span class="line">- (void)didReceiveMemoryWarning &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - Custom Accessors</span><br><span class="line"></span><br><span class="line">- (void)setCustomProperty:(id)value &#123; /* ... */ &#125;</span><br><span class="line">- (id)customProperty &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - IBActions</span><br><span class="line"></span><br><span class="line">- (IBAction)submitData:(id)sender &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - Public</span><br><span class="line"></span><br><span class="line">- (void)publicMethod &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - Private</span><br><span class="line"></span><br><span class="line">- (void)zoc_privateMethod &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - UITableViewDataSource</span><br><span class="line"></span><br><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath &#123; /* ... */ &#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - ZOCSuperclass</span><br><span class="line"></span><br><span class="line">// ... overridden methods from ZOCSuperclass</span><br><span class="line"></span><br><span class="line">#pragma mark - NSObject</span><br><span class="line"></span><br><span class="line">- (NSString *)description &#123; /* ... */ &#125;</span><br></pre></td></tr></table></figure>
+<p>上述的标记可以有效的分离和组织代码。还可以 cmd+click 点击 mark 跳转到符号定义的地方。</p>
+<p>要注意的是，用 pragma mark 也是一种手艺，这不是你在类中过度增加方法的原因：类里面有太多说明方法说明这个类做了太多，需要重构了。</p>
+<h3 id="Pragma-注意"><a href="#Pragma-注意" class="headerlink" title="Pragma 注意"></a>Pragma 注意</h3><p>在 <a href="http://raptureinvenice.com/pragmas-arent-just-for-marks" target="_blank" rel="external">http://raptureinvenice.com/pragmas-arent-just-for-marks</a> 这里有关于 pragma 的一次非常棒的讨论，这里做部分说明。</p>
+<p>大部分 iOS 开发者平时不太会关注编译器选项，很多选项对于控制检查(或者不检查)代码错误的严格度十分有效。有时你想要用 pragma 在代码中直接抛出异常，用来临时打断编译器的行为。</p>
+<p>当在用 ARC 的时候，编译器替你插入内存管理调用方法，有些情况下会让人混淆。比如当你使用 <code>NSSelectorFromString</code> 来动态产生一个 selector 调用的时候，由于 ARC 不知道这个方法是什么，也不知道应该用什么类型的内存管理方式，就会被警告<code>performSelector may cause a leak because its selector is unknown</code>(由于 selector 未知，执行可能导致内存泄露)。</p>
+<p>如果你清楚你的代码不会内存泄漏，你可以通过用这些代码忽略警告</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;</span><br><span class="line"></span><br><span class="line">[myObj performSelector:mySelector withObject:name];</span><br><span class="line"></span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
+<p>注意我们是如何在代码前后用 push 和 pop 来停用 -Warc-performSelector-leaks 检查的。确保我们没有全局禁用，全局禁用会导致错误。</p>
+<p>打开和关闭的所有选项可以在<a href="http://clang.llvm.org/docs/UsersManual.html" target="_blank" rel="external">The Clang User’s Manual</a> 找到和学习。</p>
+<h3 id="忽略没有使用变量的编译警告"><a href="#忽略没有使用变量的编译警告" class="headerlink" title="忽略没有使用变量的编译警告"></a>忽略没有使用变量的编译警告</h3><p>提示一个定义但未被使用的变量是很有用的。大部分情况下，你想移除这些引用来提高一些性能，但是有时你又想保留他们。为什么？可能以后会用，或者只是暂时移除功能。无论如何，除了粗暴的注释掉相关的代码行之外，消除这些警告的有效办法是用 <code>#pragma unused()</code>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (NSInteger)giveMeFive</span><br><span class="line">&#123;</span><br><span class="line">    NSString *foo;</span><br><span class="line">    #pragma unused (foo)</span><br><span class="line"></span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在就可以在编译器不会编译这些代码的情况下保留他们了。同时，pragma 要标记在问题代码的下方。</p>
+<h2 id="明确编译器警告和错误"><a href="#明确编译器警告和错误" class="headerlink" title="明确编译器警告和错误"></a>明确编译器警告和错误</h2><p>编译器毕竟是个机器人，他会用 Clang 定义的一些规则来标记你代码中的错误。但是你你总是比编译器要聪明的。通常你会发现有些烦人的代码会出问题，但是因为某种原因你暂时没办法修复。你可以明确的像下面这样标记 error：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (NSInteger)divide:(NSInteger)dividend by:(NSInteger)divisor</span><br><span class="line">&#123;</span><br><span class="line">    #error Whoa, buddy, you need to check for zero here!</span><br><span class="line">    return (dividend / divisor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似的你可以这样标记一个 warning：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (float)divide:(float)dividend by:(float)divisor</span><br><span class="line">&#123;</span><br><span class="line">    #warning Dude, don&apos;t compare floating point numbers like this!</span><br><span class="line">    if (divisor != 0.0) &#123;</span><br><span class="line">        return (dividend / divisor);</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return NAN;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注释文档"><a href="#注释文档" class="headerlink" title="注释文档"></a>注释文档</h2><p>所有重要的方法、接口、分类和协议的定义应该伴有描述来表明他们的用途和使用方法。更多例子可以看 Google Style Guide 中 <a href="http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml#File_Comments" target="_blank" rel="external">File and Declaration Comments</a>.</p>
+<p>总而言之，有两种文档注释，长注释和短注释。</p>
+<p>短注释适合只有一行的情况，这其中包括注释的斜杠。它适用于简单的函数，尤其是(不仅仅)非 public API 中。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Return a user-readable form of a Frobnozz, html-escaped.</span></span><br></pre></td></tr></table></figure>
+<p>注意文本描述应该用 “return” 这种行为动词而非 “returns”。</p>
+<p>如果描述超过一行，你应该用长注释：</p>
+<ul>
+<li>以<code>/**</code>开始</li>
+<li>换行写一句总结的话，以<code>?</code>或者<code>!</code>或者<code>.</code>结尾。</li>
+<li>空一行</li>
+<li>在与第一行对齐的位置开始写剩下的注释</li>
+<li>最后用<code>*/</code>结束。</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> This comment serves <span class="keyword">to</span> demonstrate <span class="keyword">the</span> format <span class="keyword">of</span> a docstring.</span><br><span class="line"></span><br><span class="line"> Note <span class="keyword">that</span> <span class="keyword">the</span> summary line <span class="keyword">is</span> always <span class="keyword">at</span> most one line long, <span class="keyword">and</span></span><br><span class="line"> <span class="keyword">after</span> <span class="keyword">the</span> opening block comment, <span class="keyword">and</span> each line <span class="keyword">of</span> <span class="built_in">text</span> <span class="keyword">is</span> preceded</span><br><span class="line"> <span class="keyword">by</span> a single <span class="literal">space</span>.</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>一个函数必须有注释文档除非下述所有条件：</p>
+<ul>
+<li>非共有</li>
+<li>很短</li>
+<li>功能明确</li>
+</ul>
+<p>注释文档应该描述调用的时机和其使用场景，而不是具体实现。</p>
+<h2 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h2><p>When they are needed, comments should be used to explain why a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.</p>
+<p>Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. <em>Exception: This does not apply to those comments used to generate documentation.</em></p>
+<h3 id="Header-Documentation"><a href="#Header-Documentation" class="headerlink" title="Header Documentation"></a>Header Documentation</h3><p>The documentation of class should be done using the Doxygen/AppleDoc syntax only in the .h files when possible. Documentation should be provided for methods and properties.</p>
+<p><strong>For example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  Designated initializer.</span><br><span class="line"> *</span><br><span class="line"> *  @param  store  The store for CRUD operations.</span><br><span class="line"> *  @param  searchService The search service used to query the store.</span><br><span class="line"> *</span><br><span class="line"> *  @return A ZOCCRUDOperationsStore object.</span><br><span class="line"> */</span><br><span class="line">- (instancetype)initWithOperationsStore:(id&lt;ZOCGenericStoreProtocol&gt;)store</span><br><span class="line">                          searchService:(id&lt;ZOCGenericSearchServiceProtocol&gt;)searchService;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/禅与Objective-C编程艺术/" rel="tag">#禅与Objective-C编程艺术</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/17/2015-08-17-Regular-Expression/" rel="next" title="正则表达式入门守则">
+                <i class="fa fa-chevron-left"></i> 正则表达式入门守则
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/05/2016-01-05-Copy-Hash-Equal/" rel="prev" title="浅拷贝深拷贝以及 Hash/Equal">
+                浅拷贝深拷贝以及 Hash/Equal <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Categories"><span class="nav-number">1.</span> <span class="nav-text">Categories</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Protocols"><span class="nav-number">2.</span> <span class="nav-text">Protocols</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NSNotification"><span class="nav-number">3.</span> <span class="nav-text">NSNotification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美化代码"><span class="nav-number">4.</span> <span class="nav-text">美化代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#空格"><span class="nav-number">4.1.</span> <span class="nav-text">空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换行"><span class="nav-number">4.2.</span> <span class="nav-text">换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#括号"><span class="nav-number">4.3.</span> <span class="nav-text">括号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码组织"><span class="nav-number">5.</span> <span class="nav-text">代码组织</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用代码块"><span class="nav-number">5.1.</span> <span class="nav-text">利用代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pragma"><span class="nav-number">5.2.</span> <span class="nav-text">Pragma</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pragma-Mark"><span class="nav-number">5.2.1.</span> <span class="nav-text">Pragma Mark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pragma-注意"><span class="nav-number">5.2.2.</span> <span class="nav-text">Pragma 注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略没有使用变量的编译警告"><span class="nav-number">5.2.3.</span> <span class="nav-text">忽略没有使用变量的编译警告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#明确编译器警告和错误"><span class="nav-number">5.3.</span> <span class="nav-text">明确编译器警告和错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释文档"><span class="nav-number">5.4.</span> <span class="nav-text">注释文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comments"><span class="nav-number">5.5.</span> <span class="nav-text">Comments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Header-Documentation"><span class="nav-number">5.5.1.</span> <span class="nav-text">Header Documentation</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/11/25/2015-11-25-Zen-OC-Art-3/';
+      var disqus_title = "禅与Objective-C编程艺术-3(翻译中)";
+      var disqus_url = 'http://joehill.me/2015/11/25/2015-11-25-Zen-OC-Art-3/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

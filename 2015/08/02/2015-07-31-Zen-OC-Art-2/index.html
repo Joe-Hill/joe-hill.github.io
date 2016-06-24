@@ -1,0 +1,914 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="禅与Objective-C编程艺术,Objective-C," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：类名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅与Objective-C编程艺术-2">
+<meta property="og:url" content="http://joehill.me/2015/08/02/2015-07-31-Zen-OC-Art-2/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：类名">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-31-Zen-OC-Art-2/pic.jpg">
+<meta property="og:updated_time" content="2016-01-04T10:58:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="禅与Objective-C编程艺术-2">
+<meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：类名">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-31-Zen-OC-Art-2/pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/08/02/2015-07-31-Zen-OC-Art-2/"/>
+
+  <title> 禅与Objective-C编程艺术-2 | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                禅与Objective-C编程艺术-2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-02T23:17:32+08:00" content="2015-08-02">
+              2015-08-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Translation/" itemprop="url" rel="index">
+                    <span itemprop="name">Translation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/02/2015-07-31-Zen-OC-Art-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/02/2015-07-31-Zen-OC-Art-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-31-Zen-OC-Art-2/pic.jpg" alt=""></p>
+<blockquote class="blockquote-center">编程和「禅」有关系吗?<br><br><a href="https://github.com/objc-zen/objc-zen-book" target="_blank" rel="external">Zen and the Art of the Objective-C Craftsmanship</a>译文兼笔记<br><br>本章包含规范：类名<br><br></blockquote>
+
+<a id="more"></a>
+<h2 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h2><p>类名前应该加上三个大写字母（两个字母为 Apple 的类保留）作为前缀，这个规范虽然看起来有点奇怪，但是可以减少 Objective-C 没有命名空间带来的不便。</p>
+<p>有些开发者在定义 Model 对象时不遵循这个规范（尤其对于 Core Data 对象，更应该遵循这个规范），在定义 Core Data 对象时候我们建议严格遵循这个规范，因为你可以最后将你的 Managed Object Model（托管对象）和其他第三方库的 MOMs 合并。</p>
+<p>可能你已经注意到了，本书中类名（不止类名）前缀是<code>ZOC</code>。</p>
+<p>在你给类命名的时候还有一个命名规范：创建子类时，你应该把说明性部分放在类前缀和父类名之间。例如：</p>
+<p>有个类名叫<code>ZOCNetworkClient</code>，子类名是<code>ZOCTwitterNetworkClient</code>（注意 “Twitter” 在”ZOC” 和”NetworkClient”之间）；遵循相同规范，一个<code>UIViewController</code>的子类应该是<code>ZOCTimelineViewController</code>。</p>
+<h2 id="Initializer-与-dealloc"><a href="#Initializer-与-dealloc" class="headerlink" title="Initializer 与 dealloc"></a>Initializer 与 dealloc</h2><p>比较推荐的代码组织方式是：<code>dealloc</code>方法放在实现文件的最前面（直接在<code>@synthesize</code>和<code>@dynamic</code>语句之后），<code>init</code>应该直接放在<code>dealloc</code>之后。要是有多个初始化方法，预设初始化方法(designated initializer)应该放在第一个，接下来写次要初始化方法(secondary initializers )。</p>
+<p>现在有了ARC，几乎不用实现<code>dealloc</code>方法了，但是把<code>dealloc</code>和<code>init</code>方法写的近点，从逻辑上来看可以强调他们的成对关系。通常在<code>init</code>方法中做什么了，在<code>dealloc</code>中都要做对应的销毁处理。</p>
+<p><code>init</code>方法的结构应该是这样的：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init]; <span class="comment">// call the designated initializer</span></span><br><span class="line">    <span class="keyword">if</span> (self) &#123;</span><br><span class="line">        <span class="comment">// Custom initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么我们要把<code>[super init]</code>的返回值赋给<code>self</code>，如果不这么做会怎么样，这是个挺有意思的话题。</p>
+<p>到退一步说，我们经常写类似<code>[[NSObject alloc] init]</code>这样的语句，逐渐忽略了<code>alloc</code>和<code>init</code>的区别。一个 Objective-C 的特性叫做<code>两步创建</code>。这就意味着分配内存和初始化是两个分开的步骤，因此就需要调用两个不通的方法：<code>alloc</code>和<code>init</code>.</p>
+<p>-<code>alloc</code>表示为对象分配内存空间。这个过程包括从应用的虚拟内存中为对象分配足够的内存，写入<code>isa</code>指针，初始化<code>retain</code>计数，并把所有实例变量的初值都设为零</p>
+<p>-<code>init</code>表示初始化对象，这就意味着把对象转换成可用状态。这通常是指把恰当的初值赋给对象的实例变量。</p>
+<p><code>alloc</code>方法会返回一个未初始化的合法实例对象。每条发送给这个实例的消息都相当于是在调用<code>objc_msgSend()</code>方法，<code>alloc</code>返回对象的指针就指向那个叫做<code>self</code>的参数；这样<code>self</code>就可以调用所有方法了。</p>
+<p>为了包含两步创建，通常情况下一个新创建的实例调用的第一个方法都应该是一个<code>init</code>方法。注意在<code>NSObject</code>的<code>init</code>实现中，什么都没做，只是返回了<code>self</code>而已。</p>
+<p><code>init</code>还有一个重要约定：在调用初始化方法失败的时候<code>init</code>方法会返回<code>nil</code>;初始化可以有很多失败的原因，比如输入的格式有错误，或者必要的对象初始化失败。</p>
+<p>这就是为什么我为什么总是调用<code>self = [super init]</code>，如果你的父类因为某种原因无法初始化自身，你必须假设自己正处于这种状况下，所以在你的实现中不要还继续去使用初始化返回的<code>nil</code>。如果你没这样做你会得到一个不可用对象，此对象的行为是无法预测的，最终会导致你的 App 崩溃。</p>
+<p>重新给<code>self</code>赋值也可以用来让<code>init</code>方法返回不同实例。例子就是 <a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/ClassCluster.html" target="_blank" rel="external">类簇</a> 或者一些返回相同不可变实例对象的 Cocoa 类。</p>
+<h3 id="Designated-和-Secondary-初始化方法"><a href="#Designated-和-Secondary-初始化方法" class="headerlink" title="Designated 和 Secondary 初始化方法"></a>Designated 和 Secondary 初始化方法</h3><p>Objective-C 有 designated 初始化方法和 secondary 初始化方法的概念。</p>
+<p>designated 初始化方法要传入所有参数，如果在调用 designated 初始化方法时仅提供一个或者多个默认参数，那么这种初始化方法就叫做 secondary 初始化方法。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@implementation ZOCEvent</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithTitle:(NSString *)title</span><br><span class="line">                         date:(NSDate *)date</span><br><span class="line">                     location:(CLLocation *)location</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    <span class="keyword">if</span> (self) &#123;</span><br><span class="line">        _title    = title;</span><br><span class="line">        _date     = date;</span><br><span class="line">        _location = location;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithTitle:(NSString *)title</span><br><span class="line">                         date:(NSDate *)date</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [self initWithTitle:title date:date location:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithTitle:(NSString *)title</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [self initWithTitle:title date:[NSDate date] location:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>上面例子里的<code>initWithTitle:date:location:</code>就是 designated 初始化方法，另外两个是 secondary 初始化方法，因为他们只是调用了这个类里已经实现过了的 designated 初始化方法。</p>
+<h4 id="Designated-初始化方法"><a href="#Designated-初始化方法" class="headerlink" title="Designated 初始化方法"></a>Designated 初始化方法</h4><p>一个类通常有且只有一个 designated 初始化方法，其他的初始化方法都是在调用这个 designated 初始化方法（虽然还是有一种例外情况），这种例外情况并没有要求调用那个初始化函数。</p>
+<p>在继承中任何调用 designated 初始化方法都是合法的，而且在继承中得保证<em>所有的</em> designated 初始化方法都是从先祖（通常是<code>NSObject</code>）到你的类这样，自上而下调用的。</p>
+<p>实际上就是说第一个执行初始化代码的是最高级的先祖，然后才轮到继承的类；继承的所有的类都有资格去执行他们特定的初始化代码。总而言之，在开始做实际工作之前你从父类继承的所有东西都是已经是可用的状态。虽然这个状态并不明确，但是所有 Apple 的框架中的类都遵循这个原则，所以你的类也要这样做。</p>
+<p>当定义一个新的类时，有三种不同的方法：</p>
+<p>第一种办法最简单：你不需要添加任何额外的初始化逻辑，你只需要按照父类的 designated 初始化方法来做。</p>
+<p>第二种：当你希望给 designated 初始化方法加入一些其他的初始化逻辑时，你可以重载它。你只需要重载父类的 designated 初始化方法并且保证实现调用了父类的重载方法。</p>
+<p>一个经典案例就是当你创建一个 <code>UIViewController</code>的子类时重载<code>initWithNibName:bundle:</code>方法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@implementation ZOCViewController</span><br><span class="line"></span><br><span class="line">- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// call to the superclass designated initializer</span></span><br><span class="line">    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];</span><br><span class="line">    <span class="keyword">if</span> (self) &#123;</span><br><span class="line">        <span class="comment">// Custom initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>在<code>UIViewController</code>的子类中重载<code>init</code>方法会报错，因为这种情况下会尝试调用<code>initWithNib:bundle</code>来初始化你的类，你写在<code>init</code>方法里面的实现并不会被调用。这还违背了调用任何 designated 初始化方法的规则。</p>
+<p>第三种：如果你想写一个自定义的 designated 初始化函数的时候，你要遵循三点：</p>
+<p>很多程序员都忽略了后两步，这不是细心不细心的问题，忽略后两步本身就是违反了框架规范，还会导致一些未知 bug。</p>
+<p>看下正确的实现：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@implementation ZOCNewsViewController</span><br><span class="line"></span><br><span class="line">- (id)initWithNews:(ZOCNews *)news</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// call to the immediate superclass's designated initializer</span></span><br><span class="line">    self = [super initWithNibName:nil bundle:nil];</span><br><span class="line">    <span class="keyword">if</span> (self) &#123;</span><br><span class="line">        _news = news;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Override the immediate superclass's designated initializer</span></span><br><span class="line">- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// call the new designated initializer</span></span><br><span class="line">    <span class="keyword">return</span> [self initWithNews:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>如果你没重载<code>initWithNibName:bundle</code>方法，正常就只会用<code>initWithNibName:bundle</code>来初始化你的类（这是完全合法的），<code>initWithNews</code>这个方法就永远不会被调用。正是因为你特定的初始化逻辑代码部分并没有被调用，这就导致初始化流程不正确。</p>
+<p>即使可以推断那个方法是 designated 初始化方法，但是最好也要明确得说明这是一个 designated 初始化方法（以后你自己或者其他程序员在改这份代码的时候会谢谢你的）。你可以用两种办法（并不相互排斥）：</p>
+<p>一种是你在文档中就明确出哪一个是 designated 初始化方法，但是你最好是用如下编译器指令来表明你的意图。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__attribute__((objc_designated_initializer))</span><br></pre></td></tr></table></figure>
+<p>如果你新的 designated 初始化方法并没有调用父类的 designated 初始化方法，用了这条指令编译器就会提示一条警告。</p>
+<p>然而，当没有调用类的 designated 初始化方法（并且提供必要参数）而调用其他父类中的 designated 方法时，会导致当前类处于一个不可用的状态。参考之前的例子，实例化一个<code>ZOCNewsViewController</code>来展示新闻，但是实例化结束后并没有新闻，这就没意义了。这种情况你可以强制只调用一个特殊的 designated 初始化方法，让其他初始化方法都失效。可以用如下编译器指令来修饰这个方法，当你尝试调用这个方法的时候编译器就会报错。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__attribute__((unavailable(<span class="string">"Invoke the designated initializer"</span>)))</span><br></pre></td></tr></table></figure>
+<p>这是上面案例相关实现的头文件（注意用宏来避免代码太罗嗦）</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCNewsViewController : UIViewController</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithNews:(ZOCNews *)news ZOC_DESIGNATED_INITIALIZER;</span><br><span class="line">- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)<span class="function">nibBundleOrNil <span class="title">ZOC_UNAVAILABLE_INSTEAD</span><span class="params">(initWithNews:)</span></span>;</span><br><span class="line">- (instancetype)<span class="function">init <span class="title">ZOC_UNAVAILABLE_INSTEAD</span><span class="params">(initWithNews:)</span></span>;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>上述代码要表达的是：永远别从 designated 初始化方法中调用 secondary （如果 secondary 初始化方法遵循规范，他会调用 designated 初始化方法）。如果在 designated 初始化方法中调用了 secondary 初始化方法，很容易会调用到子类重写过的初始化方法，然后就会导致无限递归。</p>
+<p>不过一个例外是如果一个对象遵循<code>NSCoding</code>协议，他就用<code>initWithCoder:</code>方法初始化。</p>
+<p>我们需要看父类是否遵循<code>NSCoding</code>协议来区别对待。</p>
+<p>遵循<code>NSCoding</code>协议的话，直接调用<code>super initWithCoder:</code>可能会和 designated 初始化方法有些共享代码。解决这个问题的一个好办法就是写在一个私有方法里（比如<code>p_commonInit</code>）。</p>
+<p>当父类不遵循<code>NSCoding</code>协议，建议把<code>initWithCoder:</code>当做 secondary 初始化方法来看，因此就要调用 <code>self</code>的 designated 初始化方法。注意，这跟 Apple 在 <a href="https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/Archiving/Articles/codingobjects.html#//apple_ref/doc/uid/20000948-BCIHBJDE" target="_blank" rel="external">Archives and Serializations Programming Guide</a> 中建议的如下规范相违背：</p>
+<blockquote>
+<p>the object should first invoke its superclass’s designated initializer to initialize inherited state</p>
+<p>对象应该先调用父类的 designated 初始化方法来初始化继承状态</p>
+</blockquote>
+<p>依据此原则，如果你的类不是<code>NSObject</code>的直接子类，这样做就会造成未知隐患。</p>
+<h4 id="次要初始化方法"><a href="#次要初始化方法" class="headerlink" title="次要初始化方法"></a>次要初始化方法</h4><p>就如上面一段所说的，secondary 初始化方法是一种非常便捷为 designated 初始化方法提供默认值或默认动作的方法。也就是说，在 secondary 初始化方法里不应该有任何强制的出初始化方法，而且要假设这个方法永远不被直接调用。重申一次，我们得保证直接被调用的是 designated 初始化方法。</p>
+<p>这就意味着，你的 designated 初始化方法应该是调用其他 secondary 初始化方法或者你<code>self</code>的 designated 初始化方法。有时候可能不小心了，写成了<code>super</code>，这样就会导致并未遵循上述的顺序来初始化（在这种特殊的情况里，跳过了当前类的初始化）。</p>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/Documentation/General/Conceptual/DevPedia-CocoaCore/ObjectCreation.html" target="_blank" rel="external">https://developer.apple.com/library/ios/Documentation/General/Conceptual/DevPedia-CocoaCore/ObjectCreation.html</a></li>
+</ul>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/Initialization/Initialization.html" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/Initialization/Initialization.html</a></li>
+</ul>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/Documentation/General/Conceptual/DevPedia-CocoaCore/MultipleInitializers.html" target="_blank" rel="external">https://developer.apple.com/library/ios/Documentation/General/Conceptual/DevPedia-CocoaCore/MultipleInitializers.html</a></li>
+</ul>
+<ul>
+<li><a href="https://blog.twitter.com/2014/how-to-objective-c-initializer-patterns" target="_blank" rel="external">https://blog.twitter.com/2014/how-to-objective-c-initializer-patterns</a></li>
+</ul>
+<h3 id="instancetype"><a href="#instancetype" class="headerlink" title="instancetype"></a>instancetype</h3><p>我们总是忘记 Cocoa 是充满各种规范的，这些规范可以让编译器变的更聪明一些。无论编译器是否碰到<code>alloc</code>或者<code>init</code>方法，他都知道这两个方法返回的类型都是<code>id</code>，那些方法总是返回接受到类的实例对象。因此，这样就为编译器进行类型检查提供了可能（比如，检查方法返回类型是否合法）。Clang 的这个好处来自于 <a href="http://clang.llvm.org/docs/LanguageExtensions.html#related-result-types" target="_blank" rel="external">related result type</a>，意味着：</p>
+<blockquote>
+<p>messages sent to one of alloc and init methods will have the same static type as the instance of the receiver class</p>
+<p>alloc 和 init 方法会检查发送来的消息返回的静态类型和接受到的类实例类型是否相同</p>
+</blockquote>
+<p>想获得更多关于自动定义返回类型的相关规范清参考 Clang Language Extensions guide 中的 <a href="(http://clang.llvm.org/docs/LanguageExtensions.html#related-result-types">appropriate section</a>。</p>
+<p>用<code>instancetype</code>关键字作为返回类型可以让相关返回结果类型更加明确，在一些工厂方法或者构造器方法这些场景下很有用。这可以提醒编译器检查类型是否正确，更重要的是，子类的类型是否正确也会检查。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@interface ZOCPerson</span><br><span class="line">+ (instancetype)personWithName:(NSString *)name;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>尽管如此，根据 clang 规定，编译器可以把<code>id</code>升级到<code>instancetype</code>。在<code>alloc</code>或者<code>init</code>中，我们强烈推荐对所有返回类实例的实例化方法和类方法，都用<code>instancetype</code>作为返回类型。</p>
+<p>在你所有的 API 中，你最应该建立起一种习惯来保持统一性（可能还会增加可读性）。此外，通过对代码的小调整可以增加你代码的可读性：简单浏览一下你的代码就能分辨出哪些方法是返回当前类的实例。以后你会感谢在意过这些细节。</p>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="http://tewha.net/2013/02/why-you-should-use-instancetype-instead-of-id/" target="_blank" rel="external">http://tewha.net/2013/02/why-you-should-use-instancetype-instead-of-id/</a></li>
+</ul>
+<ul>
+<li><a href="http://tewha.net/2013/01/when-is-id-promoted-to-instancetype/" target="_blank" rel="external">http://tewha.net/2013/01/when-is-id-promoted-to-instancetype/</a></li>
+</ul>
+<ul>
+<li><a href="http://clang.llvm.org/docs/LanguageExtensions.html#related-result-types" target="_blank" rel="external">http://clang.llvm.org/docs/LanguageExtensions.html#related-result-types</a></li>
+</ul>
+<ul>
+<li><p><a href="http://nshipster.com/instancetype/" target="_blank" rel="external">http://nshipster.com/instancetype/</a></p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="初始化模式"><a href="#初始化模式" class="headerlink" title="初始化模式"></a>初始化模式</h3><h4 id="类簇（Class-cluster）"><a href="#类簇（Class-cluster）" class="headerlink" title="类簇（Class cluster）"></a>类簇（Class cluster）</h4><p>在 Apple 的文档中对类簇的描述是这样：</p>
+<blockquote>
+<p>an architecture that groups a number of private, concrete subclasses under a public, abstract superclass.</p>
+<p>类簇是，在一个公共的、抽象的父类下，一组私有的、具体的子类架构。</p>
+</blockquote>
+<p>如果这个描述你听着耳熟，那就对了。类簇其实就是 Apple 语言体系中的<a href="http://en.wikipedia.org/wiki/Abstract_factory_pattern" target="_blank" rel="external">抽象工厂</a>设计模式。</p>
+<p>类簇的主旨很简单：一个抽象的父类，在初初始化过程中处理信息，经常为初始化方法提供参数或者从环境中获取，来实现逻辑并初始化一个具体的子类。这个”公共面向（public facing）”的类应该对自己的子类有所掌控，并返回最优类型的私有子类。</p>
+<p>这个模式非常有用，因为这让调用者省去了繁杂的初始化逻辑，只需要知道要通信对象的接口，不用关心具体的内部实现。</p>
+<p>Apple 的框架中广泛使用了类簇；一些值得注意的例子有<code>NSNumber</code>，它可以根据提供的数字类型（Integer,Float,etc…）来返回对应的子类，还有<code>NSArray</code>会根据最优存储策略返回最适合的具体子类。</p>
+<p>这个模式的优点在于，调用者可以完全不用关心子类；实际上可以用来设计一个库，用来切换实际返回的类，同时还不必暴露任何实现的细节，因为他们都遵循抽象父类的方法。</p>
+<p>依我们的经验来看用类簇可以对移除一堆条件语句很有帮助。</p>
+<p>一个典型的例子就是当你在 iPhone 和 iPad 中都有 UIViewController 的子类，但是在不同的设备上有不同的表现。</p>
+<p>基础的实现办法是在方法中用一些条件语句来检查设备，然后执行不同的逻辑。虽然开始的时候这部分条件逻辑语句只有几行，但是随着要处理的步骤增多代码也就越来越冗杂了。</p>
+<p>一个更好的实现设计是创建一个抽象且通用的 view controller 包含所有共享逻辑，并对应不同设备有两个特别的子类。</p>
+<p>这个通用的 view controller 会检查当前设备的特性并根据这一特性返回对应的子类。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@implementation ZOCKintsugiPhotoViewController</span><br><span class="line">- (id)initWithPhotos:(NSArray *)photos</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([self isMemberOfClass:ZOCKintsugiPhotoViewController.<span class="keyword">class</span>]) &#123;</span><br><span class="line">        self = nil;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ([UIDevice isPad]) &#123;</span><br><span class="line">            self = [[ZOCKintsugiPhotoViewController-iPad alloc] initWithPhotos:photos];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            self = [[ZOCKintsugiPhotoViewController-iPhone alloc] initWithPhotos:photos];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> self;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [super initWithNibName:nil bundle:nil];</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>上述的代码例子展示如何创建一个类簇。首先下述语句防止子类重载初始化方法，避免了无限递归。 </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[self isMemberOfClass:ZOCKintsugiPhotoViewController.<span class="keyword">class</span>]</span><br></pre></td></tr></table></figure>
+<p>当下述代码被调用时，上述检测会为 true，<code>self = nil</code>是用来移除所有对<code>ZOCKintsugiPhotoViewController</code> 实例的引用，这样他就会被释放，按照逻辑来决定初始化哪个子类。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[[ZOCKintsugiPhotoViewController alloc] initWithPhotos:photos]</span><br></pre></td></tr></table></figure>
+<p>我们假设在 iPhone 上跑这段代码<code>ZOCKintsugiPhotoViewController-iPhone</code>没有重载<code>initWithPhotos:</code>；这时候，执行</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">self = [[ZOCKintsugiPhotoViewController-iPhone alloc] initWithPhotos:photos];</span><br></pre></td></tr></table></figure>
+<p><code>ZOCKintsugiPhotoViewController</code>将会被调用，并当第一次检查时<code>ZOCKintsugiPhotoViewController</code> 的类检查将会是 false，那么就会直接调用</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> [super initWithNibName:nil bundle:nil];</span><br></pre></td></tr></table></figure>
+<p>这样就会按照之前重点讲过的初始化方法来继续进行初始化。</p>
+<h4 id="单例-Singleton"><a href="#单例-Singleton" class="headerlink" title="单例(Singleton)"></a>单例(Singleton)</h4><p>能不用就别用单例，用依赖注入来代替。</p>
+<p>然而，一定要用单例用该用一个安全线程模式来创建共享实例。对于 GCD，可以用<code>dispatch_once()</code>函数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">+ (instancetype)sharedInstance</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">static</span> id sharedInstance = nil;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">dispatch_once_t</span> onceToken = <span class="number">0</span>;</span><br><span class="line">   dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">      sharedInstance = [[self alloc] init];</span><br><span class="line">   &#125;);</span><br><span class="line">   <span class="keyword">return</span> sharedInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用同步的dispatch_once()来代替下方旧的老办法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">+ (instancetype)sharedInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> id sharedInstance;</span><br><span class="line">    @synchronized(self) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sharedInstance == nil) &#123;</span><br><span class="line">            sharedInstance = [[MyClass alloc] init];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sharedInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相比上述例子<code>dispatch_once()</code>的优势在于更快，语意上也更明确，因为<code>dispatch_once()</code>的总体含义就是”执行且只执行一次”，正好和我们做的一样。这样同时可以避免<a href="http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html" target="_blank" rel="external">possible and sometimes prolific crashes</a>。</p>
+<p>使用单例对象的经典例子是 GPS 和设备加速器。尽管单例对象可以子类化，但是在这些情况下也是挺好用的。这个接口应该说明，给出的类应该用单例模式。因此，通常一个单独的公共<code>sharedInstance</code>类方法就够了，并且只读的属性也应该暴露。</p>
+<p>在代码或者层之间，把单例用作一个对象容器来共享是很傻很糟糕的，是一个不好的设计。</p>
+<h2 id="属性-Properties"><a href="#属性-Properties" class="headerlink" title="属性(Properties)"></a>属性(Properties)</h2><p>属性应该尽量使用描述性命名，避免缩写，而且要用以小写字母开头的驼峰式。幸运的是我们选择的工具可以帮我们自动补全(呃…几乎是所有的，嗯，我说的就是 Xcode 的 Derived Data)，所以没理由去节省一些字符，尽可能在你的源码里表达更多的信息。</p>
+<p><strong>例如:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSString *text;</span><br></pre></td></tr></table></figure>
+<p><strong>不要这样:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSString* text;</span><br><span class="line">NSString * text;</span><br></pre></td></tr></table></figure>
+<p>（注意：这个习惯和常量不同。这确实是为常用和可读性考虑。C++ 开发者更喜欢把变量的类型从名字中分离出来，作为一个纯粹的类型就应该是<code>NSString*</code>（这是对于从堆中分配的对象，C++ 应该是从栈上分配对象）。那就用该用<code>NSString* text</code>格式来写。）</p>
+<p>用属性的 auto-synthesize，别用手写的<code>@synthesize</code>，除非你的属性只是 protocol 的一部分而不是一个具体的类。如果 Xcode 能自动同步变量，那就让 Xcode 做。否则你就是放弃了 Xcode 的优势来维护一段很冗余的代码。</p>
+<p>除了 <code>init</code>和<code>dealloc</code>方法，应该经常使用 set 和 get 方法访问属性。通常来说，用属性来访问当前作用域以外的的代码增加了一些视觉上的便利，但是也会存在副作用。</p>
+<p>用 setter 的好处有：</p>
+<ul>
+<li>使用 setter 会遵循内存管理的定义（<code>strong</code>, <code>weak</code>, <code>copy</code> 等等…）。这在 ARC 之前就挺重要的，有了 ARC 之后依旧也很重要。举个例子，<code>copy</code>的语意：每次你使用 setter 传入的值都是一个副本，没有任何额外的操作。</li>
+</ul>
+<ul>
+<li>KVO 通知(<code>willChangeValueForKey</code>, <code>didChangeValueForKey</code>) 会被自动执行。</li>
+</ul>
+<ul>
+<li>更容易debug：你可以在属性声明上设置一个断点，setter/getter 每次执行时断点就会生效，或者你也可以在自定义的 setter/getter 设置断点</li>
+</ul>
+<ul>
+<li>在设定值的时候可以增加额外的逻辑</li>
+</ul>
+<p>用 getter 的好处：</p>
+<ul>
+<li>扩展性和适应性更好（比如：属性是自动生成的）</li>
+<li>允许子类化</li>
+<li>更容易 debug （比如：可以在 getter 中打一个断点来看看到底是谁调用了这个特殊的getter）</li>
+<li>让目的更清晰明确：在访问一个 ivar <code>_anIvar</code>时实际上你是在访问<code>self-&gt;_anIvar</code>。这可能会导致一些问题，比如，在一个 block 内访问 iVar（尽管你并没有明确的看到<code>self</code>关键字，但是你还是 retain 了 self）</li>
+<li>自动产生 KVO 通知</li>
+<li>发消息的额外性能开销很低，大部分情况下是可以忽略不计的。更多关于属性的性能问题介绍可以参考<a href="http://blog.bignerdranch.com/4005-should-i-use-a-property-or-an-instance-variable/" target="_blank" rel="external">Should I Use a Property or an Instance Variable?</a></li>
+</ul>
+<h3 id="Init-和-Dealloc"><a href="#Init-和-Dealloc" class="headerlink" title="Init 和 Dealloc"></a>Init 和 Dealloc</h3><p>但是有个一个例外:在<code>init</code>(和其他初始化方法)中你千万不能用 setter (或者 getter)，你应该直接访问实例变量。这是为了防止在子类化的时候出现问题：实际上一个子类可以重载 setter (或者 getter)取调用其他方法，访问属性或者 iVar 时他们可能并未完全初始化。要记住，只有在 init 返回时，一个对象才被认为是完全初始化完成状态。在 dealloc 方法(在 <code>dealloc</code>方法中对象可能在一个不确定的状态)这些也是一样的。</p>
+<p>下述文档中也都反复陈述很多次了：</p>
+<ul>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6" target="_blank" rel="external">Advanced Memory Management Programming Guide</a> under the self-explanatory section “Don’t Use Accessor Methods in Initializer Methods and dealloc”;</li>
+</ul>
+<ul>
+<li><a href="http://adcdownload.apple.com//wwdc_2012/wwdc_2012_session_pdfs/session_413__migrating_to_modern_objectivec.pdf" target="_blank" rel="external">Migrating to Modern Objective-C</a> at WWDC 2012 at slide 27;</li>
+</ul>
+<ul>
+<li>in a <a href="https://github.com/NYTimes/objective-c-style-guide/issues/6" target="_blank" rel="external">pull request</a> form Dave DeLong’s.</li>
+</ul>
+<p>此外，在 init 中使用 setter 不会很好的执行 <code>UIAppearence</code>代理(更多信息参见 <a href="http://petersteinberger.com/blog/2013/uiappearance-for-custom-views/" target="_blank" rel="external">UIAppearance for Custom Views</a> )。</p>
+<h3 id="点语法"><a href="#点语法" class="headerlink" title="点语法"></a>点语法</h3><p>当在使用 setter/getter 时更倾向于用点语法，在设置属性时通常都应该用点语法。</p>
+<p><strong>例如:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">view.backgroundColor = [UIColor orangeColor];</span><br><span class="line">[UIApplication sharedApplication].delegate;</span><br></pre></td></tr></table></figure>
+<p><strong>不要:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[view setBackgroundColor:[UIColor orangeColor]];</span><br><span class="line">UIApplication.sharedApplication.delegate;</span><br></pre></td></tr></table></figure>
+<p>使用点语法会让表达更清晰，并且帮助区分是在访问属性还是在调用方法。</p>
+<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><p>按照如下格式来声明属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@property (nonatomic, readwrite, copy) NSString *name;</span><br></pre></td></tr></table></figure>
+<p>属性参数应该按照如下顺序:原子性，是否可读写，内存管理。这样写你在修改属性的时候就能很容易的找到位置并且看起来更方便。</p>
+<p>除非特殊必要，应该都要使用<code>nonatomic</code>，在 iOS 中，<code>atomic</code>锁会非常影响性能。</p>
+<p>属性可以存储一个 block，想让其生命周期贯穿定义域，应该用<code>copy</code>来修饰(block 创建时在栈中，用<code>copy</code>可以让其拷贝到堆中)。</p>
+<p>为了实现一个共有的 getter 和一个私有的 setter，你应该用<code>readonly</code>来声明属性，并在类扩展中重新将其声明为<code>readwrite</code>：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">@interface MyClass : NSObject</span><br><span class="line">@property (nonatomic, readonly) NSObject *object</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation MyClass ()</span><br><span class="line">@property (nonatomic, readwrite, strong) NSObject *object</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>如果一个<code>Bool</code>类型的属性的命名表达了描述性含义，这个属性可以省略”is”，但是在 get 方法访问时依照惯例还是要加上特定的”is”，例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@property (assign, getter=isEditable) BOOL editable;</span><br></pre></td></tr></table></figure>
+<p>正文和举例引用自<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE" target="_blank" rel="external">Cocoa Naming Guidelines</a>.</p>
+<p>在实现文件中就不必再用<code>@synthesize</code>，Xcode 已经帮你加好了。</p>
+<h4 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h4><p>私有属性应该在类实现文件中的类扩展(class extensions，即没有名字的 categories)中声明。除非要扩展其他的类，否则不要使用有名称的 categories (例如，<code>ZOCPrivate</code>)。</p>
+<p><strong>For example:</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">@interface ZOCViewController ()</span><br><span class="line">@property (nonatomic, strong) UIView *bannerView;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h3 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h3><p>潜在可以被可变对象(例如，<code>NSString</code>，<code>NSArray</code>，<code>NSURLRequest</code>)赋值的任何属性，其内存管理类型必须为<code>copy</code>。这是为了保证封装的安全，同时避免在对象不知情的情况下，修改了属性的值。</p>
+<p>在公共接口中也应该避免暴露可变对象，因为这个类的使用者就可以改变这个类的内部描述同时破坏了封装。可以提供一个只读属性，返回对象的不可变副本：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* .h */</span></span><br><span class="line">@property (nonatomic, readonly) NSArray *elements</span><br><span class="line"></span><br><span class="line"><span class="comment">/* .m */</span></span><br><span class="line">- (NSArray *)elements &#123;</span><br><span class="line">  <span class="keyword">return</span> [self.mutableElements copy];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>实例化一个对象是很消耗资源的，很多情况下在实例化的过程中包括了一些设置，但是又不想弄乱调用的方法，并且这种设置只需要一次。</p>
+<p>在这种情况下，可以选择重载属性 getter 来懒初始化，以此来代替在初始化方法中实例化对象。通常这类操作的案例如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (NSDateFormatter *)dateFormatter &#123;</span><br><span class="line">  <span class="keyword">if</span> (!_dateFormatter) &#123;</span><br><span class="line">    _dateFormatter = [[NSDateFormatter alloc] init];</span><br><span class="line">        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@<span class="string">"en_US_POSIX"</span>];</span><br><span class="line">        [dateFormatter setLocale:enUSPOSIXLocale];</span><br><span class="line">        [dateFormatter setDateFormat:@<span class="string">"yyyy-MM-dd'T'HH:mm:ss.SSSSS"</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _dateFormatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管这样在某些特定情况下挺好的，但是在用之前还是要深思熟虑的，实际上这中行为是应该规避的。下列是使用懒加载的一些反对论点：</p>
+<ul>
+<li>getter 理论上是没有副作用的。从另一个角度看你不应该觉得 getter 会实例化一个对象或者觉得这是产生副作用了。实际上，尝试去调用一个没有返回值的 getter 编译器会警告：“getter 不会产生副作用；”。</li>
+<li>在首次访问时把初始化的损耗作为副作用移除了，这会导致性能优化问题(也很难进行测试)。</li>
+<li>初始化的时刻可能是不确定的：例如，你预计这个属性是被某个方法首次访问，但是你后来改变了类的实现，导致访问器被调用的时刻比你预期的要早。这会导致很多问题，尤其是如果初始化逻辑依赖于该类的其他状态时，那结果就不同了。总而言之最好明确依赖关系。</li>
+<li>这种行为对 KVO 不友好。如果 getter 改变了引用它应该通过 KVO 通知来通知改变，当访问 getter 就会得到一个改变通知这种方法就挺蹩脚的。</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="参数断言"><a href="#参数断言" class="headerlink" title="参数断言"></a>参数断言</h3><p>你的方法可能要求一些参数来满足特定的条件(比如不能为 nil)；这种状况下最好用<code>NSParameterAssert()</code>来判断条件是否成立或者抛出异常。</p>
+<h3 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h3><p>永远不要在你的私有方法前加上下划线<code>_</code>，这个前缀是 Apple 保有的，这样做会让你面临重载 Apple 已有私有方法的险境。</p>
+<h2 id="相等"><a href="#相等" class="headerlink" title="相等"></a>相等</h2><p>当你要实现相等比较时，要记住这个约定：你要同时实现<code>isEqual</code>和<code>hash</code>方法。如果通过<code>isEqual</code>认为两个对象是相等的，<code>hash</code>方法必须返回相同值，但是如果<code>hash</code>方法返回相同值，并不能认为两个对象是等值的。</p>
+<p>这个约定归根究底就是，在对象存储在集合(例如，<code>NSDictionary</code>和<code>NSSet</code>在底层使用 hash 表的数据结构)中时，如何查找他们。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">@implementation ZOCPerson</span><br><span class="line"></span><br><span class="line">- (BOOL)isEqual:(id)object &#123;</span><br><span class="line">    <span class="keyword">if</span> (self == object) &#123;</span><br><span class="line">        <span class="keyword">return</span> YES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (![object isKindOfClass:[ZOCPerson <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check objects properties (name and birthday) for equality</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> propertiesMatch;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSUInteger)hash &#123;</span><br><span class="line">    <span class="keyword">return</span> [self.name hash] ^ [self.birthday hash];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>一定要注意的是 hash 方法一定不能返回一个常量。这是一个典型的错误并且会导致很严重的问题，因为当 hash 方法返回值用作 hash 表的 key 时，会导致 hash 表的100%碰撞。</p>
+<p>你通常应该按照<code>isEqualTo&lt;#class-name-without-prefix#&gt;</code>这种格式来实现是否相等的检测方法。通常应该优先调用这个验证相等方法来避免上述的类型检测方法。</p>
+<p>一个完整的 isEqueal* 方法应该是如下样式的：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (BOOL)isEqual:(id)object &#123;</span><br><span class="line">    <span class="keyword">if</span> (self == object) &#123;</span><br><span class="line">      <span class="keyword">return</span> YES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (![object isKindOfClass:[ZOCPerson <span class="keyword">class</span>]]) &#123;</span><br><span class="line">      <span class="keyword">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [self isEqualToPerson:(ZOCPerson *)object];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isEqualToPerson:(Person *)person &#123;</span><br><span class="line">    <span class="keyword">if</span> (!person) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BOOL namesMatch = (!self.name &amp;&amp; !person.name) ||</span><br><span class="line">                       [self.name isEqualToString:person.name];</span><br><span class="line">    BOOL birthdaysMatch = (!self.birthday &amp;&amp; !person.birthday) ||</span><br><span class="line">                           [self.birthday isEqualToDate:person.birthday];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> haveEqualNames &amp;&amp; haveEqualBirthdays;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果一个给定的对象实例被加入到一个容器对象(如，<code>NSArray</code>，<code>NSSet</code>或者<code>NSDictionary</code>)，其 <code>hash</code>计算结果应该是确定的，否则加入容器对象的行为将无法定义(所有容器对象都是用对象的 hash 值来进行查找行为的，或者实现一些特殊属性，比如包含对象的唯一性检测)。也就是说，最好只用不可变属性来计算 hash 值，或者，最好保证对象是不可变的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/禅与Objective-C编程艺术/" rel="tag">#禅与Objective-C编程艺术</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/27/2015-07-27-Markdown-Typora/" rel="next" title="Typora:从此请叫我键盘侠">
+                <i class="fa fa-chevron-left"></i> Typora:从此请叫我键盘侠
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/10/2015-08-10-Cocoapods/" rel="prev" title="Cocoapods 的安装、使用及其配置">
+                Cocoapods 的安装、使用及其配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类名"><span class="nav-number">1.</span> <span class="nav-text">类名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Initializer-与-dealloc"><span class="nav-number">2.</span> <span class="nav-text">Initializer 与 dealloc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Designated-和-Secondary-初始化方法"><span class="nav-number">2.1.</span> <span class="nav-text">Designated 和 Secondary 初始化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Designated-初始化方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">Designated 初始化方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#次要初始化方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">次要初始化方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instancetype"><span class="nav-number">2.2.</span> <span class="nav-text">instancetype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化模式"><span class="nav-number">2.3.</span> <span class="nav-text">初始化模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类簇（Class-cluster）"><span class="nav-number">2.3.1.</span> <span class="nav-text">类簇（Class cluster）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单例-Singleton"><span class="nav-number">2.3.2.</span> <span class="nav-text">单例(Singleton)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性-Properties"><span class="nav-number">3.</span> <span class="nav-text">属性(Properties)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Init-和-Dealloc"><span class="nav-number">3.1.</span> <span class="nav-text">Init 和 Dealloc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点语法"><span class="nav-number">3.2.</span> <span class="nav-text">点语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性声明"><span class="nav-number">3.3.</span> <span class="nav-text">属性声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#私有属性"><span class="nav-number">3.3.1.</span> <span class="nav-text">私有属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变对象"><span class="nav-number">3.4.</span> <span class="nav-text">可变对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒加载"><span class="nav-number">3.5.</span> <span class="nav-text">懒加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数断言"><span class="nav-number">4.1.</span> <span class="nav-text">参数断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#私有方法"><span class="nav-number">4.2.</span> <span class="nav-text">私有方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相等"><span class="nav-number">5.</span> <span class="nav-text">相等</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/08/02/2015-07-31-Zen-OC-Art-2/';
+      var disqus_title = "禅与Objective-C编程艺术-2";
+      var disqus_url = 'http://joehill.me/2015/08/02/2015-07-31-Zen-OC-Art-2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

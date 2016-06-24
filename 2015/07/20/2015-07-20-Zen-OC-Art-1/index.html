@@ -1,0 +1,811 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="禅与Objective-C编程艺术,Objective-C," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：条件语句、Case 语句、命名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅与Objective-C编程艺术-1">
+<meta property="og:url" content="http://joehill.me/2015/07/20/2015-07-20-Zen-OC-Art-1/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：条件语句、Case 语句、命名">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/pic.jpg">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/yoda.png">
+<meta property="og:updated_time" content="2015-08-12T08:52:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="禅与Objective-C编程艺术-1">
+<meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：条件语句、Case 语句、命名">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/07/20/2015-07-20-Zen-OC-Art-1/"/>
+
+  <title> 禅与Objective-C编程艺术-1 | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                禅与Objective-C编程艺术-1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-20T23:55:44+08:00" content="2015-07-20">
+              2015-07-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Translation/" itemprop="url" rel="index">
+                    <span itemprop="name">Translation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/20/2015-07-20-Zen-OC-Art-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/20/2015-07-20-Zen-OC-Art-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/pic.jpg" alt=""></p>
+<blockquote class="blockquote-center">编程和「禅」有关系吗?<br><br><a href="https://github.com/objc-zen/objc-zen-book" target="_blank" rel="external">Zen and the Art of the Objective-C Craftsmanship</a>译文兼笔记<br><br>本章包含规范：条件语句、Case 语句、命名<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="条件语句-Conditionals"><a href="#条件语句-Conditionals" class="headerlink" title="条件语句(Conditionals)"></a>条件语句(Conditionals)</h1><p>虽然条件语句体可以不写在大括号里（比如就一行），但是为了避免错误还是应该把条件语句体写在大括号内部。比如不写在括号里时，插入的第二行代码会误以为是条件语句体的一部分。还有个更致命的危险就是，当仅有的一句 <code>if</code> 语句被注释掉时，无意之间下一行代码就成为 <code>if</code> 语句的一部分了。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error) &#123;</span><br><span class="line">	<span class="keyword">return</span> success;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error)</span><br><span class="line">	<span class="keyword">return</span> success;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error) <span class="keyword">return</span> success;</span><br></pre></td></tr></table></figure>
+<p>2014年二月 苹果的SSL/TLS的实现中就发现了众所周知的<a href="https://gotofail.com/" target="_blank" rel="external">goto fail</a>错误。</p>
+<p>错误原因是在 <code>if</code> 条件后重复出现了 <code>goto</code> 语句，把 <code>if</code> 分支写在括号里就能避免这类问题。</p>
+<p>代码如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> OSStatus</span><br><span class="line">	<span class="title">SSLVerifySignedServerKeyExchange</span><span class="params">(SSLContext *ctx, <span class="keyword">bool</span> isRsa, SSLBuffer signedParams, <span class="keyword">uint8_t</span> *signature, UInt16 signatureLen)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">	  OSStatus err;</span><br><span class="line">	  ...</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;serverRandom)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;signedParams)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.final(&amp;hashCtx, &amp;hashOut)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  ...</span><br><span class="line">	fail:</span><br><span class="line">	  SSLFreeBuffer(&amp;signedHashes);</span><br><span class="line">	  SSLFreeBuffer(&amp;hashCtx);</span><br><span class="line">	  <span class="keyword">return</span> err;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显，两行连续的 <code>goto fail;</code> 没有写在括号里。我们肯定不想出现上述类似的错误。</p>
+<p>还有在其他条件语句中也应保持这种代码风格，便于检查。</p>
+<h2 id="尤达表达式"><a href="#尤达表达式" class="headerlink" title="尤达表达式"></a>尤达表达式</h2><p>尽量别用尤达表达式。尤达表达式就是用常量去和变量比较，而不是用变量跟常量比较。比如正常表达是「天空是不是蓝色的」或者「这个人是不是高个子」，尤达表达式就会说成「蓝色是不是天空的颜色」或者「高个子是不是这个人的属性」。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/yoda.png" alt="Yoda"></p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ([myValue isEqual:@<span class="number">42</span>]) &#123; ...</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ([@<span class="number">42</span> isEqual:myValue]) &#123; ...</span><br></pre></td></tr></table></figure>
+<h2 id="nil-和-BOOL-检查"><a href="#nil-和-BOOL-检查" class="headerlink" title="nil 和 BOOL 检查"></a>nil 和 BOOL 检查</h2><p>和尤达表达式类似，nil检查方式也是存在争议的。 一些 notous 库像这样检查对象是否为 <code>nil</code>:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (nil == myValue) &#123; ...</span><br></pre></td></tr></table></figure>
+<p>因为 nil 为常量的情况下，这种情况就很像尤达表达式，或许有人就会提出这种写法是错误的。其实很多程序员这么做的原因是为了避免调试困难，请看如下代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (myValue == nil) &#123; ...</span><br></pre></td></tr></table></figure>
+<p>如果不小心写成这样：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (myValue = nil) &#123; ...</span><br></pre></td></tr></table></figure>
+<p>这种表达是符合语法的，就算你是个经验丰富的程序员也很难能找出错误。但是如果把 <code>nil</code> 像变量一样放在左边这种错误就不会发生因为它不能被赋值。如果程序员用这种办法，就可以很容发现一些可能的原因，比反复检查写过的代码要好很多。</p>
+<p>避免这些奇怪问题的办法，可以用感叹号来作为运算符。因为 <code>nil</code> 的意思就是 <code>NO</code> ，没必要在条件语句里把它跟其他值比较。还有千万不要直接去和 <code>YSE</code> 比较，因为 <code>YES</code> 的定义是 1 ，而 <code>BOOL</code> 是 8 bit 的，实际上是 char 类型。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (someObject) &#123; ...</span><br><span class="line"><span class="keyword">if</span> (![someObject boolValue]) &#123; ...</span><br><span class="line"><span class="keyword">if</span> (!someObject) &#123; ...</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (someObject == YES) &#123; ... <span class="comment">// Wrong</span></span><br><span class="line"><span class="keyword">if</span> (myRawValue == YES) &#123; ... <span class="comment">// Never do this.</span></span><br><span class="line"><span class="keyword">if</span> ([someObject boolValue] == NO) &#123; ...</span><br></pre></td></tr></table></figure>
+<p>这样也能提高文件的统一性和可读性。</p>
+<h2 id="黄金法则"><a href="#黄金法则" class="headerlink" title="黄金法则"></a>黄金法则</h2><p>当写条件语句的时候，代码左侧留有空隙是让人愉悦的黄金法则。就是说，不要嵌套 <code>if</code> 语句。多写几个 <code>return</code> 没啥问题。这会避免<a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank" rel="external">cyclomatic complexity</a>的增加并且让代码更加易读，因为方法的重要部分都未嵌套在分支内，你就可以很清楚的找到相关代码。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123;</span><br><span class="line">  <span class="keyword">if</span> (![someOther boolValue]) &#123;</span><br><span class="line">  	<span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//Do something important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123;</span><br><span class="line">  <span class="keyword">if</span> ([someOther boolValue]) &#123;</span><br><span class="line">  	<span class="comment">//Do something important</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="复杂条件语句"><a href="#复杂条件语句" class="headerlink" title="复杂条件语句"></a>复杂条件语句</h2><p>当在 <code>if</code> 分句中有一个复杂条件时，应该把它抽取出来赋值给一个 <code>BOOL</code> 变量，这样逻辑就会更清晰同时每个单独的条件语句的含义都很明确。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">BOOL nameContainsSwift  = [sessionName containsString:@<span class="string">"Swift"</span>];</span><br><span class="line">BOOL isCurrentYear      = [sessionDateCompontents year] == <span class="number">2014</span>;</span><br><span class="line">BOOL isSwiftSession     = nameContainsSwift &amp;&amp; isCurrentYear;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (isSwiftSession) &#123;</span><br><span class="line">	<span class="comment">// Do something very cool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h2><p>三目运算符 <code>?</code> 只应该用在让代码更清晰简洁的地方。单独的条件语句通常都应该是计算好值了的。对于条件语句来说，多个条件子句的计算会让代码更加难懂，或者可以把他们重构到实例变量里面。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = a &gt; b ? x : y;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = a &gt; b ? x = c &gt; d ? c : d : y;</span><br></pre></td></tr></table></figure>
+<p>当三目运算的第二个参数( <code>if</code> 分支)返回的对象和条件语句中检查已存在的对象相同的时候，如下语法更优雅：</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = object ? : [self createObject];</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = object ? object : [self createObject];</span><br></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>当方法返回一个错误参数的引用时，检查返回值，而非出错的变量</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSError *error = nil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (![self trySomethingWithError:&amp;error]) &#123;</span><br><span class="line">	<span class="comment">// Handle Error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，一些苹果的 API 在请求成功的情况下会对 <code>error</code> 参数(如果非空)写入垃圾值（garbage values）,所以如果检查 <code>error</code> 的值可能会导致出错（甚至崩溃）。</p>
+<h1 id="Case-语句"><a href="#Case-语句" class="headerlink" title="Case 语句"></a>Case 语句</h1><p>除非编译器强制要求，否则在 <code>case</code> 语句中不是必须写括号的。</p>
+<p>要是一个 <code>case</code> 有多行，那就需要加上括号。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (condition) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>: &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="comment">// Multi-line example using braces</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	   &#125;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>: </span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有很多时候多个 <code>case</code> 中执行同一段代码，那就用上 <a href="https://en.wiktionary.org/wiki/fall-through" target="_blank" rel="external"><code>fall-through</code></a>了。<code>fall-through</code> 就是移除 <code>case</code> 的 <code>break</code> 语句然后让下面的 <code>case</code> 继续执行。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (condition) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="comment">// code executed for values 1 and 2</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>: </span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当在 <code>switch</code> 中用枚举变量时，就不用非要写 <code>default</code> 了。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (menuType) &#123;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumNone:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumValue1:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumValue2:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，为了避免使用默认的 <code>case</code> ，如果枚举增添了新的值，程序员就会立即收到一个警告：</p>
+<blockquote>
+<p>Enumeration value ‘ZOCEnumValue3’ not handled in switch.</p>
+<p>枚举类型 <code>ZOCEnumValue3</code> 未被 switch 处理</p>
+</blockquote>
+<h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><p>当使用 <code>enum</code> 时，建议用固定基础类型标准，因为它具备更强的类型检查和和代码补全能力。SDK 现在提供了一个宏来促进和鼓励使用固定基础类型- <code>NS_ENUM()</code></p>
+<p><strong>例子:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NS_ENUM</span><span class="params">(NSUInteger, ZOCMachineState)</span> </span>&#123;</span><br><span class="line">	ZOCMachineStateNone,</span><br><span class="line">	ZOCMachineStateIdle,</span><br><span class="line">	ZOCMachineStateRunning,</span><br><span class="line">	ZOCMachineStatePaused</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h1><h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a>惯例</h2><p>要尽可能的遵守苹果的命名规范，尤其是跟<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" target="_blank" rel="external">内存管理规则</a><a href="http://stackoverflow.com/a/2865194/340508" target="_blank" rel="external">(NARC)</a>相关的部分。</p>
+<p>推荐使用详尽的、语意强的的方法名和变量名。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UIButton *settingsButton;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UIButton *setBut;</span><br></pre></td></tr></table></figure>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>常量的应该遵循驼峰命名法，为了语意清晰，应该使用相关的类名作为前缀。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval ZOCSignInViewControllerFadeOutAnimationDuration = <span class="number">0.4</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval fadeOutTime = <span class="number">0.4</span>;</span><br></pre></td></tr></table></figure>
+<p>字符串和数字应该尽量抽离常量，这样便于复用，而且在替换的时候很快捷，也不需要到处查找。常量应该用 <code>static</code>声明，除了特别明确的要用宏定义，否则就别用<code>#define</code>了。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> NSString * <span class="keyword">const</span> ZOCCacheControllerDidClearCacheNotification = @<span class="string">"ZOCCacheControllerDidClearCacheNotification"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> CGFloat ZOCImageThumbnailHeight = <span class="number">50.0f</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CompanyName @<span class="string">"Apple Inc."</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> magicNumber 42</span></span><br></pre></td></tr></table></figure>
+<p>在<code>interface</code>文件中，暴露在外部的常量应该遵循如下写法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extern NSString *const ZOCCacheControllerDidClearCacheNotification;</span><br></pre></td></tr></table></figure>
+<p>在实现文件中，实现对之前常量的定义。</p>
+<p>对于公共常量需要加上一个命名空间前缀。尽管在实现文件中常量也会有一些其他写法，那么也没必要一定遵循这个规则。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>对于方法签名，在方法类型(<code>-</code>/<code>+</code>)后应该有一个空格。方法段落之间也应该有一个空格（符合 Apple 的规范）。在参数名之前应该有一个描述性关键字。</p>
+<p>要谨慎使用 <code>and</code> 命名，它不应该用作来表示有多个参数，比如下面<code>initWithWidth:height:</code>的例子。</p>
+<p><strong>推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setExampleText:(NSString *)text image:(UIImage *)image;</span><br><span class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;</span><br><span class="line">- (id)viewWithTag:(NSInteger)tag;</span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+<p><strong>不推荐:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setT:(NSString *)text i:(UIImage *)image;</span><br><span class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;</span><br><span class="line">- (id)taggedView:(NSInteger)tag;</span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</span><br><span class="line">- (instancetype)initWith:(<span class="keyword">int</span>)width and:(<span class="keyword">int</span>)height;  <span class="comment">// Never do this.</span></span><br></pre></td></tr></table></figure>
+<h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><p>创建任何不可变的实例对象时，应该用<code>NSString</code>, <code>NSDictionary</code>, <code>NSArray</code>, 和 <code>NSNumber</code> 这些对象。特别注意的是别在<code>NSArray</code>和<code>NSDictionary</code>中放入<code>nil</code>，这样会导致崩溃。</p>
+<p><strong>例如:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *names = @[@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>];</span><br><span class="line">NSDictionary *productManagers = @&#123;@<span class="string">"iPhone"</span> : @<span class="string">"Kate"</span>, @<span class="string">"iPad"</span> : @<span class="string">"Kamal"</span>, @<span class="string">"Mobile Web"</span> : @<span class="string">"Bill"</span>&#125;;</span><br><span class="line">NSNumber *shouldUseLiterals = @YES;</span><br><span class="line">NSNumber *buildingZIPCode = @<span class="number">10018</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>别这样做:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *names = [NSArray arrayWithObjects:@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>, nil];</span><br><span class="line">NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @<span class="string">"Kate"</span>, @<span class="string">"iPhone"</span>, @<span class="string">"Kamal"</span>, @<span class="string">"iPad"</span>, @<span class="string">"Bill"</span>, @<span class="string">"Mobile Web"</span>, nil];</span><br><span class="line">NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];</span><br><span class="line">NSNumber *buildingZIPCode = [NSNumber numberWithInteger:<span class="number">10018</span>];</span><br></pre></td></tr></table></figure>
+<p>如果需要用到上述这些类的可变副本，应该用如<code>NSMutableArray</code>, <code>NSMutableString</code>等等这些更为准确的类。</p>
+<p>下面的情况 <strong>不要出现</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSMutableArray *aMutableArray = [@[] mutableCopy];</span><br></pre></td></tr></table></figure>
+<p>上述写法存在执行效率和可读性的双重问题。</p>
+<p>在执行效率上，创建一个立即销毁的不可变变量是没必要的。虽然这样做不太会拖慢你的 App （除非很频繁调用该方法），但是没必要为了少打几个字儿就这么写。</p>
+<p>考虑到可读性，有两个问题：</p>
+<p>一，当你浏览代码的时候看到<code>@[]</code>第一时间你会想到关于<code>NSArray</code>这个类的实例，这种情况你就得停下来思考一下这是怎么回事。</p>
+<p>二，一些新手以他们的阅历，就会对可变对象与不可变对象之间的矛盾感到疑惑。他/她可能对创建一个可变副本不是很熟悉（当然也不是说这部分知识不重要）。</p>
+<p>当然，这都不是什么绝对性的错误，更多是在说可用性（包括可读性）方面的问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/禅与Objective-C编程艺术/" rel="tag">#禅与Objective-C编程艺术</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/18/2015-05-18-Hexo-GitHub-Disqus/" rel="next" title="在GitHub上搭建基于Hexo的静态Blog">
+                <i class="fa fa-chevron-left"></i> 在GitHub上搭建基于Hexo的静态Blog
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/27/2015-07-27-Markdown-Typora/" rel="prev" title="Typora:从此请叫我键盘侠">
+                Typora:从此请叫我键盘侠 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#条件语句-Conditionals"><span class="nav-number">1.</span> <span class="nav-text">条件语句(Conditionals)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#尤达表达式"><span class="nav-number">1.1.</span> <span class="nav-text">尤达表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nil-和-BOOL-检查"><span class="nav-number">1.2.</span> <span class="nav-text">nil 和 BOOL 检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黄金法则"><span class="nav-number">1.3.</span> <span class="nav-text">黄金法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂条件语句"><span class="nav-number">1.4.</span> <span class="nav-text">复杂条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三目运算符"><span class="nav-number">1.5.</span> <span class="nav-text">三目运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误处理"><span class="nav-number">1.6.</span> <span class="nav-text">错误处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Case-语句"><span class="nav-number">2.</span> <span class="nav-text">Case 语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举类型"><span class="nav-number">2.1.</span> <span class="nav-text">枚举类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名"><span class="nav-number">3.</span> <span class="nav-text">命名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#惯例"><span class="nav-number">3.1.</span> <span class="nav-text">惯例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">3.2.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字面量"><span class="nav-number">3.4.</span> <span class="nav-text">字面量</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/07/20/2015-07-20-Zen-OC-Art-1/';
+      var disqus_title = "禅与Objective-C编程艺术-1";
+      var disqus_url = 'http://joehill.me/2015/07/20/2015-07-20-Zen-OC-Art-1/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

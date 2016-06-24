@@ -1,0 +1,740 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Typora,Markdown," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Typora所见即所得的Markdown编辑器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typora:从此请叫我键盘侠">
+<meta property="og:url" content="http://joehill.me/2015/07/27/2015-07-27-Markdown-Typora/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="Typora所见即所得的Markdown编辑器">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/pic.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/example.gif">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/menubar.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/paragraph.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/format.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/title-font.gif">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/table.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/table-edit.jpg">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/code-fence.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/math-block.png">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/drag-image.gif">
+<meta property="og:updated_time" content="2015-08-11T15:45:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typora:从此请叫我键盘侠">
+<meta name="twitter:description" content="Typora所见即所得的Markdown编辑器">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/pic.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/07/27/2015-07-27-Markdown-Typora/"/>
+
+  <title> Typora:从此请叫我键盘侠 | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Typora:从此请叫我键盘侠
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-27T18:57:16+08:00" content="2015-07-27">
+              2015-07-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/27/2015-07-27-Markdown-Typora/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/27/2015-07-27-Markdown-Typora/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/pic.png" alt=""></p>
+<blockquote class="blockquote-center"><a href="http://typora.io/" target="_blank" rel="external">Typora</a><br><br>所见即所得的Markdown编辑器<br><br></blockquote>
+
+<a id="more"></a>
+<h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h2><p><a href="http://www.appinn.com/markdown/" target="_blank" rel="external">Markdown </a>作为一种标记型语言，从来不是为了取代 HTML 而存在的。其易读易写的宗旨是我持续使用这门标记语法的根本动力。当<a href="http://blog.wiz.cn/wiznote-mac.html" target="_blank" rel="external">为知笔记</a>支持 Markdown 语法之后，Markdown 就成为了我记笔记最常用的方法。最大的优点在于尽量减少鼠标去点击编辑栏添加各种样式的烦恼，大大提升书写效率。</p>
+<p>当然，<a href="https://github.com/" target="_blank" rel="external">GitHub</a> 的 <code>README.md</code> 对 Markdown 的推广功不可没。</p>
+<h2 id="Editor"><a href="#Editor" class="headerlink" title="Editor"></a>Editor</h2><p>Mac 下有多款 Markdown 编辑器。目前常用的有两款，一个是 <a href="http://25.io/mou/" target="_blank" rel="external">Mou</a>，另一个则是 <a href="http://pad.haroopress.com/" target="_blank" rel="external">Haroopad</a> 。两款编辑器都是左右布局，左侧显示编辑区域，右侧显示预览效果。虽然脖子不必跟着左右晃动，但是眼睛时常左顾右撇让我无法专注于书写内容。而且作为一个懒人，总是梦想着能有快捷键能快捷输入一些略微复杂的符号语法。</p>
+<p>直到我发现了 Typora 。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/example.gif" alt=""></p>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>Typora 的特性在于，无论是手动输入符号，还是快捷键插入，亦或是 MenuBar 手动点击，都可以实现内容效果的实时预览。</p>
+<p>Typora 的 MenuBar 提供了如下功能：</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/menubar.png" alt=""></p>
+<p>在 Paragraph 选项中，你可以找到与段落相关的常用标记</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/paragraph.png" alt=""></p>
+<p>在 Format 选项中，你可以找到关于格式的相关标记</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/format.png" alt=""></p>
+<h3 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h3><p>例如，当用户按下 <code>command + 1</code> 时，接下来键入的文本将会成为一级标题。最关键的是，只要光标所在的当前文本段按下对应字体样式的快捷键，就会自动调整。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/title-font.gif" alt=""></p>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>按下<code>command + T</code>会弹出一个选择行和列的对话框</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/table.png" alt=""></p>
+<p>选择好行和列就会出现之前需要较多符号租成的 table 了。 </p>
+<p>选中 table 会出现编辑行数和列数的选项，以及文本位置和删除表格的按钮。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/table-edit.jpg" alt=""></p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>按下<code>command + option + C</code>将会出现代码块输入框。键入代码后可以在下方选择代码语言以获得最佳的视觉效果。</p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/code-fence.png" alt=""></p>
+<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><p>按下<code>command + option + B</code>会出现公式输入框，例如要显示如下公式。</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><span class="line">f(<span class="keyword">x</span>)=<span class="keyword">x</span>^&#123;<span class="keyword">x</span><span class="symbol">^x</span>&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/math-block.png" alt=""></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p> 支持本地拖拽图片，快捷键<code>command + option + I</code></p>
+<p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-27-Markdown-Typora/drag-image.gif" alt=""></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>当有需求时正好被满足，这无疑是一件极为令人开心的事儿。Typora 对于我来说无异于雪中送炭。</p>
+<p>喜欢这类编辑模式的用户一定不要错过。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Typora/" rel="tag">#Typora</a>
+          
+            <a href="/tags/Markdown/" rel="tag">#Markdown</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/20/2015-07-20-Zen-OC-Art-1/" rel="next" title="禅与Objective-C编程艺术-1">
+                <i class="fa fa-chevron-left"></i> 禅与Objective-C编程艺术-1
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/02/2015-07-31-Zen-OC-Art-2/" rel="prev" title="禅与Objective-C编程艺术-2">
+                禅与Objective-C编程艺术-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown"><span class="nav-number">1.</span> <span class="nav-text">Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editor"><span class="nav-number">2.</span> <span class="nav-text">Editor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typora"><span class="nav-number">3.</span> <span class="nav-text">Typora</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#段落"><span class="nav-number">3.1.</span> <span class="nav-text">段落</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">3.2.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块"><span class="nav-number">3.3.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公式"><span class="nav-number">3.4.</span> <span class="nav-text">公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">3.5.</span> <span class="nav-text">图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">4.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/07/27/2015-07-27-Markdown-Typora/';
+      var disqus_title = "Typora:从此请叫我键盘侠";
+      var disqus_url = 'http://joehill.me/2015/07/27/2015-07-27-Markdown-Typora/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

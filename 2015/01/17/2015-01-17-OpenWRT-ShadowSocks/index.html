@@ -1,0 +1,878 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ShadowSocks,OpenWRT," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="难道不想冲破天际看看外面的样子吗?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenWRT与ShadowSocks">
+<meta property="og:url" content="http://joehill.me/2015/01/17/2015-01-17-OpenWRT-ShadowSocks/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="难道不想冲破天际看看外面的样子吗?">
+<meta property="og:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-01-17-OpenWRT-ShadowSocks/pic.jpeg">
+<meta property="og:updated_time" content="2015-08-10T11:33:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenWRT与ShadowSocks">
+<meta name="twitter:description" content="难道不想冲破天际看看外面的样子吗?">
+<meta name="twitter:image" content="http://7xkgg5.com1.z0.glb.clouddn.com/2015-01-17-OpenWRT-ShadowSocks/pic.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2015/01/17/2015-01-17-OpenWRT-ShadowSocks/"/>
+
+  <title> OpenWRT与ShadowSocks | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                OpenWRT与ShadowSocks
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-17T19:33:18+08:00" content="2015-01-17">
+              2015-01-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/17/2015-01-17-OpenWRT-ShadowSocks/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/17/2015-01-17-OpenWRT-ShadowSocks/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-01-17-OpenWRT-ShadowSocks/pic.jpeg" alt="pic"></p>
+<blockquote class="blockquote-center">难道不想冲破天际<br><br>看看外面的样子吗?<br><br></blockquote>
+
+<a id="more"></a>
+<h2 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h2><ul>
+<li>一台OpenWRT路由器</li>
+<li><code>ShadowSocks</code></li>
+<li><code>luci-app-shadowsocks-spec</code></li>
+<li><code>pdnsd</code></li>
+<li><code>dnsmasq-full</code></li>
+<li><code>ipset</code>,<code>iptables</code></li>
+</ul>
+<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
+<li>OpenWRT,嵌入式Linux发行版.非传统静态系统</li>
+<li><code>ShadowSocks</code>,代理通道</li>
+<li><code>luci-app-shadowsocks-spec</code>,在OpeWRT上为SS准备的图形配置界面</li>
+<li><code>pdnsd</code>,缓存DNS代理服务器</li>
+<li><code>DNSmasq</code>,把地址-域名映射关系放入cache中</li>
+<li><code>ipset</code>,<code>iptables</code>,配置域名标记</li>
+</ul>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ul>
+<li>刷OpenWRT不在本文支持范围</li>
+<li>ShadowSocks,采用<a href="http://sourceforge.net/projects/openwrt-dist/files/shadowsocks-libev/2.1.4-87ec497/ar71xx/" target="_blank" rel="external">aa65535</a>编译版本.选择对应CPU下载.</li>
+<li><a href="http://sourceforge.net/projects/openwrt-dist/files/luci-app/shadowsocks-spec/" target="_blank" rel="external">luci-app-shadowsocks-spec</a>,pdnsd,DNSmasq,ipset,iptables皆由<code>opkg</code>获取</li>
+</ul>
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go!"></a>Go!</h2><h3 id="opkg"><a href="#opkg" class="headerlink" title="opkg"></a>opkg</h3><p><code>opkg</code>是OpenWRT内置的<code>source</code></p>
+<p><strong>Manipulation</strong> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">update</td>
+<td>Update list of available packages</td>
+</tr>
+<tr>
+<td style="text-align:left">upgrade <code>&lt;pkgs&gt;</code></td>
+<td>Upgrade packages</td>
+</tr>
+<tr>
+<td style="text-align:left">install <code>&lt;pkgs&gt;</code></td>
+<td>Install package(s)</td>
+</tr>
+<tr>
+<td style="text-align:left">configure <code>&lt;pkgs&gt;</code></td>
+<td>Configure unpacked package(s)</td>
+</tr>
+<tr>
+<td style="text-align:left">remove <code>&lt;pkgs&gt;</code></td>
+<td>Remove package(s)</td>
+</tr>
+<tr>
+<td style="text-align:left">flag <code>&lt;flag&gt; &lt;pkgs&gt;</code></td>
+<td>Flag package(s)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Informational Commands</strong></p>
+<table>
+<thead>
+<tr>
+<th>Informational Commands</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list</td>
+<td>List available packages</td>
+</tr>
+<tr>
+<td>list-installed</td>
+<td>List installed packages</td>
+</tr>
+<tr>
+<td>list-upgradable</td>
+<td>List installed and upgradable packages</td>
+</tr>
+<tr>
+<td>list-changed-conffiles</td>
+<td>List user modified configuration files</td>
+</tr>
+<tr>
+<td>files <code>&lt;pkg&gt;</code></td>
+<td>List files belonging to <code>&lt;pkg&gt;</code></td>
+</tr>
+<tr>
+<td>search <code>&lt;file&gt;</code></td>
+<td>List package providing <code>&lt;file&gt;</code></td>
+</tr>
+<tr>
+<td>find <code>&lt;regexp&gt;</code></td>
+<td>List packages whose name or description matches</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pdnsd"><a href="#pdnsd" class="headerlink" title="pdnsd"></a>pdnsd</h3><p>ssh登入你的路由器</p>
+<pre><code>opkg update    //    安装前务必update最新的list
+
+opkg install pdnsd
+
+cd /etc
+
+vi pdnsd.conf
+</code></pre><p>配置下段代码</p>
+<pre><code>global {
+
+    perm_cache=1024;
+
+    cache_dir=&quot;/var/pdnsd&quot;;
+
+    run_as=&quot;nobody&quot;;
+
+    server_port = 1053;
+
+    server_ip = 127.0.0.1;
+
+    status_ctl = on;
+
+    query_method=tcp_only;
+
+    min_ttl=15m;
+
+    max_ttl=1w;
+
+    timeout=10;
+
+}
+
+server {
+
+    label= &quot;googledns&quot;;
+
+    ip = 8.8.8.8;
+
+    root_server = on;
+
+    uptest = none;
+
+}
+</code></pre><p><code>server_port = 1053;</code>使用1053端口.</p>
+<p><code>query_method=tcp_only;</code>只用tcp转发</p>
+<p><code>ip = 8.8.8.8;</code>转发ip</p>
+<p>设置开机启动</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><span class="line">/etc/init.<span class="keyword">d</span>/pdnsd enable</span><br><span class="line">/etc/init.<span class="keyword">d</span>/pdnsd restart</span><br></pre></td></tr></table></figure>
+<p>至此,pdnsd配置完毕</p>
+<h3 id="DNSmasq-amp-ipset"><a href="#DNSmasq-amp-ipset" class="headerlink" title="DNSmasq&amp;ipset"></a>DNSmasq&amp;ipset</h3><p>ssh登入你的路由器</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">opkg <span class="keyword">update</span></span><br><span class="line">opkg <span class="keyword">list</span>-installed</span><br><span class="line">dnsmasq -v</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Dnsmasq version 2.71  Copyright (c) 2000-2014 Simon Kelley</p>
+</blockquote>
+<p>Compile time options: IPv6 GNU-getopt no-DBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack ipset auth DNSSEC</p>
+<p><code>ipset</code>即为支持ipset.如果不支持,请卸载当前dnsmasq,安装full版</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">opkg remove dnsmasq</span><br><span class="line">opkg <span class="keyword">install</span> dnsmasq-<span class="keyword">full</span></span><br><span class="line">opkg <span class="keyword">install</span> ipset iptables-<span class="keyword">mod</span>-nat-extra</span><br></pre></td></tr></table></figure>
+<p>安装完毕后</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> /etc</span><br><span class="line"><span class="keyword">vi</span> dnsmasq.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>最后一行,加入</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">conf</span>-<span class="keyword">dir</span>=/etc/dnsmasq.<span class="built_in">d</span></span><br></pre></td></tr></table></figure>
+<p>为保持代码整洁,在<code>etc</code>下新建<code>dnsmasq.d</code>文件夹,在<code>dnsmasq.d</code>下新建新的<code>conf</code>,在此暂命名为<code>fuckgfw.conf</code></p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/dnsmasq.d/fuckgfw.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>插入代码</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">server=/<span class="selector-class">.live</span><span class="selector-class">.com</span>/<span class="number">127.0</span>.<span class="number">0.1</span><span class="number">#105</span>3</span><br><span class="line">ipset=/<span class="selector-class">.live</span><span class="selector-class">.com</span>/fuckgfw</span><br></pre></td></tr></table></figure>
+<p><code>server=/.live.com/127.0.0.1#1053</code>代表将live.com转发1053端口,即之前配置好的pdnsd</p>
+<p><code>ipset=/.live.com/fuckgfw</code>代表为改域名打上fuckgfw标记,缓存DNS至ip</p>
+<p><code>fuckgfw</code>标记在<code>iptables</code>中用到</p>
+<p>至此,DNSmasq和ipset配置完毕</p>
+<h3 id="ShadowSocks与Luci-ShadowSocks"><a href="#ShadowSocks与Luci-ShadowSocks" class="headerlink" title="ShadowSocks与Luci-ShadowSocks"></a>ShadowSocks与Luci-ShadowSocks</h3><p>将<a href="http://sourceforge.net/projects/openwrt-dist/files/shadowsocks-libev/2.1.4-87ec497/ar71xx/" target="_blank" rel="external">aa65535</a>编译好的ipk传至路由器<code>/tmp</code>下</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg <span class="keyword">install </span><span class="keyword">shadowsocks</span><br><span class="line"></span>opkg <span class="keyword">install </span>luci-app-<span class="keyword">shadowsocks-spec</span></span><br></pre></td></tr></table></figure>
+<p>在路由器的图形界面配置ShadowSocks对应参数.</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"服务器地址"</span>,</span><br><span class="line">    <span class="string">"server_port"</span>:<span class="number">8888</span>, <span class="meta">#服务器端口</span></span><br><span class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>, <span class="meta">#本地sock5代理端口</span></span><br><span class="line">    <span class="string">"password"</span>:<span class="string">"1111"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置开机启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<h3 id="ipset-amp-iptables"><a href="#ipset-amp-iptables" class="headerlink" title="ipset&amp;iptables"></a>ipset&amp;iptables</h3><p>先用<code>ipset</code>创建一个<code>set</code>,此处创建的名字为<code>fuckgfw</code>,然后将此set中所有ip都转发到ShadowSocks监听的1080端口.</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">ipset -N fuckgfw iphash</span><br><span class="line">iptables -t nat -A PREROUTING -p tcp -m <span class="keyword">set</span> --match-<span class="keyword">set</span> <span class="comment">fuckgfw dst -j REDIRECT --to-port 1080</span></span><br></pre></td></tr></table></figure>
+<p>建议将上述代码写入<code>/etc/rc.local</code>.每次开机自动运行.</p>
+<p>重启DNSmasq</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><span class="line">/etc/init.<span class="keyword">d</span>/dnsmasq restart</span><br></pre></td></tr></table></figure>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><p>通过下面的命令查看<code>set</code>中的IP，这样可以确定解析是否正常，并且查看某网站是否正确的被加到了ipset</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">ipset <span class="built_in">list</span> fuckgfw</span><br></pre></td></tr></table></figure>
+<p>通过下面的命令可以清理掉<code>set</code>中所有ip</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">ipset <span class="built_in">flush</span> fuckgfw</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ShadowSocks/" rel="tag">#ShadowSocks</a>
+          
+            <a href="/tags/OpenWRT/" rel="tag">#OpenWRT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/20/2015-04-20-Xcode-Debugger/" rel="prev" title="如何让 Xcode 的 Debugger 灵活一点？">
+                如何让 Xcode 的 Debugger 灵活一点？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe" />
+          <p class="site-author-name" itemprop="name">Joe</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirement"><span class="nav-number">1.</span> <span class="nav-text">Requirement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What"><span class="nav-number">2.</span> <span class="nav-text">What</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How"><span class="nav-number">3.</span> <span class="nav-text">How</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go"><span class="nav-number">4.</span> <span class="nav-text">Go!</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#opkg"><span class="nav-number">4.1.</span> <span class="nav-text">opkg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pdnsd"><span class="nav-number">4.2.</span> <span class="nav-text">pdnsd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNSmasq-amp-ipset"><span class="nav-number">4.3.</span> <span class="nav-text">DNSmasq&ipset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ShadowSocks与Luci-ShadowSocks"><span class="nav-number">4.4.</span> <span class="nav-text">ShadowSocks与Luci-ShadowSocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ipset-amp-iptables"><span class="nav-number">4.5.</span> <span class="nav-text">ipset&iptables</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debug"><span class="nav-number">5.</span> <span class="nav-text">Debug</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2015/01/17/2015-01-17-OpenWRT-ShadowSocks/';
+      var disqus_title = "OpenWRT与ShadowSocks";
+      var disqus_url = 'http://joehill.me/2015/01/17/2015-01-17-OpenWRT-ShadowSocks/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
