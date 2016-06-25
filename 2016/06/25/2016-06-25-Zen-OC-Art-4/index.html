@@ -1,0 +1,880 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="禅与Objective-C编程艺术,Objective-C," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://blog.joehill.me/Avatar/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅与Objective-C编程艺术-4(翻译中)">
+<meta property="og:url" content="http://joehill.me/2016/06/25/2016-06-25-Zen-OC-Art-4/index.html">
+<meta property="og:site_name" content="Joe's Room">
+<meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
+<meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
+<meta property="og:image" content="http://joehill.me/./images/blocks_debugger.png">
+<meta property="og:updated_time" content="2016-06-25T14:00:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="禅与Objective-C编程艺术-4(翻译中)">
+<meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
+<meta name="twitter:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://joehill.me/2016/06/25/2016-06-25-Zen-OC-Art-4/"/>
+
+  <title> 禅与Objective-C编程艺术-4(翻译中) | Joe's Room </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41f2ac3e7c22ef73384421800c11b369";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Joe's Room</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                禅与Objective-C编程艺术-4(翻译中)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-25T21:49:12+08:00" content="2016-06-25">
+              2016-06-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Translation/" itemprop="url" rel="index">
+                    <span itemprop="name">Translation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/25/2016-06-25-Zen-OC-Art-4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/25/2016-06-25-Zen-OC-Art-4/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg" alt=""></p>
+<blockquote class="blockquote-center">编程和「禅」有关系吗?<br><br><a href="https://github.com/objc-zen/objc-zen-book" target="_blank" rel="external">Zen and the Art of the Objective-C Craftsmanship</a>译文兼笔记<br><br>本章包含规范：对象通讯、代理和数据源、AOP<br><br></blockquote>
+
+<a id="more"></a>
+<h1 id="Inter-Object-Communication"><a href="#Inter-Object-Communication" class="headerlink" title="Inter-Object Communication"></a>Inter-Object Communication</h1><p>Every non-trivial software is based on objects that need to communicate with each other to meet complex goals. This chapter is about design concepts going first into deep explanations on how the armory will achieve great architectures works and how it should be used.</p>
+<h2 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h2><p>Blocks are the Objective-C version of well-knows constructs called lambdas or closures available in other languages for many years now.</p>
+<p>They are a great way to design asynchronous APIs as so:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)downloadObjectsAtPath:(NSString *)path</span><br><span class="line">                   completion:(void(^)(NSArray *objects, NSError *error))completion;</span><br></pre></td></tr></table></figure>
+<p>When designing something like the above, try to declare functions and methods to take no more than one block and always make the blocks be the last arguments. It is a good approach to try to combine data and error in one block instead of two separate blocks (usually one for the success and one for the failure).</p>
+<p>You should do this because:</p>
+<ul>
+<li>Usually there are part of code that are shared between them (i.e. dismiss a progress or an activity indicator);</li>
+<li>Apple is doing the same, and it is always good to be consistent with the platform;</li>
+<li>Since Blocks are typically multiple lines of code, having the block be other than the last argument would break up the call site[1];</li>
+<li>Taking more than one block as arguments would make the call site potentially unwieldy in length. It also introduces complexity[1].</li>
+</ul>
+<p>Consider the above method, the signature of the completion block is very common: the first parameter regards the data the caller is interested in, the second parameter is the error encountered. The contract should be therefore as follow:</p>
+<ul>
+<li>if <code>objects</code> is not nil, then <code>error</code> must be nil</li>
+<li>if <code>objects</code> is nil, then <code>error</code> must not be nil</li>
+</ul>
+<p>as the caller of this method is first interested in the actual data, an implementation like so is preferred:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)downloadObjectsAtPath:(NSString *)path</span><br><span class="line">                   completion:(void(^)(NSArray *objects, NSError *error))completion &#123;</span><br><span class="line">    if (objects) &#123;</span><br><span class="line">        // do something with the data</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // some error occurred, &apos;error&apos; variable should not be nil by contract</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Moreover, as for synchronous methods, some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so checking the error can cause false positives.</p>
+<h3 id="Under-the-Hood"><a href="#Under-the-Hood" class="headerlink" title="Under the Hood"></a>Under the Hood</h3><p>Some key points:</p>
+<ul>
+<li>Blocks are created on the stack</li>
+<li>Blocks can be copied to the heap</li>
+<li>Blocks have their own private const copies of stack variables (and pointers)</li>
+<li>Mutable stack variables and pointers must be declared with the __block keyword</li>
+</ul>
+<p>If blocks aren’t kept around anywhere, will remain on the stack and will go away when their stack frame returns. While on the stack, a block has no effect on the storage or lifetime of anything it accesses. If blocks need to exist after the stack frame returns, they can be copied to the heap and this action is an explicit operation. This way, a block will gain reference-counting as all objects in Cocoa. When they are copied, they take their captured scope with them, retaining any objects they refer. If a block references a stack variable or pointer, then when the block is initialized it is given its own copy of that variable declared const, so assignments won’t work. When a block is copied, the <code>__block</code> stack variables it reference are copied to the heap and after the copy operation both block on the stack and brand new block on the heap refer to the variables on the heap.</p>
+<p>LLDB shows that a block is a nice piece of things.</p>
+<p><img src="./images/blocks_debugger.png" alt=""></p>
+<p>The most important thing to note is that <code>__block</code> variables and pointers are treated inside the block as structs that obviously handle the reference to the real value/object.</p>
+<p>Blocks are first-class citizens in the Objective-C runtime: they have an <code>isa</code> pointer which defines a class through which the Objective-C runtime can access methods and storage. In a non-ARC environment you can mess things up for sure, and cause crashes due to dangling pointers. <code>__block</code> applies only when using the variables in the block, it simply says to the block:</p>
+<blockquote>
+<p>Hey, this pointer or primitive type relies on the stack with its own address. Please refer to this little friend with a new variable on the stack. I mean… refer to the object with double dereference, and don’t retain it.<br>Thank you, sir.</p>
+</blockquote>
+<p>If at some time after the declaration but before the invocation of the block, the object has been released and deallocated, the execution of the block will cause a crash. <code>__block</code> variables are not retained within the block. In the deep end… it’s all about pointers, references, dereferences and retain count stuff.</p>
+<h3 id="Retain-cycles-on-self"><a href="#Retain-cycles-on-self" class="headerlink" title="Retain cycles on self"></a>Retain cycles on self</h3><p>It’s important not to get into retain cycles when using blocks and asynchronous dispatches. Always set a <code>weak</code> reference to any variable that could cause a retain cycle. Moreover, it is a good practice to nil the properties holding the blocks (i.e. <code>self.completionBlock = nil</code>) this will break potential retain cycle introduced by the block capturing the scope. </p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak __typeof(self) weakSelf = self;</span><br><span class="line">[self executeBlock:^(NSData *data, NSError *error) &#123;</span><br><span class="line">    [weakSelf doSomethingWithData:data];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p><strong>Not:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[self executeBlock:^(NSData *data, NSError *error) &#123;</span><br><span class="line">    [self doSomethingWithData:data];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p><strong>Example with multiple statements:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak __typeof(self)weakSelf = self;</span><br><span class="line">[self executeBlock:^(NSData *data, NSError *error) &#123;</span><br><span class="line">    __strong __typeof(weakSelf) strongSelf = weakSelf;</span><br><span class="line">    if (strongSelf) &#123;</span><br><span class="line">        [strongSelf doSomethingWithData:data];</span><br><span class="line">        [strongSelf doSomethingWithData:data];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p><strong>Not:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak __typeof(self)weakSelf = self;</span><br><span class="line">[self executeBlock:^(NSData *data, NSError *error) &#123;</span><br><span class="line">    [weakSelf doSomethingWithData:data];</span><br><span class="line">    [weakSelf doSomethingWithData:data];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>You should add these two lines as snippets to Xcode and always use them exactly like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak __typeof(self)weakSelf = self;</span><br><span class="line">__strong __typeof(weakSelf)strongSelf = weakSelf;</span><br></pre></td></tr></table></figure>
+<p>Here we dig further about the subtle things to consider about the <code>__weak</code> and the <code>__strong</code> qualifiers for self inside blocks. To summarize, we can refer to self in three different ways inside a block:</p>
+<ol>
+<li>using the keyword <code>self</code> directly inside the block</li>
+<li>declaring a <code>__weak</code> reference to self outside the block and referring to the object via this weak reference inside the block</li>
+<li>declaring a <code>__weak</code> reference to self outside the block and creating a <code>__strong</code> reference to self using the weak reference inside the block</li>
+</ol>
+<p><strong>Case 1: using the keyword <code>self</code> inside a block</strong></p>
+<p>If we use directly the keyword <code>self</code> inside a block, the object is retained at block declaration time within the block (actually when the block is <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/Blocks/Articles/bxVariables.html#//apple_ref/doc/uid/TP40007502-CH6-SW4" target="_blank" rel="external">copied</a> but for sake of simplicity we can forget about it) . A const reference to self has its place inside the block and this affects the reference counting of the object. If the block is used by other classes and/or passed around we may want to retain self as well as all the other objects used by the block since they are <em>needed</em> for the execution of the block. </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dispatch_block_t completionBlock = ^&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyViewController *myController = [[MyViewController alloc] init...];</span><br><span class="line">[self presentViewController:myController</span><br><span class="line">                   animated:YES</span><br><span class="line">                 completion:completionHandler];</span><br></pre></td></tr></table></figure>
+<p>No big deal. But… what if the block is retained by self in a property (as the following example) and therefore the object (self) retains the block?</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.completionHandler = ^&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyViewController *myController = [[MyViewController alloc] init...];</span><br><span class="line">[self presentViewController:myController</span><br><span class="line">                   animated:YES</span><br><span class="line">                 completion:self.completionHandler];</span><br></pre></td></tr></table></figure>
+<p>This is what is well known as a retain cycle and retain cycles usually should be avoided. The warning we receive from CLANG is:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Capturing &apos;self&apos; strongly in this block is likely to lead to a retain cycle</span><br></pre></td></tr></table></figure>
+<p>Here comes in the <code>__weak</code> qualifier.</p>
+<p><strong>Case 2: declaring a <code>__weak</code> reference to self outside the block and use it inside the block</strong></p>
+<p>Declaring a <code>__weak</code> reference to self outside the block and referring to it via this weak reference inside the block avoids retain cycles. This is what we usually want to do if the block is already retained by self in a property.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">self.completionHandler = ^&#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;, weakSelf);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyViewController *myController = [[MyViewController alloc] init...];</span><br><span class="line">[self presentViewController:myController</span><br><span class="line">                   animated:YES</span><br><span class="line">                 completion:self.completionHandler];</span><br></pre></td></tr></table></figure>
+<p>In this example the block does not retain the object and the object retains the block in a property. Cool. We are sure that we can refer to self safely, at worst, it is nilled out by someone. The question is: how is it possible for self to be “destroyed” (deallocated) within the scope of a block?</p>
+<p>Consider the case of a block being copied from an object to another (let’s say myController) as a result of the assignment of a property. The former object is then released before the copied block has had a chance to execute.</p>
+<p>The next step is interesting.</p>
+<p><strong>Case 3: declaring a <code>__weak</code> reference to self outside the block and use a <code>__strong</code> reference inside the block</strong></p>
+<p>You may think, at first, this is a trick to use self inside the block avoiding the retain cycle warning. This is not the case. The strong reference to self is created at <em>block execution time</em> while using self in the block is evaluated at <em>block declaration time</em>, thus retaining the object.</p>
+<p><a href="http://developer.apple.com/library/mac/#releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank" rel="external">Apple documentation</a> reports that “For non-trivial cycles, however, you should use” this approach: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyViewController *myController = [[MyViewController alloc] init...];</span><br><span class="line">// ...</span><br><span class="line">MyViewController * __weak weakMyController = myController;</span><br><span class="line">myController.completionHandler =  ^(NSInteger result) &#123;</span><br><span class="line">    MyViewController *strongMyController = weakMyController;</span><br><span class="line">    if (strongMyController) &#123;</span><br><span class="line">        // ...</span><br><span class="line">        [strongMyController dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // Probably nothing...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>First of all, this example looks wrong to me. How can self be deallocated and be nilled out if the block itself is retained in the <code>completionHandler</code> property? The <code>completionHandler</code> property can be declared as <code>assign</code> or <code>unsafe_unretained</code> to allow the object to be deallocated after the block is passed around.<br>I can’t see the reason for doing that. If other objects need the object (self), the block that is passed around should retain the object and therefore the block should not be assigned to a property. No <code>__weak</code>/<code>__strong</code> usage should be involved in this case.</p>
+<p>Anyway, in other cases it is possible for weakSelf to become nil just like the second case explained (declaring a weak reference outside the block and use it inside). </p>
+<p>Moreover, what is the meaning of “trivial block” for Apple? It is my understanding that a trivial block is a block that is not passed around, it’s used within a well defined and controlled scope and therefore the usage of the weak qualifier is just to avoid a retain cycle.</p>
+<p>As <a href="http://dhoerl.wordpress.com/2013/04/23/i-finally-figured-out-weakself-and-strongself/" target="_blank" rel="external">a</a> <a href="http://blog.random-ideas.net/?p=160" target="_blank" rel="external">lot</a> <a href="http://stackoverflow.com/questions/7904568/disappearing-reference-to-self-in-a-block-under-arc" target="_blank" rel="external">of</a> <a href="http://stackoverflow.com/questions/12218767/objective-c-blocks-and-memory-management" target="_blank" rel="external">online</a> <a href="https://github.com/AFNetworking/AFNetworking/issues/807" target="_blank" rel="external">references</a>, books (<a href="http://www.effectiveobjectivec.com/" target="_blank" rel="external">Effective Objective-C 2.0</a> by <a href="https://twitter.com/mattjgalloway" target="_blank" rel="external">Matt Galloway</a> and <a href="http://www.amazon.it/Pro-Multithreading-Memory-Management-Ios/dp/1430241160" target="_blank" rel="external">Pro Multithreading and Memory Management for iOS and OS X</a> by Kazuki Sakamoto &amp; Tomohiko Furumoto) discuss this edge case, the topic is not well understood yet by the majority of the developers.</p>
+<p>The real benefit of using the strong reference inside of a block is to be robust to preemption. Going again through the above 3 cases, during the execution of a block:</p>
+<p><strong>Case 1: using the keyword <code>self</code> inside a block</strong></p>
+<p>If the block is retained by a property, a retain cycle is created between self and the block and both objects can’t be destroyed anymore. If the block is passed around and copied by others, self is retained for each copy.</p>
+<p><strong>Case 2: declaring a <code>__weak</code> reference to self outside the block and use it inside the block</strong></p>
+<p>There is no retain cycle and no matter if the block is retained or not by a property. If the block is passed around and copied by others, when executed, weakSelf can have been turned nil.<br>The execution of the block can be preempted and different subsequent evaluations of the weakSelf pointer can lead to different values (i.e. weakSelf can become nil at a certain evaluation).</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">dispatch_block_t block =  ^&#123;</span><br><span class="line">    [weakSelf doSomething]; // weakSelf != nil</span><br><span class="line">    // preemption, weakSelf turned nil</span><br><span class="line">    [weakSelf doSomethingElse]; // weakSelf == nil</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Case 3: declaring a <code>__weak</code> reference to self outside the block and use a <code>__strong</code> reference inside the block</strong></p>
+<p>There is no retain cycle and, again, no matter if the block is retained or not by a property. If the block is passed around and copied by others, when executed, <code>weakSelf</code> can have been turned nil. When the strong reference is assigned and it is not nil, we are sure that the object is retained for the entire execution of the block if preemption occurs and therefore subsequent evaluations of strongSelf will be consistent and will lead to the same value since the object is now retained. If strongSelf evaluates to nil usually the execution is returned since the block cannot execute properly.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">myObj.myBlock =  ^&#123;</span><br><span class="line">    __strong typeof(self) strongSelf = weakSelf;</span><br><span class="line">    if (strongSelf) &#123;</span><br><span class="line">      [strongSelf doSomething]; // strongSelf != nil</span><br><span class="line">      // preemption, strongSelf still not nil</span><br><span class="line">      [strongSelf doSomethingElse]; // strongSelf != nil</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // Probably nothing...</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>In an ARC-based environment, the compiler itself alerts us with an error if trying to access an instance variable using the <code>-&gt;</code> notation. The error is very clear:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Dereferencing a __weak pointer is not allowed due to possible null value caused by race condition, assign it to a strong variable first.</span><br></pre></td></tr></table></figure>
+<p>It can be shown with the following code:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak typeof(self) weakSelf = self;</span><br><span class="line">myObj.myBlock =  ^&#123;</span><br><span class="line">    id localVal = weakSelf-&gt;someIVar;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>In the very end:</p>
+<ul>
+<li><strong>Case 1</strong>: should be used only when the block is not assigned to a property, otherwise it will lead to a retain cycle.</li>
+<li><strong>Case 2</strong>: should be used when the block is assigned to a property.</li>
+<li><strong>Case 3</strong>: it is related to concurrent executions. When asynchronous services are involved, the blocks that are passed to them can be executed at a later period and there is no certainty about the existence of the self object.</li>
+</ul>
+<h2 id="Delegate-and-DataSource"><a href="#Delegate-and-DataSource" class="headerlink" title="Delegate and DataSource"></a>Delegate and DataSource</h2><p>Delegation is a widespread pattern throughout Apple’s frameworks and it is one of the most important patterns in the Gang of Four’s book “Design Patterns”. The delegation pattern is unidirectional, the message sender (the delegant) needs to know about the recipient (the delegate), but not the other way around. The coupling between the objects is loosen the sender only knows that its delegate conforms to a specific protocol.</p>
+<p>In its pure form, delegation is about providing callbacks to the delegate, which means that the delegate implements a set of methods with void return type.</p>
+<p>Unfortunately this has not been respected over years by the APIs from Apple and therefore developers acted imitating this misleading approach. A classic example is the <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UITableViewDelegate_Protocol/Reference/Reference.html" target="_blank" rel="external">UITableViewDelegate</a> protocol.</p>
+<p>While some methods have void return type and look like callbacks:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath;</span><br></pre></td></tr></table></figure>
+<p>others are definitely not:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender;</span><br></pre></td></tr></table></figure>
+<p>When the delegant asks for some kind of information to the delegate object, the direction implied is from the delegate to the delegant and to the other way around anymore. This is conceptually different and a new name should be use to describe the pattern: DataSource.</p>
+<p>One could argue that Apple has a <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UITableViewDataSource_Protocol/Reference/Reference.html" target="_blank" rel="external">UITableViewDataSouce</a> protocol for it (forced under the name of the delegate pattern) but in reality it is used for methods providing information about how the real data should be presented.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;</span><br><span class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;</span><br></pre></td></tr></table></figure>
+<p>Moreover, in the above 2 methods Apple mixed the presentation layer with the data layer which is clearly ugly and in the end very few developers felt bad about it over times and even here we’ll call delegate methods both methods with void return type and not void for simplicity.</p>
+<p>To split the concepts, the following approach should be used:</p>
+<ul>
+<li>delegate pattern: when the delegant needs to notify the delegate about event occurred</li>
+<li>datasource pattern: when the delegant needs to fetch information from the datasource object</li>
+</ul>
+<p>Here is a concrete example:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@class ZOCSignUpViewController;</span><br><span class="line"></span><br><span class="line">@protocol ZOCSignUpViewControllerDelegate &lt;NSObject&gt;</span><br><span class="line">- (void)signUpViewControllerDidPressSignUpButton:(ZOCSignUpViewController *)controller;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@protocol ZOCSignUpViewControllerDataSource &lt;NSObject&gt;</span><br><span class="line">- (ZOCUserCredentials *)credentialsForSignUpViewController:(ZOCSignUpViewController *)controller;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@protocol ZOCSignUpViewControllerDataSource &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@interface ZOCSignUpViewController : UIViewController</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak) id&lt;ZOCSignUpViewControllerDelegate&gt; delegate;</span><br><span class="line">@property (nonatomic, weak) id&lt;ZOCSignUpViewControllerDataSource&gt; dataSource;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>Delegate methods should be always have the caller as first parameter as in the above example otherwise delegate objects could not be able to distinguish between different instances of delegants. In other words, if the caller is not passed to the delegate object, there would be no way for any delegate to deal with 2 delegant object. So, following is close to blasphemy:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)calculatorDidCalculateValue:(CGFloat)value;</span><br></pre></td></tr></table></figure>
+<p>By default, methods in protocols are required to be implemented by delegate objects. It is possible to mark some of them as optional and to be explicit about the required method using the <code>@required</code> and <code>@optional</code> keywords as so: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@protocol ZOCSignUpViewControllerDelegate &lt;NSObject&gt;</span><br><span class="line">@required</span><br><span class="line">- (void)signUpViewController:(ZOCSignUpViewController *)controller didProvideSignUpInfo:(NSDictionary *);</span><br><span class="line">@optional</span><br><span class="line">- (void)signUpViewControllerDidPressSignUpButton:(ZOCSignUpViewController *)controller;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>For optional methods, the delegant must check if the delegate actually implements a specific method before sending the message to it (otherwise a crash would occur) as so:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if ([self.delegate respondsToSelector:@selector(signUpViewControllerDidPressSignUpButton:)]) &#123;</span><br><span class="line">    [self.delegate signUpViewControllerDidPressSignUpButton:self];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>Sometimes you may need to override delegate methods. Consider the case of having two UIViewController subclasses: UIViewControllerA and UIViewControllerB, with the following class hierarchy.</p>
+<p><code>UIViewControllerB &lt; UIViewControllerA &lt; UIViewController</code></p>
+<p><code>UIViewControllerA</code> conforms to <code>UITableViewDelegate</code> and implements <code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath</code>.</p>
+<p>You want to provide a different implementation for the method above in <code>UIViewControllerB</code>. An implementation like the following will work:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line">    CGFloat retVal = 0;</span><br><span class="line">    if ([super respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)]) &#123;</span><br><span class="line">        retVal = [super tableView:self.tableView heightForRowAtIndexPath:indexPath];</span><br><span class="line">    &#125;</span><br><span class="line">    return retVal + 10.0f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>But what if the given method was not implemented in the superclass (<code>UIViewControllerA</code>)?</p>
+<p>The invocation</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[super respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)]</span><br></pre></td></tr></table></figure>
+<p>will use the NSObject’s implementation that will lookup, under the hood, in the context of <code>self</code> and clearly self implements the method but the app will crash at the next line with the following error:</p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[UIViewControllerB tableView:heightForRowAtIndexPath:]: unrecognized selector sent to<span class="built_in"> instance </span>0x8d82820'</span><br></pre></td></tr></table></figure>
+<p>In this case we need to ask if instances of a specific class can respond to a given selector. The following code would do the trick:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</span><br><span class="line">    CGFloat retVal = 0;</span><br><span class="line">    if ([[UIViewControllerA class] instancesRespondToSelector:@selector(tableView:heightForRowAtIndexPath:)]) &#123;</span><br><span class="line">        retVal = [super tableView:self.tableView heightForRowAtIndexPath:indexPath];</span><br><span class="line">    &#125;</span><br><span class="line">    return retVal + 10.0f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As code as the one above is ugly, often it’d be better to design the architecture in a way that delegate methods don’t need to be overridden.</p>
+<h3 id="Multiple-Delegation"><a href="#Multiple-Delegation" class="headerlink" title="Multiple Delegation"></a>Multiple Delegation</h3><p>Multiple delegation is a very fundamental concept that, unfortunately, the majority of developers are hardly familiar with and too often NSNotifications are used instead. As you may have noticed, delegation and datasource are inter-object communication pattern involving only 2 objects: 1 delegant and 1 delegate.</p>
+<p>DataSource pattern is forced to be 1 to 1 as the information the sender asks for can be provided by one and only one object. Things are different for the delegate pattern and it would be perfectly reasonable to have many delegate objects waiting for the callbacks.</p>
+<p>There are cases where at least 2 objects are interested in receiving the callbacks from a particular delegant and the latter wants to know all of its delegates. This approach maps better a distributed system and more generically how complex flows of information usually go in wide software.</p>
+<p>Multiple delegation can be achieved in many ways and the reader is dared to find a proper personal implementation. A very neat implementation of multiple delegation using the forward mechanism is given by Luca Bernardi in his <a href="https://github.com/lukabernardi/LBDelegateMatrioska" target="_blank" rel="external">LBDelegateMatrioska</a>.</p>
+<p>A basic implementation is given here to unfold the concept. Even if in Cocoa there are ways to store weak references in a data structure to avoid retain cycles, here we use a class to hold a weak reference to the delegate object as single delegation does.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface ZOCWeakObject : NSObject</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak, readonly) id object;</span><br><span class="line"></span><br><span class="line">+ (instancetype)weakObjectWithObject:(id)object;</span><br><span class="line">- (instancetype)initWithObject:(id)object;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@interface ZOCWeakObject ()</span><br><span class="line">@property (nonatomic, weak) id object;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ZOCWeakObject</span><br><span class="line"></span><br><span class="line">+ (instancetype)weakObjectWithObject:(id)object &#123;</span><br><span class="line">    return [[[self class] alloc] initWithObject:object];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithObject:(id)object &#123;</span><br><span class="line">    if ((self = [super init])) &#123;</span><br><span class="line">        _object = object;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isEqual:(id)object &#123;</span><br><span class="line">    if (self == object) &#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (![object isKindOfClass:[object class]]) &#123;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return [self isEqualToWeakObject:(ZOCWeakObject *)object];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isEqualToWeakObject:(ZOCWeakObject *)object &#123;</span><br><span class="line">    if (!object) &#123;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BOOL objectsMatch = [self.object isEqual:object.object];</span><br><span class="line">    return objectsMatch;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSUInteger)hash &#123;</span><br><span class="line">    return [self.object hash];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>A simple component using weak objects to achieve multiple delegation:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@protocol ZOCServiceDelegate &lt;NSObject&gt;</span><br><span class="line">@optional</span><br><span class="line">- (void)generalService:(ZOCGeneralService *)service didRetrieveEntries:(NSArray *)entries;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface ZOCGeneralService : NSObject</span><br><span class="line">- (void)registerDelegate:(id&lt;ZOCServiceDelegate&gt;)delegate;</span><br><span class="line">- (void)deregisterDelegate:(id&lt;ZOCServiceDelegate&gt;)delegate;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface ZOCGeneralService ()</span><br><span class="line">@property (nonatomic, strong) NSMutableSet *delegates;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@implementation ZOCGeneralService</span><br><span class="line">- (void)registerDelegate:(id&lt;ZOCServiceDelegate&gt;)delegate &#123;</span><br><span class="line">    if ([delegate conformsToProtocol:@protocol(ZOCServiceDelegate)]) &#123;</span><br><span class="line">        [self.delegates addObject:[[ZOCWeakObject alloc] initWithObject:delegate]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)deregisterDelegate:(id&lt;ZOCServiceDelegate&gt;)delegate &#123;</span><br><span class="line">    if ([delegate conformsToProtocol:@protocol(ZOCServiceDelegate)]) &#123;</span><br><span class="line">        [self.delegates removeObject:[[ZOCWeakObject alloc] initWithObject:delegate]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)_notifyDelegates &#123;</span><br><span class="line">    ...</span><br><span class="line">    for (ZOCWeakObject *object in self.delegates) &#123;</span><br><span class="line">        if (object.object) &#123;</span><br><span class="line">            if ([object.object respondsToSelector:@selector(generalService:didRetrieveEntries:)]) &#123;</span><br><span class="line">                [object.object generalService:self didRetrieveEntries:entries];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>With the <code>registerDelegate:</code> and <code>deregisterDelegate:</code> methods, it is easy to connect/disconnect cables between components: if at some point in time a delegate object is not interested in receiving the callbacks from a delegant, it has the chance to just ‘unsubscribe’.<br>This can be useful when there are different views waiting for some callback to update the shown info: if a view is temporarily hidden (but still alive) it could make sense for it to just unsubscribe to those callbacks.</p>
+<h1 id="Aspect-Oriented-Programming"><a href="#Aspect-Oriented-Programming" class="headerlink" title="Aspect Oriented Programming"></a>Aspect Oriented Programming</h1><p>Aspect Oriented Programming (AOP) is something not well-known in the Objective-C community but it should be as the runtime is so powerful that AOP should be one of the first things that comes to the mind. Unfortunately, as there is no standard de facto library, nothing comes ready to use out-of-the-box from Apple and the topic is far from being trivial, developers still don’t think of it in nowadays. </p>
+<p>Quoting the <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming" target="_blank" rel="external">Aspect Oriented Programming</a> Wikipedia page:</p>
+<blockquote>
+<p>An aspect can alter the behavior of the base code (the non-aspect part of a program) by applying advice (additional behavior) at various join points (points in a program) specified in a quantification or query called a pointcut (that detects whether a given join point matches).</p>
+</blockquote>
+<p>In the world of Objective-C this means using the runtime features to add <em>aspects</em> to specific methods. The additional behaviors given by the aspect can be either:</p>
+<ul>
+<li>add code to be performed before a specific method call on a specific class</li>
+<li>add code to be performed after a specific method call on a specific class</li>
+<li>add code to be performed instead of the original implementation of a specific method call on a specific class</li>
+</ul>
+<p>There are many ways to achieve this we are not digging into deep here, basically all of them leverage the power of the runtime.<br><a href="https://twitter.com/steipete" target="_blank" rel="external">Peter Steinberger</a> wrote a library, <a href="https://github.com/steipete/Aspects" target="_blank" rel="external">Aspects</a> that fits the AOP approach perfectly. We found it reliable and well-designed and we are going to use it here for sake of simplicity.<br>As said for all the AOP-ish libraries, the library does some cool magic with the runtime, replacing and adding methods (further tricks over the method swizzling technique).<br>The API of Aspect are interesting and powerful:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (id&lt;AspectToken&gt;)aspect_hookSelector:(SEL)selector</span><br><span class="line">                      withOptions:(AspectOptions)options</span><br><span class="line">                       usingBlock:(id)block</span><br><span class="line">                            error:(NSError **)error;</span><br><span class="line">- (id&lt;AspectToken&gt;)aspect_hookSelector:(SEL)selector</span><br><span class="line">                      withOptions:(AspectOptions)options</span><br><span class="line">                       usingBlock:(id)block</span><br><span class="line">                            error:(NSError **)error;</span><br></pre></td></tr></table></figure>
+<p>For instance, the following code will perform the block parameter after the execution of the method <code>myMethod:</code> (instance or class method that be) on the class <code>MyClass</code>.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[MyClass aspect_hookSelector:@selector(myMethod:)</span><br><span class="line">                 withOptions:AspectPositionAfter</span><br><span class="line">                  usingBlock:^(id&lt;AspectInfo&gt; aspectInfo) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">                       error:nil];</span><br></pre></td></tr></table></figure>
+<p>In other words: the code provided in the block parameter will always be executed after each call of the <code>@selector</code> parameter on any object of type <code>MyClass</code> (or on the class itself if the method is a class method).</p>
+<p>We added an aspect on <code>MyClass</code> for the method <code>myMethod:</code>.</p>
+<p>Usually AOP is used to implement cross cutting concern. Perfect example to leverage are analytics or logging.</p>
+<p>In the following we will present the use of AOP for analytics. Analytics are a popular “feature” to include in iOS projects, with a huge variety of choices ranging from Google Analytics, Flurry, MixPanel, etc.<br>Most of them have tutorials describing how to track specific views and events including a few lines of code inside each class.</p>
+<p>On Ray Wenderlich’s blog there is a long <a href="http://www.raywenderlich.com/53459/google-analytics-ios" target="_blank" rel="external">article</a> with some sample code to include in your view controller in order to track an event with <a href="https://developers.google.com/analytics/devguides/collection/ios/" target="_blank" rel="external">Google Analytics</a>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)logButtonPress:(UIButton *)button &#123;</span><br><span class="line">    id&lt;GAITracker&gt; tracker = [[GAI sharedInstance] defaultTracker];</span><br><span class="line">    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@&quot;UX&quot;</span><br><span class="line">                                                          action:@&quot;touch&quot;</span><br><span class="line">                                                           label:[button.titleLabel text]</span><br><span class="line">                                                           value:nil] build]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The code above sends an event with context information whenever a button is tapped. Things get worse when you want to track a screen view:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)viewDidAppear:(BOOL)animated &#123;</span><br><span class="line">    [super viewDidAppear:animated];</span><br><span class="line"></span><br><span class="line">    id&lt;GAITracker&gt; tracker = [[GAI sharedInstance] defaultTracker];</span><br><span class="line">    [tracker set:kGAIScreenName value:@&quot;Stopwatch&quot;];</span><br><span class="line">    [tracker send:[[GAIDictionaryBuilder createAppView] build]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This should look like a code smell to the most of the experienced iOS developers. We are actually making the view controller dirty adding lines of code that should not belong there as it’s not responsibility of the view controller to track events. You could argue that you usually have a specific object responsible for analytics tracking and you inject this object inside the view controller but the problem is still there and no matter where you hide the tracking logic: you eventually end up inserting some lines of code in the <code>viewDidAppear:</code>.</p>
+<p>We can use AOP to track screen views on specific <code>viewDidAppear:</code> methods, and moreover, we could use the same approach to add event tracking in other methods we are interested in, for instance when the user taps on a button (i.e. trivially calling the corresponding IBAction).</p>
+<p>This approach is clean and unobtrusive:</p>
+<ul>
+<li>the view controllers will not get dirty with code that does not naturally belongs to them</li>
+<li>it becomes possible to specify a SPOC file (single point of customization) for all the aspects to add to our code</li>
+<li>the SPOC should be used to add the aspects at the very startup of the app</li>
+<li>if the SPOC file is malformed and at least one selector or class is not recognized, the app will crash at startup (which is cool for our purposes) </li>
+<li>the team in the company responsible for managing the analytics usually provides a document with the list of <em>things</em> to track; this document could then be easily mapped to a SPOC file</li>
+<li>as the logic for the tracking is now abstracted, it becomes possible to scale with a grater number of analytics providers</li>
+<li>for screen views it is enough to specify in the SPOC file the classes involved (the corresponding aspect will be added to the <code>viewDidAppear:</code> method), for events it is necessary to specify the selectors. To send both screen views and events, a tracking label and maybe extra meta data are needed to provide extra information (depending on the analytics provider).</li>
+</ul>
+<p>We may want a SPOC file similar to the following (also a .plist file would perfectly fit as well):</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSDictionary *analyticsConfiguration()</span><br><span class="line">&#123;</span><br><span class="line">    return @&#123;</span><br><span class="line">        @&quot;trackedScreens&quot; : @[</span><br><span class="line">            @&#123;</span><br><span class="line">                @&quot;class&quot; : @&quot;ZOCMainViewController&quot;,</span><br><span class="line">                @&quot;label&quot; : @&quot;Main screen&quot;</span><br><span class="line">                &#125;</span><br><span class="line">             ],</span><br><span class="line">        @&quot;trackedEvents&quot; : @[</span><br><span class="line">            @&#123;</span><br><span class="line">                @&quot;class&quot; : @&quot;ZOCMainViewController&quot;,</span><br><span class="line">                @&quot;selector&quot; : @&quot;loginViewFetchedUserInfo:user:&quot;,</span><br><span class="line">                @&quot;label&quot; : @&quot;Login with Facebook&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">            @&#123;</span><br><span class="line">                @&quot;class&quot; : @&quot;ZOCMainViewController&quot;,</span><br><span class="line">                @&quot;selector&quot; : @&quot;loginViewShowingLoggedOutUser:&quot;,</span><br><span class="line">                @&quot;label&quot; : @&quot;Logout with Facebook&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">            @&#123;</span><br><span class="line">                @&quot;class&quot; : @&quot;ZOCMainViewController&quot;,</span><br><span class="line">                @&quot;selector&quot; : @&quot;loginView:handleError:&quot;,</span><br><span class="line">                @&quot;label&quot; : @&quot;Login error with Facebook&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">            @&#123;</span><br><span class="line">                @&quot;class&quot; : @&quot;ZOCMainViewController&quot;,</span><br><span class="line">                @&quot;selector&quot; : @&quot;shareButtonPressed:&quot;,</span><br><span class="line">                @&quot;label&quot; : @&quot;Share button&quot;</span><br><span class="line">                &#125;</span><br><span class="line">             ]</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The architecture proposed is hosted on GitHub on the <a href="https://github.com/ef-ctx/JohnnyEnglish/blob/master/CTXUserActivityTrackingManager.m" target="_blank" rel="external">EF Education First</a> profile.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)setupWithConfiguration:(NSDictionary *)configuration</span><br><span class="line">&#123;</span><br><span class="line">    // screen views tracking</span><br><span class="line">    for (NSDictionary *trackedScreen in configuration[@&quot;trackedScreens&quot;]) &#123;</span><br><span class="line">        Class clazz = NSClassFromString(trackedScreen[@&quot;class&quot;]);</span><br><span class="line"></span><br><span class="line">        [clazz aspect_hookSelector:@selector(viewDidAppear:)</span><br><span class="line">                       withOptions:AspectPositionAfter</span><br><span class="line">                        usingBlock:^(id&lt;AspectInfo&gt; aspectInfo) &#123;</span><br><span class="line">            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">                NSString *viewName = trackedScreen[@&quot;label&quot;];</span><br><span class="line">                [tracker trackScreenHitWithName:viewName];</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // events tracking</span><br><span class="line">    for (NSDictionary *trackedEvents in configuration[@&quot;trackedEvents&quot;]) &#123;</span><br><span class="line">        Class clazz = NSClassFromString(trackedEvents[@&quot;class&quot;]);</span><br><span class="line">        SEL selektor = NSSelectorFromString(trackedEvents[@&quot;selector&quot;]);</span><br><span class="line"></span><br><span class="line">        [clazz aspect_hookSelector:selektor</span><br><span class="line">                       withOptions:AspectPositionAfter</span><br><span class="line">                        usingBlock:^(id&lt;AspectInfo&gt; aspectInfo) &#123;</span><br><span class="line">            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">                UserActivityButtonPressedEvent *buttonPressEvent = [UserActivityButtonPressedEvent eventWithLabel:trackedEvents[@&quot;label&quot;]];</span><br><span class="line">                [tracker trackEvent:buttonPressEvent];</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/禅与Objective-C编程艺术/" rel="tag">#禅与Objective-C编程艺术</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/18/2016-02-18-Git-Tutorial/" rel="next" title="史上最浅显易懂的Git教程">
+                <i class="fa fa-chevron-left"></i> 史上最浅显易懂的Git教程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xkgg5.com1.z0.glb.clouddn.com/Avatar/JUGG.jpg"
+               alt="Joe Hill" />
+          <p class="site-author-name" itemprop="name">Joe Hill</p>
+          <p class="site-description motion-element" itemprop="description">井蛙语海 夏虫语冰</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Joe-Hill" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:one@joehill.me" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.netpi.me" title="Night" target="_blank">Night</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Inter-Object-Communication"><span class="nav-number">1.</span> <span class="nav-text">Inter-Object Communication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocks"><span class="nav-number">1.1.</span> <span class="nav-text">Blocks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Under-the-Hood"><span class="nav-number">1.1.1.</span> <span class="nav-text">Under the Hood</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retain-cycles-on-self"><span class="nav-number">1.1.2.</span> <span class="nav-text">Retain cycles on self</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegate-and-DataSource"><span class="nav-number">1.2.</span> <span class="nav-text">Delegate and DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.2.1.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Delegation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Multiple Delegation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aspect-Oriented-Programming"><span class="nav-number">2.</span> <span class="nav-text">Aspect Oriented Programming</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe Hill</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'joehill';
+      var disqus_identifier = '2016/06/25/2016-06-25-Zen-OC-Art-4/';
+      var disqus_title = "禅与Objective-C编程艺术-4(翻译中)";
+      var disqus_url = 'http://joehill.me/2016/06/25/2016-06-25-Zen-OC-Art-4/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
