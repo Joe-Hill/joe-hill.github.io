@@ -92,7 +92,7 @@
 <meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
 <meta property="og:image" content="http://joehill.me/./images/blocks_debugger.png">
-<meta property="og:updated_time" content="2016-06-27T14:53:44.000Z">
+<meta property="og:updated_time" content="2016-06-28T13:42:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="禅与Objective-C编程艺术-4(翻译中)">
 <meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
@@ -340,25 +340,26 @@
 
 <a id="more"></a>
 <h1 id="对象间通讯"><a href="#对象间通讯" class="headerlink" title="对象间通讯"></a>对象间通讯</h1><p>对象之间相互交流来实现复杂的需求，这是大部分软件的基础。这一节是关于深入阐述如何实现良好架构的设计理念以及如何使用他们。</p>
-<h2 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h2><p>Blocks are the Objective-C version of well-knows constructs called lambdas or closures available in other languages for many years now.</p>
-<p>They are a great way to design asynchronous APIs as so:</p>
+<h2 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h2><p>Block 是 Objective-C 中的闭包，相当于其他语言中的  lambda 或 closure。</p>
+<p>可以像下面定义异步 API：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)downloadObjectsAtPath:(NSString *)path</span><br><span class="line">                   completion:(void(^)(NSArray *objects, NSError *error))completion;</span><br></pre></td></tr></table></figure>
-<p>When designing something like the above, try to declare functions and methods to take no more than one block and always make the blocks be the last arguments. It is a good approach to try to combine data and error in one block instead of two separate blocks (usually one for the success and one for the failure).</p>
-<p>You should do this because:</p>
+<p>当像上述来设计代码时，尽量在定义函数和方法的时候只用一个 block，而且最好放在最后一个参数的位置。把需要提供的数据和错误整合在一个 block 中，而不是两个分开的 block(通常一个是成功 block 和失败 block)。</p>
+<p>为什么这么做：</p>
 <ul>
-<li>Usually there are part of code that are shared between them (i.e. dismiss a progress or an activity indicator);</li>
-<li>Apple is doing the same, and it is always good to be consistent with the platform;</li>
-<li>Since Blocks are typically multiple lines of code, having the block be other than the last argument would break up the call site[1];</li>
-<li>Taking more than one block as arguments would make the call site potentially unwieldy in length. It also introduces complexity[1].</li>
+<li>通常部分代码在成功和失败之间是公共的(例如：移除进度条或者提示)</li>
+<li>Apple 官方也是这么做的，与平台一直有一些潜在的好处</li>
+<li>鉴于 block 通常会是多行，不放在最后的话会打破调用点</li>
+<li>使用多个 block 会在调用的长度长显得笨重，并且增加了复杂性</li>
 </ul>
-<p>Consider the above method, the signature of the completion block is very common: the first parameter regards the data the caller is interested in, the second parameter is the error encountered. The contract should be therefore as follow:</p>
+<p>综上所述，书写完成的 block 就变的很简单：第一个参数为调用者想要的数据，第二个参数是错误的相关信息。这里需要遵循以下几点：</p>
 <ul>
-<li>if <code>objects</code> is not nil, then <code>error</code> must be nil</li>
-<li>if <code>objects</code> is nil, then <code>error</code> must not be nil</li>
+<li>如果 <code>objects</code> 非 nil，则 <code>error</code> 必为 nil</li>
+<li>如果 <code>objects</code> 为 nil，则 <code>error</code> 必非 nil</li>
 </ul>
-<p>as the caller of this method is first interested in the actual data, an implementation like so is preferred:</p>
+<p>因为调用者更关心的是实际数据，推荐如下的实现方式：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)downloadObjectsAtPath:(NSString *)path</span><br><span class="line">                   completion:(void(^)(NSArray *objects, NSError *error))completion &#123;</span><br><span class="line">    if (objects) &#123;</span><br><span class="line">        // do something with the data</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // some error occurred, &apos;error&apos; variable should not be nil by contract</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Moreover, as for synchronous methods, some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so checking the error can cause false positives.</p>
+<p>此外，在一些异步方法中，Apple 的 API 在成功的回调中 error 参数写入了一些垃圾值(如果非 NULL)，所以检测 error 可能会不准确。</p>
 <h3 id="Under-the-Hood"><a href="#Under-the-Hood" class="headerlink" title="Under the Hood"></a>Under the Hood</h3><p>Some key points:</p>
 <ul>
 <li>Blocks are created on the stack</li>
