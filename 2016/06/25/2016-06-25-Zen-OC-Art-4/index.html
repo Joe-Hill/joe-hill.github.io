@@ -92,7 +92,7 @@
 <meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
 <meta property="og:image" content="http://joehill.me/./images/blocks_debugger.png">
-<meta property="og:updated_time" content="2016-06-28T13:44:22.000Z">
+<meta property="og:updated_time" content="2016-06-29T13:50:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="禅与Objective-C编程艺术-4(翻译中)">
 <meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
@@ -359,10 +359,10 @@
 <p>因为调用者更关心的是实际数据，推荐如下的实现方式：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)downloadObjectsAtPath:(NSString *)path</span><br><span class="line">                   completion:(void(^)(NSArray *objects, NSError *error))completion &#123;</span><br><span class="line">    if (objects) &#123;</span><br><span class="line">        // do something with the data</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // some error occurred, &apos;error&apos; variable should not be nil by contract</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此外，在一些异步方法中，Apple 的 API 在成功的回调中 error 参数写入了一些垃圾值(如果非 NULL)，所以检测 error 可能会不准确。</p>
-<h3 id="Under-the-Hood"><a href="#Under-the-Hood" class="headerlink" title="Under the Hood"></a>Under the Hood</h3><p>Some key points:</p>
+<h3 id="深入-block"><a href="#深入-block" class="headerlink" title="深入 block"></a>深入 block</h3><p>一些关键点：</p>
 <ul>
-<li>Blocks are created on the stack</li>
-<li>Blocks can be copied to the heap</li>
+<li>block 是在栈上创建的</li>
+<li>block 可以复制到堆上</li>
 <li>Blocks have their own private const copies of stack variables (and pointers)</li>
 <li>Mutable stack variables and pointers must be declared with the __block keyword</li>
 </ul>
@@ -719,7 +719,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对象间通讯"><span class="nav-number">1.</span> <span class="nav-text">对象间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocks"><span class="nav-number">1.1.</span> <span class="nav-text">Blocks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Under-the-Hood"><span class="nav-number">1.1.1.</span> <span class="nav-text">Under the Hood</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retain-cycles-on-self"><span class="nav-number">1.1.2.</span> <span class="nav-text">Retain cycles on self</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegate-and-DataSource"><span class="nav-number">1.2.</span> <span class="nav-text">Delegate and DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.2.1.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Delegation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Multiple Delegation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aspect-Oriented-Programming"><span class="nav-number">2.</span> <span class="nav-text">Aspect Oriented Programming</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对象间通讯"><span class="nav-number">1.</span> <span class="nav-text">对象间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocks"><span class="nav-number">1.1.</span> <span class="nav-text">Blocks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#深入-block"><span class="nav-number">1.1.1.</span> <span class="nav-text">深入 block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retain-cycles-on-self"><span class="nav-number">1.1.2.</span> <span class="nav-text">Retain cycles on self</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegate-and-DataSource"><span class="nav-number">1.2.</span> <span class="nav-text">Delegate and DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.2.1.</span> <span class="nav-text">Inheritance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiple-Delegation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Multiple Delegation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aspect-Oriented-Programming"><span class="nav-number">2.</span> <span class="nav-text">Aspect Oriented Programming</span></a></li></ol></div>
             
           </div>
         </section>
