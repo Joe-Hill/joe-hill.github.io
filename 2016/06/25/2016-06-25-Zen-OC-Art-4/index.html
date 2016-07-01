@@ -92,7 +92,7 @@
 <meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/1.png">
-<meta property="og:updated_time" content="2016-06-30T14:30:35.000Z">
+<meta property="og:updated_time" content="2016-07-01T14:13:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="禅与Objective-C编程艺术-4(翻译中)">
 <meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
@@ -367,10 +367,10 @@
 <li>想要修改栈上的变量和指针，那就必须要用 __block 关键字声明</li>
 </ul>
 <p>如果 block 没有在其他在他位置被持有，生命周期与当前栈帧相同。当 block 在栈中时，block 对其访问的对象的存储和生命周期没有任何影响。如果 block 需要在栈帧返回之后还不被释放，它需要被通过确切的操作来复制到堆上。这样一个 block 会像其他 cocoa 对象一个增加引用计数。当 block 被复制的时候，它会带着其作用域内的对象一起增加引用计数。</p>
-<p>If a block references a stack variable or pointer, then when the block is initialized it is given its own copy of that variable declared const, so assignments won’t work. When a block is copied, the <code>__block</code> stack variables it reference are copied to the heap and after the copy operation both block on the stack and brand new block on the heap refer to the variables on the heap.</p>
-<p>LLDB shows that a block is a nice piece of things.</p>
+<p>如果 block 引用了一个栈上的变量或指针，接着当 block 被初始化的时候会持有这个变量或指针的 const 副本，所以再去为这些变量或指针赋值是没用的。当一个 block 被复制后，<code>__block</code> 声明的栈变量的引用被复制到了堆中，复制操作之后，无论是栈上的 block 还是刚刚复制的新的在堆上的 block 都会引用该变量在堆上的副本。</p>
+<p>用 LLDB 来展示 block：</p>
 <p><img src="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/1.png" alt=""></p>
-<p>The most important thing to note is that <code>__block</code> variables and pointers are treated inside the block as structs that obviously handle the reference to the real value/object.</p>
+<p>要注意最重要的点是，<code>__block</code> 修饰的变量或指针会被当做结构体，来处理引用的实际值或者对象。</p>
 <p>Blocks are first-class citizens in the Objective-C runtime: they have an <code>isa</code> pointer which defines a class through which the Objective-C runtime can access methods and storage. In a non-ARC environment you can mess things up for sure, and cause crashes due to dangling pointers. <code>__block</code> applies only when using the variables in the block, it simply says to the block:</p>
 <blockquote>
 <p>Hey, this pointer or primitive type relies on the stack with its own address. Please refer to this little friend with a new variable on the stack. I mean… refer to the object with double dereference, and don’t retain it.<br>Thank you, sir.</p>
