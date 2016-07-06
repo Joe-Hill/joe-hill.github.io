@@ -92,7 +92,7 @@
 <meta property="og:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/pic.jpg">
 <meta property="og:image" content="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/1.png">
-<meta property="og:updated_time" content="2016-07-02T14:28:52.000Z">
+<meta property="og:updated_time" content="2016-07-06T13:23:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="禅与Objective-C编程艺术-4(翻译中)">
 <meta name="twitter:description" content="编程和「禅」有关系吗?Zen and the Art of the Objective-C Craftsmanship译文兼笔记本章包含规范：对象通讯、代理和数据源、AOP">
@@ -371,11 +371,12 @@
 <p>用 LLDB 来展示 block：</p>
 <p><img src="http://blog.joehill.me/2016-06-25-Zen-OC-Art-4/1.png" alt=""></p>
 <p>要注意最重要的点是，<code>__block</code> 修饰的变量或指针会被当做结构体，来处理引用的实际值或者对象。</p>
-<p>Blocks are first-class citizens in the Objective-C runtime: they have an <code>isa</code> pointer which defines a class through which the Objective-C runtime can access methods and storage. In a non-ARC environment you can mess things up for sure, and cause crashes due to dangling pointers. <code>__block</code> applies only when using the variables in the block, it simply says to the block:</p>
+<p>block 在 Objective-C 的 runtime 中被寄予重要地位:他们有一个定义一个类的  <code>isa</code> 指针，Objective-C runtime 可以通过这个指针来访问方法和存储数据。在非 ARC 环境下你肯定会弄得一团糟，并且因为空指针导致崩溃。<code>__block</code> 适用于在 block 中使用的变量，它相当于在跟 block 说：</p>
 <blockquote>
-<p>Hey, this pointer or primitive type relies on the stack with its own address. Please refer to this little friend with a new variable on the stack. I mean… refer to the object with double dereference, and don’t retain it.<br>Thank you, sir.</p>
+<p>嗨，这个指针或原始类型在栈上有自己的地址。请在栈上再创建一个指针来引用它。我是说，对这个对象做两次间接引用，但是不要 retain 它。</p>
+<p>谢谢。</p>
 </blockquote>
-<p>If at some time after the declaration but before the invocation of the block, the object has been released and deallocated, the execution of the block will cause a crash. <code>__block</code> variables are not retained within the block. In the deep end… it’s all about pointers, references, dereferences and retain count stuff.</p>
+<p>如果有时候，在定义了 block 但是还没有被调用之前就把对象释放了，执行 block 会导致崩溃。<code>__block</code> 变量不会在 block 中被持有。最后…指针、引用、间接引用和引用计数就都乱了。</p>
 <h3 id="Retain-cycles-on-self"><a href="#Retain-cycles-on-self" class="headerlink" title="Retain cycles on self"></a>Retain cycles on self</h3><p>It’s important not to get into retain cycles when using blocks and asynchronous dispatches. Always set a <code>weak</code> reference to any variable that could cause a retain cycle. Moreover, it is a good practice to nil the properties holding the blocks (i.e. <code>self.completionBlock = nil</code>) this will break potential retain cycle introduced by the block capturing the scope. </p>
 <p><strong>Example:</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__weak __typeof(self) weakSelf = self;</span><br><span class="line">[self executeBlock:^(NSData *data, NSError *error) &#123;</span><br><span class="line">    [weakSelf doSomethingWithData:data];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
