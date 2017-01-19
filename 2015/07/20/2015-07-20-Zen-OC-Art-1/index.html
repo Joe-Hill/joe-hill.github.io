@@ -233,9 +233,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -341,64 +364,64 @@
 <a id="more"></a>
 <h1 id="条件语句-Conditionals"><a href="#条件语句-Conditionals" class="headerlink" title="条件语句(Conditionals)"></a>条件语句(Conditionals)</h1><p>虽然条件语句体可以不写在大括号里（比如就一行），但是为了避免错误还是应该把条件语句体写在大括号内部。比如不写在括号里时，插入的第二行代码会误以为是条件语句体的一部分。还有个更致命的危险就是，当仅有的一句 <code>if</code> 语句被注释掉时，无意之间下一行代码就成为 <code>if</code> 语句的一部分了。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error) &#123;</span><br><span class="line">	<span class="keyword">return</span> success;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (!error) &#123;</div><div class="line">	<span class="keyword">return</span> success;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error)</span><br><span class="line">	<span class="keyword">return</span> success;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (!error)</div><div class="line">	<span class="keyword">return</span> success;</div></pre></td></tr></table></figure>
 <p>或</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error) <span class="keyword">return</span> success;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (!error) <span class="keyword">return</span> success;</div></pre></td></tr></table></figure>
 <p>2014年二月 苹果的SSL/TLS的实现中就发现了众所周知的<a href="https://gotofail.com/" target="_blank" rel="external">goto fail</a>错误。</p>
 <p>错误原因是在 <code>if</code> 条件后重复出现了 <code>goto</code> 语句，把 <code>if</code> 分支写在括号里就能避免这类问题。</p>
 <p>代码如下</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> OSStatus</span><br><span class="line">	<span class="title">SSLVerifySignedServerKeyExchange</span><span class="params">(SSLContext *ctx, <span class="keyword">bool</span> isRsa, SSLBuffer signedParams, <span class="keyword">uint8_t</span> *signature, UInt16 signatureLen)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">	  OSStatus err;</span><br><span class="line">	  ...</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;serverRandom)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;signedParams)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.final(&amp;hashCtx, &amp;hashOut)) != <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">goto</span> fail;</span><br><span class="line">	  ...</span><br><span class="line">	fail:</span><br><span class="line">	  SSLFreeBuffer(&amp;signedHashes);</span><br><span class="line">	  SSLFreeBuffer(&amp;hashCtx);</span><br><span class="line">	  <span class="keyword">return</span> err;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> OSStatus</span></div><div class="line">	<span class="title">SSLVerifySignedServerKeyExchange</span><span class="params">(SSLContext *ctx, <span class="keyword">bool</span> isRsa, SSLBuffer signedParams, <span class="keyword">uint8_t</span> *signature, UInt16 signatureLen)</span></div><div class="line">	&#123;</div><div class="line">	  OSStatus err;</div><div class="line">	  ...</div><div class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;serverRandom)) != <span class="number">0</span>)</div><div class="line">		<span class="keyword">goto</span> fail;</div><div class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.update(&amp;hashCtx, &amp;signedParams)) != <span class="number">0</span>)</div><div class="line">		<span class="keyword">goto</span> fail;</div><div class="line">		<span class="keyword">goto</span> fail;</div><div class="line">	  <span class="keyword">if</span> ((err = SSLHashSHA1.final(&amp;hashCtx, &amp;hashOut)) != <span class="number">0</span>)</div><div class="line">		<span class="keyword">goto</span> fail;</div><div class="line">	  ...</div><div class="line">	fail:</div><div class="line">	  SSLFreeBuffer(&amp;signedHashes);</div><div class="line">	  SSLFreeBuffer(&amp;hashCtx);</div><div class="line">	  <span class="keyword">return</span> err;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
 <p>很明显，两行连续的 <code>goto fail;</code> 没有写在括号里。我们肯定不想出现上述类似的错误。</p>
 <p>还有在其他条件语句中也应保持这种代码风格，便于检查。</p>
 <h2 id="尤达表达式"><a href="#尤达表达式" class="headerlink" title="尤达表达式"></a>尤达表达式</h2><p>尽量别用尤达表达式。尤达表达式就是用常量去和变量比较，而不是用变量跟常量比较。比如正常表达是「天空是不是蓝色的」或者「这个人是不是高个子」，尤达表达式就会说成「蓝色是不是天空的颜色」或者「高个子是不是这个人的属性」。</p>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-07-20-Zen-OC-Art/yoda.png" alt="Yoda"></p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ([myValue isEqual:@<span class="number">42</span>]) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> ([myValue isEqual:@<span class="number">42</span>]) &#123; ...</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ([@<span class="number">42</span> isEqual:myValue]) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> ([@<span class="number">42</span> isEqual:myValue]) &#123; ...</div></pre></td></tr></table></figure>
 <h2 id="nil-和-BOOL-检查"><a href="#nil-和-BOOL-检查" class="headerlink" title="nil 和 BOOL 检查"></a>nil 和 BOOL 检查</h2><p>和尤达表达式类似，nil检查方式也是存在争议的。 一些 notous 库像这样检查对象是否为 <code>nil</code>:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (nil == myValue) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (nil == myValue) &#123; ...</div></pre></td></tr></table></figure>
 <p>因为 nil 为常量的情况下，这种情况就很像尤达表达式，或许有人就会提出这种写法是错误的。其实很多程序员这么做的原因是为了避免调试困难，请看如下代码：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (myValue == nil) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (myValue == nil) &#123; ...</div></pre></td></tr></table></figure>
 <p>如果不小心写成这样：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (myValue = nil) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (myValue = nil) &#123; ...</div></pre></td></tr></table></figure>
 <p>这种表达是符合语法的，就算你是个经验丰富的程序员也很难能找出错误。但是如果把 <code>nil</code> 像变量一样放在左边这种错误就不会发生因为它不能被赋值。如果程序员用这种办法，就可以很容发现一些可能的原因，比反复检查写过的代码要好很多。</p>
 <p>避免这些奇怪问题的办法，可以用感叹号来作为运算符。因为 <code>nil</code> 的意思就是 <code>NO</code> ，没必要在条件语句里把它跟其他值比较。还有千万不要直接去和 <code>YSE</code> 比较，因为 <code>YES</code> 的定义是 1 ，而 <code>BOOL</code> 是 8 bit 的，实际上是 char 类型。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (someObject) &#123; ...</span><br><span class="line"><span class="keyword">if</span> (![someObject boolValue]) &#123; ...</span><br><span class="line"><span class="keyword">if</span> (!someObject) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (someObject) &#123; ...</div><div class="line"><span class="keyword">if</span> (![someObject boolValue]) &#123; ...</div><div class="line"><span class="keyword">if</span> (!someObject) &#123; ...</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (someObject == YES) &#123; ... <span class="comment">// Wrong</span></span><br><span class="line"><span class="keyword">if</span> (myRawValue == YES) &#123; ... <span class="comment">// Never do this.</span></span><br><span class="line"><span class="keyword">if</span> ([someObject boolValue] == NO) &#123; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> (someObject == YES) &#123; ... <span class="comment">// Wrong</span></div><div class="line"><span class="keyword">if</span> (myRawValue == YES) &#123; ... <span class="comment">// Never do this.</span></div><div class="line"><span class="keyword">if</span> ([someObject boolValue] == NO) &#123; ...</div></pre></td></tr></table></figure>
 <p>这样也能提高文件的统一性和可读性。</p>
 <h2 id="黄金法则"><a href="#黄金法则" class="headerlink" title="黄金法则"></a>黄金法则</h2><p>当写条件语句的时候，代码左侧留有空隙是让人愉悦的黄金法则。就是说，不要嵌套 <code>if</code> 语句。多写几个 <code>return</code> 没啥问题。这会避免<a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank" rel="external">cyclomatic complexity</a>的增加并且让代码更加易读，因为方法的重要部分都未嵌套在分支内，你就可以很清楚的找到相关代码。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123;</span><br><span class="line">  <span class="keyword">if</span> (![someOther boolValue]) &#123;</span><br><span class="line">  	<span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//Do something important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)someMethod &#123;</div><div class="line">  <span class="keyword">if</span> (![someOther boolValue]) &#123;</div><div class="line">  	<span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//Do something important</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)someMethod &#123;</span><br><span class="line">  <span class="keyword">if</span> ([someOther boolValue]) &#123;</span><br><span class="line">  	<span class="comment">//Do something important</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)someMethod &#123;</div><div class="line">  <span class="keyword">if</span> ([someOther boolValue]) &#123;</div><div class="line">  	<span class="comment">//Do something important</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="复杂条件语句"><a href="#复杂条件语句" class="headerlink" title="复杂条件语句"></a>复杂条件语句</h2><p>当在 <code>if</code> 分句中有一个复杂条件时，应该把它抽取出来赋值给一个 <code>BOOL</code> 变量，这样逻辑就会更清晰同时每个单独的条件语句的含义都很明确。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">BOOL nameContainsSwift  = [sessionName containsString:@<span class="string">"Swift"</span>];</span><br><span class="line">BOOL isCurrentYear      = [sessionDateCompontents year] == <span class="number">2014</span>;</span><br><span class="line">BOOL isSwiftSession     = nameContainsSwift &amp;&amp; isCurrentYear;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (isSwiftSession) &#123;</span><br><span class="line">	<span class="comment">// Do something very cool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">BOOL nameContainsSwift  = [sessionName containsString:@<span class="string">"Swift"</span>];</div><div class="line">BOOL isCurrentYear      = [sessionDateCompontents year] == <span class="number">2014</span>;</div><div class="line">BOOL isSwiftSession     = nameContainsSwift &amp;&amp; isCurrentYear;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (isSwiftSession) &#123;</div><div class="line">	<span class="comment">// Do something very cool</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h2><p>三目运算符 <code>?</code> 只应该用在让代码更清晰简洁的地方。单独的条件语句通常都应该是计算好值了的。对于条件语句来说，多个条件子句的计算会让代码更加难懂，或者可以把他们重构到实例变量里面。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = a &gt; b ? x : y;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">result = a &gt; b ? x : y;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = a &gt; b ? x = c &gt; d ? c : d : y;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">result = a &gt; b ? x = c &gt; d ? c : d : y;</div></pre></td></tr></table></figure>
 <p>当三目运算的第二个参数( <code>if</code> 分支)返回的对象和条件语句中检查已存在的对象相同的时候，如下语法更优雅：</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = object ? : [self createObject];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">result = object ? : [self createObject];</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">result = object ? object : [self createObject];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">result = object ? object : [self createObject];</div></pre></td></tr></table></figure>
 <h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>当方法返回一个错误参数的引用时，检查返回值，而非出错的变量</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSError *error = nil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (![self trySomethingWithError:&amp;error]) &#123;</span><br><span class="line">	<span class="comment">// Handle Error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">NSError *error = nil;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (![self trySomethingWithError:&amp;error]) &#123;</div><div class="line">	<span class="comment">// Handle Error</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此外，一些苹果的 API 在请求成功的情况下会对 <code>error</code> 参数(如果非空)写入垃圾值（garbage values）,所以如果检查 <code>error</code> 的值可能会导致出错（甚至崩溃）。</p>
 <h1 id="Case-语句"><a href="#Case-语句" class="headerlink" title="Case 语句"></a>Case 语句</h1><p>除非编译器强制要求，否则在 <code>case</code> 语句中不是必须写括号的。</p>
 <p>要是一个 <code>case</code> 有多行，那就需要加上括号。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (condition) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>: &#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="comment">// Multi-line example using braces</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	   &#125;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>: </span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">switch</span> (condition) &#123;</div><div class="line">	<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">case</span> <span class="number">2</span>: &#123;</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="comment">// Multi-line example using braces</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	   &#125;</div><div class="line">	<span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">default</span>: </div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>有很多时候多个 <code>case</code> 中执行同一段代码，那就用上 <a href="https://en.wiktionary.org/wiki/fall-through" target="_blank" rel="external"><code>fall-through</code></a>了。<code>fall-through</code> 就是移除 <code>case</code> 的 <code>break</code> 语句然后让下面的 <code>case</code> 继续执行。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (condition) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="comment">// code executed for values 1 and 2</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>: </span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">switch</span> (condition) &#123;</div><div class="line">	<span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">	<span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">		<span class="comment">// code executed for values 1 and 2</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">default</span>: </div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>当在 <code>switch</code> 中用枚举变量时，就不用非要写 <code>default</code> 了。例如：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (menuType) &#123;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumNone:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumValue1:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> ZOCEnumValue2:</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">switch</span> (menuType) &#123;</div><div class="line">	<span class="keyword">case</span> ZOCEnumNone:</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">case</span> ZOCEnumValue1:</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">case</span> ZOCEnumValue2:</div><div class="line">		<span class="comment">// ...</span></div><div class="line">		<span class="keyword">break</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此外，为了避免使用默认的 <code>case</code> ，如果枚举增添了新的值，程序员就会立即收到一个警告：</p>
 <blockquote>
 <p>Enumeration value ‘ZOCEnumValue3’ not handled in switch.</p>
@@ -406,41 +429,41 @@
 </blockquote>
 <h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><p>当使用 <code>enum</code> 时，建议用固定基础类型标准，因为它具备更强的类型检查和和代码补全能力。SDK 现在提供了一个宏来促进和鼓励使用固定基础类型- <code>NS_ENUM()</code></p>
 <p><strong>例子:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NS_ENUM</span><span class="params">(NSUInteger, ZOCMachineState)</span> </span>&#123;</span><br><span class="line">	ZOCMachineStateNone,</span><br><span class="line">	ZOCMachineStateIdle,</span><br><span class="line">	ZOCMachineStateRunning,</span><br><span class="line">	ZOCMachineStatePaused</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NS_ENUM</span><span class="params">(NSUInteger, ZOCMachineState)</span> </span>&#123;</div><div class="line">	ZOCMachineStateNone,</div><div class="line">	ZOCMachineStateIdle,</div><div class="line">	ZOCMachineStateRunning,</div><div class="line">	ZOCMachineStatePaused</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h1 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h1><h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a>惯例</h2><p>要尽可能的遵守苹果的命名规范，尤其是跟<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" target="_blank" rel="external">内存管理规则</a><a href="http://stackoverflow.com/a/2865194/340508" target="_blank" rel="external">(NARC)</a>相关的部分。</p>
 <p>推荐使用详尽的、语意强的的方法名和变量名。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UIButton *settingsButton;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">UIButton *settingsButton;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UIButton *setBut;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">UIButton *setBut;</div></pre></td></tr></table></figure>
 <h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>常量的应该遵循驼峰命名法，为了语意清晰，应该使用相关的类名作为前缀。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval ZOCSignInViewControllerFadeOutAnimationDuration = <span class="number">0.4</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval ZOCSignInViewControllerFadeOutAnimationDuration = <span class="number">0.4</span>;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval fadeOutTime = <span class="number">0.4</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> NSTimeInterval fadeOutTime = <span class="number">0.4</span>;</div></pre></td></tr></table></figure>
 <p>字符串和数字应该尽量抽离常量，这样便于复用，而且在替换的时候很快捷，也不需要到处查找。常量应该用 <code>static</code>声明，除了特别明确的要用宏定义，否则就别用<code>#define</code>了。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> NSString * <span class="keyword">const</span> ZOCCacheControllerDidClearCacheNotification = @<span class="string">"ZOCCacheControllerDidClearCacheNotification"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> CGFloat ZOCImageThumbnailHeight = <span class="number">50.0f</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">static</span> NSString * <span class="keyword">const</span> ZOCCacheControllerDidClearCacheNotification = @<span class="string">"ZOCCacheControllerDidClearCacheNotification"</span>;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> CGFloat ZOCImageThumbnailHeight = <span class="number">50.0f</span>;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CompanyName @<span class="string">"Apple Inc."</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> magicNumber 42</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> CompanyName @<span class="meta-string">"Apple Inc."</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> magicNumber 42</span></div></pre></td></tr></table></figure>
 <p>在<code>interface</code>文件中，暴露在外部的常量应该遵循如下写法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extern NSString *const ZOCCacheControllerDidClearCacheNotification;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">extern NSString *const ZOCCacheControllerDidClearCacheNotification;</div></pre></td></tr></table></figure>
 <p>在实现文件中，实现对之前常量的定义。</p>
 <p>对于公共常量需要加上一个命名空间前缀。尽管在实现文件中常量也会有一些其他写法，那么也没必要一定遵循这个规则。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>对于方法签名，在方法类型(<code>-</code>/<code>+</code>)后应该有一个空格。方法段落之间也应该有一个空格（符合 Apple 的规范）。在参数名之前应该有一个描述性关键字。</p>
 <p>要谨慎使用 <code>and</code> 命名，它不应该用作来表示有多个参数，比如下面<code>initWithWidth:height:</code>的例子。</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setExampleText:(NSString *)text image:(UIImage *)image;</span><br><span class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;</span><br><span class="line">- (id)viewWithTag:(NSInteger)tag;</span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setExampleText:(NSString *)text image:(UIImage *)image;</div><div class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;</div><div class="line">- (id)viewWithTag:(NSInteger)tag;</div><div class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</div></pre></td></tr></table></figure>
 <p><strong>不推荐:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setT:(NSString *)text i:(UIImage *)image;</span><br><span class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;</span><br><span class="line">- (id)taggedView:(NSInteger)tag;</span><br><span class="line">- (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</span><br><span class="line">- (instancetype)initWith:(<span class="keyword">int</span>)width and:(<span class="keyword">int</span>)height;  <span class="comment">// Never do this.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setT:(NSString *)text i:(UIImage *)image;</div><div class="line">- (<span class="keyword">void</span>)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;</div><div class="line">- (id)taggedView:(NSInteger)tag;</div><div class="line">- (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</div><div class="line">- (instancetype)initWith:(<span class="keyword">int</span>)width and:(<span class="keyword">int</span>)height;  <span class="comment">// Never do this.</span></div></pre></td></tr></table></figure>
 <h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><p>创建任何不可变的实例对象时，应该用<code>NSString</code>, <code>NSDictionary</code>, <code>NSArray</code>, 和 <code>NSNumber</code> 这些对象。特别注意的是别在<code>NSArray</code>和<code>NSDictionary</code>中放入<code>nil</code>，这样会导致崩溃。</p>
 <p><strong>例如:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *names = @[@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>];</span><br><span class="line">NSDictionary *productManagers = @&#123;@<span class="string">"iPhone"</span> : @<span class="string">"Kate"</span>, @<span class="string">"iPad"</span> : @<span class="string">"Kamal"</span>, @<span class="string">"Mobile Web"</span> : @<span class="string">"Bill"</span>&#125;;</span><br><span class="line">NSNumber *shouldUseLiterals = @YES;</span><br><span class="line">NSNumber *buildingZIPCode = @<span class="number">10018</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">NSArray *names = @[@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>];</div><div class="line">NSDictionary *productManagers = @&#123;@<span class="string">"iPhone"</span> : @<span class="string">"Kate"</span>, @<span class="string">"iPad"</span> : @<span class="string">"Kamal"</span>, @<span class="string">"Mobile Web"</span> : @<span class="string">"Bill"</span>&#125;;</div><div class="line">NSNumber *shouldUseLiterals = @YES;</div><div class="line">NSNumber *buildingZIPCode = @<span class="number">10018</span>;</div></pre></td></tr></table></figure>
 <p><strong>别这样做:</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *names = [NSArray arrayWithObjects:@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>, nil];</span><br><span class="line">NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @<span class="string">"Kate"</span>, @<span class="string">"iPhone"</span>, @<span class="string">"Kamal"</span>, @<span class="string">"iPad"</span>, @<span class="string">"Bill"</span>, @<span class="string">"Mobile Web"</span>, nil];</span><br><span class="line">NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];</span><br><span class="line">NSNumber *buildingZIPCode = [NSNumber numberWithInteger:<span class="number">10018</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">NSArray *names = [NSArray arrayWithObjects:@<span class="string">"Brian"</span>, @<span class="string">"Matt"</span>, @<span class="string">"Chris"</span>, @<span class="string">"Alex"</span>, @<span class="string">"Steve"</span>, @<span class="string">"Paul"</span>, nil];</div><div class="line">NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @<span class="string">"Kate"</span>, @<span class="string">"iPhone"</span>, @<span class="string">"Kamal"</span>, @<span class="string">"iPad"</span>, @<span class="string">"Bill"</span>, @<span class="string">"Mobile Web"</span>, nil];</div><div class="line">NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];</div><div class="line">NSNumber *buildingZIPCode = [NSNumber numberWithInteger:<span class="number">10018</span>];</div></pre></td></tr></table></figure>
 <p>如果需要用到上述这些类的可变副本，应该用如<code>NSMutableArray</code>, <code>NSMutableString</code>等等这些更为准确的类。</p>
 <p>下面的情况 <strong>不要出现</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NSMutableArray *aMutableArray = [@[] mutableCopy];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">NSMutableArray *aMutableArray = [@[] mutableCopy];</div></pre></td></tr></table></figure>
 <p>上述写法存在执行效率和可读性的双重问题。</p>
 <p>在执行效率上，创建一个立即销毁的不可变变量是没必要的。虽然这样做不太会拖慢你的 App （除非很频繁调用该方法），但是没必要为了少打几个字儿就这么写。</p>
 <p>考虑到可读性，有两个问题：</p>
@@ -669,7 +692,7 @@
         <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -801,6 +824,135 @@
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
   
 
   

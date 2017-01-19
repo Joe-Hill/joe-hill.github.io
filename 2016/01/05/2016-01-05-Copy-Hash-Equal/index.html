@@ -232,9 +232,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -397,24 +420,24 @@
 </table>
 <p>除了不可变对象 NSArray 的不可变副本为浅拷贝以外，其他容器对象均为深拷贝。需要指出的是，容器内的对象均为浅拷贝，这就意味着，新容器的内部的对象改变，原容器内部的对象会同步改变。</p>
 <p>如果要实现容器和内部对象的深拷贝，需要遵循 NSCoding 协议，先将对象 archive 再 unarchive。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NSArray *<span class="built_in">array</span>  = @[@<span class="number">1</span>, @<span class="number">2</span>];</span><br><span class="line">NSData *data = [NSKeyedArchiver archivedDataWithRootObject:<span class="built_in">array</span>];</span><br><span class="line">NSArray *newArray = [NSUnarchiver unarchiveObjectWithData:data];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">NSArray *<span class="built_in">array</span>  = @[@<span class="number">1</span>, @<span class="number">2</span>];</div><div class="line">NSData *data = [NSKeyedArchiver archivedDataWithRootObject:<span class="built_in">array</span>];</div><div class="line">NSArray *newArray = [NSUnarchiver unarchiveObjectWithData:data];</div></pre></td></tr></table></figure>
 <p>此时 newArray 无论是容器本身还是容器内部对象都和原来的 array 无关联。</p>
 <h2 id="自定义对象的-Copy"><a href="#自定义对象的-Copy" class="headerlink" title="自定义对象的 Copy"></a>自定义对象的 Copy</h2><p>自定义对象继承自 NSObject，需要自己实现 NSCopying 协议下的 copyWithZone 方法。</p>
 <p><strong>Person.h</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">@interface Person : NSObject&lt;NSCopying&gt;</span><br><span class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line">@interface Person : NSObject&lt;NSCopying&gt;</div><div class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age;</div><div class="line">@end</div></pre></td></tr></table></figure>
 <p><strong>Person.m</strong></p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#import "Person.h"</span><br><span class="line"></span><br><span class="line">@interface Person ()</span><br><span class="line">@property (nonatomic, strong) NSString *name;</span><br><span class="line">@property (nonatomic, strong) NSString *age;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Person</span><br><span class="line"></span><br><span class="line">- (Person *)initWithName:(NSString *)name age:(NSString *)age &#123;</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        self.name  = name;</span><br><span class="line">        self.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age &#123;</span><br><span class="line">    return [[self alloc] initWithName:name age:age];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (Person *)copyWithZone:(NSZone *)zone &#123;</span><br><span class="line">    Person *person = [[Person allocWithZone:zone] init];</span><br><span class="line">    person.name = [self.name copyWithZone:zone];</span><br><span class="line">    person.age = [self.age copyWithZone:zone];</span><br><span class="line">    return person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">#import "Person.h"</div><div class="line"></div><div class="line">@interface Person ()</div><div class="line">@property (nonatomic, strong) NSString *name;</div><div class="line">@property (nonatomic, strong) NSString *age;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation Person</div><div class="line"></div><div class="line">- (Person *)initWithName:(NSString *)name age:(NSString *)age &#123;</div><div class="line">    if (self = [super init]) &#123;</div><div class="line">        self.name  = name;</div><div class="line">        self.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (Person *)personWithName:(NSString *)name age:(NSString *)age &#123;</div><div class="line">    return [[self alloc] initWithName:name age:age];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (Person *)copyWithZone:(NSZone *)zone &#123;</div><div class="line">    Person *person = [[Person allocWithZone:zone] init];</div><div class="line">    person.name = [self.name copyWithZone:zone];</div><div class="line">    person.age = [self.age copyWithZone:zone];</div><div class="line">    return person;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
 <h1 id="Hash-Equal"><a href="#Hash-Equal" class="headerlink" title="Hash/Equal"></a>Hash/Equal</h1><h2 id="Equal"><a href="#Equal" class="headerlink" title="Equal"></a>Equal</h2><p>NSObject 类中的 equal 方法的判断，是包括内存地址的。换句话说，NSObject 若想判断两个对象相等，那这两个对象的地址必须相同。</p>
 <p>但实际编码中，我们常常设计一个对象，其各项属性相同， 我们就认为他们 equal，要达到这个目的，我们就要重载 equal 方法。于是我们在上述的 Person 对象中重载如下方法：</p>
 <p><strong>Person.m</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (BOOL)isEqual:(Person *)other &#123;</span><br><span class="line">    BOOL isMyClass     = [other isKindOfClass:self.<span class="keyword">class</span>];</span><br><span class="line">    BOOL isEqualToName = [other.name isEqualToString:self.name];</span><br><span class="line">    BOOL isEqualToAge  = [other.age isEqualToString:other.age];</span><br><span class="line">    <span class="keyword">if</span> (isMyClass &amp;&amp; isEqualToName &amp;&amp; isEqualToAge) &#123;</span><br><span class="line">        <span class="keyword">return</span> YES;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (BOOL)isEqual:(Person *)other &#123;</div><div class="line">    BOOL isMyClass     = [other isKindOfClass:self.<span class="keyword">class</span>];</div><div class="line">    BOOL isEqualToName = [other.name isEqualToString:self.name];</div><div class="line">    BOOL isEqualToAge  = [other.age isEqualToString:other.age];</div><div class="line">    <span class="keyword">if</span> (isMyClass &amp;&amp; isEqualToName &amp;&amp; isEqualToAge) &#123;</div><div class="line">        <span class="keyword">return</span> YES;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> NO;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>main.m</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        NSLog(@<span class="string">"isEqual-----%zd"</span>, [person1 isEqual:person2]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</div><div class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</div><div class="line">        NSLog(@<span class="string">"isEqual-----%zd"</span>, [person1 isEqual:person2]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>控制台打印结果为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">isEqual-----1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">isEqual-----1</div></pre></td></tr></table></figure>
 <p>证明确实完成了属性相同，就判断两个对象 equal 的目的。</p>
 <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p>任何 Objective-C 都有 hash 方法，该方法返回一个 NSUInteger，是该对象的 hashCode。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">-(NSUInteger)hash &#123;</span><br><span class="line">   <span class="keyword">return</span> (NSUInteger)self&gt;&gt;<span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">-(NSUInteger)hash &#123;</div><div class="line">   <span class="keyword">return</span> (NSUInteger)self&gt;&gt;<span class="number">4</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上述是 Cocotron 的 hashCode 的计算方式，简单通过移位实现。右移4位，左边补0。因为对象大多存于堆中，地址相差4位应该很正常，所以不同对象可能会有相同的 hashCode。当对象存入集合(NSSet, NSDictionary)中，他们的 hashCode 会作为 key 来决定放入哪个集合中。</p>
 <p><strong>存储表</strong></p>
 <table>
@@ -448,7 +471,7 @@
 <p>如果所有对象的 hashCode 都相同，那么每次比较都会调用 equal 方法，整个查询效率会变得很低。</p>
 <h2 id="集合中自定义对象的存取"><a href="#集合中自定义对象的存取" class="headerlink" title="集合中自定义对象的存取"></a>集合中自定义对象的存取</h2><p>本节中集合对象选定为 NSDictionary。Hash 这一节中，我们得知了集合内部实际是一个 HashTable。那自定义对象，按照新逻辑重载 equal 方法之后，在集合中的存取应该如何？</p>
 <p>参考 Cocotron 源码，NSDictionary 使用 NSMapTable 实现的。</p>
-<figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSMapTable</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">       <span class="built_in">NSMapTableKeyCallBacks</span>   *keyCallBacks;</span><br><span class="line">       <span class="built_in">NSMapTableValueCallBacks</span> *valueCallBacks;</span><br><span class="line">       <span class="built_in">NSUInteger</span>               count;</span><br><span class="line">       <span class="built_in">NSUInteger</span>               nBuckets;</span><br><span class="line">       <span class="keyword">struct</span> _NSMapNode        * *buckets;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSMapTable</span> : <span class="title">NSObject</span> </span>&#123;</div><div class="line">       <span class="built_in">NSMapTableKeyCallBacks</span>   *keyCallBacks;</div><div class="line">       <span class="built_in">NSMapTableValueCallBacks</span> *valueCallBacks;</div><div class="line">       <span class="built_in">NSUInteger</span>               count;</div><div class="line">       <span class="built_in">NSUInteger</span>               nBuckets;</div><div class="line">       <span class="keyword">struct</span> _NSMapNode        * *buckets;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面是NSMtabtable真正的描述，可以看出来NSMapTable是一个哈希＋链表的数据结构，因此在 NSMapTable 中插入或者删除一对对象时</p>
 <ul>
 <li>为对key进行hash得到bucket的位置</li>
@@ -458,14 +481,14 @@
 </ul>
 <p>由于一对键值存入字典中之后，key 是不能随意改变的，这样会造成 value 的丢失。所以一个自定义对象作为 key 存入 NSDictionary，必定要深拷贝。正是为了实现这一目的，则 key 必须遵守 NSCopying 协议。</p>
 <p><strong>main.m</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</span><br><span class="line">        Person *person3 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"33"</span>];</span><br><span class="line"></span><br><span class="line">        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];</span><br><span class="line">        [dict setObject:@<span class="string">"1"</span> forKey:person1];</span><br><span class="line">        [dict setObject:@<span class="string">"2"</span> forKey:person2];</span><br><span class="line">        [dict setObject:@<span class="string">"3"</span> forKey:person3];</span><br><span class="line"></span><br><span class="line">        NSLog(@<span class="string">"person1----%@"</span>, [dict objectForKey:person1]);</span><br><span class="line">        NSLog(@<span class="string">"person2----%@"</span>, [dict objectForKey:person2]);</span><br><span class="line">        NSLog(@<span class="string">"person3----%@"</span>, [dict objectForKey:person3]);</span><br><span class="line">        NSLog(@<span class="string">"dict count: %ld"</span>, dict.count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        Person *person1 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</div><div class="line">        Person *person2 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"32"</span>];</div><div class="line">        Person *person3 = [Person personWithName:@<span class="string">"Joe"</span> age:@<span class="string">"33"</span>];</div><div class="line"></div><div class="line">        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];</div><div class="line">        [dict setObject:@<span class="string">"1"</span> forKey:person1];</div><div class="line">        [dict setObject:@<span class="string">"2"</span> forKey:person2];</div><div class="line">        [dict setObject:@<span class="string">"3"</span> forKey:person3];</div><div class="line"></div><div class="line">        NSLog(@<span class="string">"person1----%@"</span>, [dict objectForKey:person1]);</div><div class="line">        NSLog(@<span class="string">"person2----%@"</span>, [dict objectForKey:person2]);</div><div class="line">        NSLog(@<span class="string">"person3----%@"</span>, [dict objectForKey:person3]);</div><div class="line">        NSLog(@<span class="string">"dict count: %ld"</span>, dict.count);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>由于我们重载了 equal 方法，person1 和 person2 应该是相同对象，理论上 dict 的 count 应该是 2。</p>
 <p>事实上打印结果是随机的，dict 内部可能会有2或3组键值对。Person 实例化对象取出的值也是不尽相同。这是因为，在对象存入 key 时，每次都要进行 hash/equal 验证，如果为相同对象，则不增加键值对数量，直接覆盖之前 key 的 value。我们重载了 equal 方法，但是 person1 和 person2 的 hashCode 是不同的，则他们直接会被判定为不同的对象，person2 直接作为新的 key 存入了 dict。</p>
 <p>在取 key 的时候，依旧要执行 hash/equal ，由于存入 dict 中的副本是深拷贝，那副本的 hashCode 和原对象也是不同的，会判定要查找的对象在 key 中不存在，造成了能存不能查的情况。</p>
 <p>这就是我们为什么重载了 equal 就必须还要重载 hash 的根本原因。</p>
 <p>重载 hash 要保证，其 hash 算法只跟成员变量相关，即 name 和 age；同时要保证其深拷贝副本的 hashCode 与 原对象相同。</p>
 <p><strong>Person.m</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">- (NSUInteger)hash &#123;</span><br><span class="line">    <span class="keyword">return</span> [self.name hash] ^ [self.age hash];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><div class="line">- (NSUInteger)hash &#123;</div><div class="line">    <span class="keyword">return</span> [self.name hash] ^ [self.age hash];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>切记不能全部返回相同的 hashCode，这样会每次都调用 equal，效率很差。</p>
 
       
@@ -689,7 +712,7 @@
         <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -821,6 +844,135 @@
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
   
 
   

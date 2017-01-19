@@ -240,9 +240,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -360,21 +383,21 @@
 <a id="more"></a>
 <h1 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h1><p>如果你只是想用 <a href="https://cocoapods.org" target="_blank" rel="external">Cocoapods</a> 把第三方库导入你的工程，本章内容目的就是以最快速度让你把 Cocoapods 应用到你的项目中。</p>
 <h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Cocoapods 基于 Ruby，OS X 已经安装好 Ruby。限于国内的网络，此处先修改 RubyGems 源的地址。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>gem sources --remove <span class="symbol">https:</span>/<span class="regexp">/rubygems.org/</span></span><br><span class="line"><span class="variable">$ </span>gem sources -a <span class="symbol">http:</span>/<span class="regexp">/ruby.taobao.org/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line"><span class="variable">$ </span>gem sources --remove <span class="symbol">https:</span>/<span class="regexp">/rubygems.org/</span></div><div class="line"><span class="variable">$ </span>gem sources -a <span class="symbol">http:</span>/<span class="regexp">/ruby.taobao.org/</span></div></pre></td></tr></table></figure>
 <p>执行完毕后，验证是否修改成功。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gem sources <span class="_">-l</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ gem sources <span class="_">-l</span></div></pre></td></tr></table></figure>
 <p>如果显示如下信息代表修改成功。</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">*** CURRENT SOURCES ***  </span><br><span class="line"><span class="symbol">http:</span>//ruby.taobao<span class="meta">.org</span>/</span><br></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><div class="line">*** CURRENT SOURCES ***  </div><div class="line"><span class="symbol">http:</span>//ruby.taobao<span class="meta">.org</span>/</div></pre></td></tr></table></figure>
 <p>接下来安装 Cocoapods</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ sudo gem <span class="keyword">install</span> cocoapods</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">$ sudo gem <span class="keyword">install</span> cocoapods</div></pre></td></tr></table></figure>
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>如果你还没装 <a href="https://github.com/supermarin/Alcatraz" target="_blank" rel="external">Alcatraz</a>，那请你先安装 Alcatraz。</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">curl -fsSL http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="code"><pre><div class="line">curl -fsSL http<span class="variable">s:</span>//raw.github.<span class="keyword">com</span>/supermarin/Alcatraz/master/Scripts/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
 <p>进入你要添加第三方库的工程，按<code>command + shift + 9</code>调出 Alcatraz 搜索界面，搜索 Cocoapods 并安装。</p>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/1.png" alt=""></p>
 <p>安装完毕后，重启 Xcode，如下图点击创建 Podfile。</p>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/2.png" alt=""></p>
 <p>以 <code>AFNetworking</code>为例，在 Podfile 文件中写入并保存。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></span><br><span class="line"></span><br><span class="line">pod <span class="string">"AFNetworking"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></div><div class="line"></div><div class="line">pod <span class="string">"AFNetworking"</span></div></pre></td></tr></table></figure>
 <p>这时 Cocoapods 插件已经可以选择安装了。</p>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/3.png" alt=""></p>
 <p>点击安装</p>
@@ -390,23 +413,23 @@
 <p>很多情况下，Podfile 中的第三方库信息格式并没有指定某个库的具体版本，那么在执行 <code>pod update</code>后，第三方库都会更新到最新版本且 Podfile.lock 会一同更新。</p>
 <p><strong>3. pod search</strong></p>
 <p>执行</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>pod search AFNetworking</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line"><span class="variable">$ </span>pod search AFNetworking</div></pre></td></tr></table></figure>
 <p>得到如下信息：</p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">-&gt; AFNetworking (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">   A delightful iOS <span class="keyword">and</span> OS X networking framework.</span><br><span class="line">   pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5.4'</span></span><br><span class="line">   - Homepage:</span><br><span class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking</span><br><span class="line">   - Source:</span><br><span class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking.git</span><br><span class="line">   - Versions: <span class="number">2.5</span><span class="meta">.4</span>, <span class="number">2.5</span><span class="meta">.3</span>, <span class="number">2.5</span><span class="meta">.2</span>, <span class="number">2.5</span><span class="meta">.1</span>, <span class="number">2.5</span><span class="meta">.0</span>, <span class="number">2.4</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">2.4</span><span class="meta">.0</span>, <span class="number">2.3</span><span class="meta">.1</span>, <span class="number">2.3</span><span class="meta">.0</span>, <span class="number">2.2</span><span class="meta">.4</span>, <span class="number">2.2</span><span class="meta">.3</span>, <span class="number">2.2</span><span class="meta">.2</span>, <span class="number">2.2</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">2.2</span><span class="meta">.0</span>, <span class="number">2.1</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.3</span>, <span class="number">2.0</span><span class="meta">.2</span>, <span class="number">2.0</span><span class="meta">.1</span>, <span class="number">2.0</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.0</span>-RC3,</span><br><span class="line">   <span class="number">2.0</span><span class="meta">.0</span>-RC2, <span class="number">2.0</span><span class="meta">.0</span>-RC1, <span class="number">1.3</span><span class="meta">.4</span>, <span class="number">1.3</span><span class="meta">.3</span>, <span class="number">1.3</span><span class="meta">.2</span>, <span class="number">1.3</span><span class="meta">.1</span>,</span><br><span class="line">   <span class="number">1.3</span><span class="meta">.0</span>, <span class="number">1.2</span><span class="meta">.1</span>, <span class="number">1.2</span><span class="meta">.0</span>, <span class="number">1.1</span><span class="meta">.0</span>, <span class="number">1.0</span><span class="meta">.1</span>, <span class="number">1.0</span>, <span class="number">1.</span>0RC3,</span><br><span class="line">   <span class="number">1.</span>0RC2, <span class="number">1.</span>0RC1, <span class="number">0.10</span><span class="meta">.1</span>, <span class="number">0.10</span><span class="meta">.0</span>, <span class="number">0.9</span><span class="meta">.2</span>, <span class="number">0.9</span><span class="meta">.1</span>, <span class="number">0.9</span><span class="meta">.0</span>,</span><br><span class="line">   <span class="number">0.7</span><span class="meta">.0</span>, <span class="number">0.5</span><span class="meta">.1</span> [master repo]</span><br><span class="line">   - Subspecs:</span><br><span class="line">     - AFNetworking/Serialization (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/Security (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/Reachability (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/NSURLConnection (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/NSURLSession (<span class="number">2.5</span><span class="meta">.4</span>)</span><br><span class="line">     - AFNetworking/UIKit (<span class="number">2.5</span><span class="meta">.4</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><div class="line">-&gt; AFNetworking (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">   A delightful iOS <span class="keyword">and</span> OS X networking framework.</div><div class="line">   pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.5.4'</span></div><div class="line">   - Homepage:</div><div class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking</div><div class="line">   - Source:</div><div class="line"><span class="symbol">   https:</span>//github.com/AFNetworking/AFNetworking.git</div><div class="line">   - Versions: <span class="number">2.5</span><span class="meta">.4</span>, <span class="number">2.5</span><span class="meta">.3</span>, <span class="number">2.5</span><span class="meta">.2</span>, <span class="number">2.5</span><span class="meta">.1</span>, <span class="number">2.5</span><span class="meta">.0</span>, <span class="number">2.4</span><span class="meta">.1</span>,</div><div class="line">   <span class="number">2.4</span><span class="meta">.0</span>, <span class="number">2.3</span><span class="meta">.1</span>, <span class="number">2.3</span><span class="meta">.0</span>, <span class="number">2.2</span><span class="meta">.4</span>, <span class="number">2.2</span><span class="meta">.3</span>, <span class="number">2.2</span><span class="meta">.2</span>, <span class="number">2.2</span><span class="meta">.1</span>,</div><div class="line">   <span class="number">2.2</span><span class="meta">.0</span>, <span class="number">2.1</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.3</span>, <span class="number">2.0</span><span class="meta">.2</span>, <span class="number">2.0</span><span class="meta">.1</span>, <span class="number">2.0</span><span class="meta">.0</span>, <span class="number">2.0</span><span class="meta">.0</span>-RC3,</div><div class="line">   <span class="number">2.0</span><span class="meta">.0</span>-RC2, <span class="number">2.0</span><span class="meta">.0</span>-RC1, <span class="number">1.3</span><span class="meta">.4</span>, <span class="number">1.3</span><span class="meta">.3</span>, <span class="number">1.3</span><span class="meta">.2</span>, <span class="number">1.3</span><span class="meta">.1</span>,</div><div class="line">   <span class="number">1.3</span><span class="meta">.0</span>, <span class="number">1.2</span><span class="meta">.1</span>, <span class="number">1.2</span><span class="meta">.0</span>, <span class="number">1.1</span><span class="meta">.0</span>, <span class="number">1.0</span><span class="meta">.1</span>, <span class="number">1.0</span>, <span class="number">1.</span>0RC3,</div><div class="line">   <span class="number">1.</span>0RC2, <span class="number">1.</span>0RC1, <span class="number">0.10</span><span class="meta">.1</span>, <span class="number">0.10</span><span class="meta">.0</span>, <span class="number">0.9</span><span class="meta">.2</span>, <span class="number">0.9</span><span class="meta">.1</span>, <span class="number">0.9</span><span class="meta">.0</span>,</div><div class="line">   <span class="number">0.7</span><span class="meta">.0</span>, <span class="number">0.5</span><span class="meta">.1</span> [master repo]</div><div class="line">   - Subspecs:</div><div class="line">     - AFNetworking/Serialization (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">     - AFNetworking/Security (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">     - AFNetworking/Reachability (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">     - AFNetworking/NSURLConnection (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">     - AFNetworking/NSURLSession (<span class="number">2.5</span><span class="meta">.4</span>)</div><div class="line">     - AFNetworking/UIKit (<span class="number">2.5</span><span class="meta">.4</span>)</div></pre></td></tr></table></figure>
 <p>选择你的目的版本配置到 Podfile 文件中。</p>
 <p><strong>4. pod setup</strong></p>
 <p>在本地 Cocoapods 会保存一个 Pods 依赖库的 tree，这个 tree 和服务端的 tree 可能会不同步。因为大量第三方库的作者每天都在维护自己的库，会更新库的版本，执行</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">$ pod <span class="built_in">setup</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><div class="line">$ pod <span class="built_in">setup</span></div></pre></td></tr></table></figure>
 <p>可以让本地依赖库的 tree 与服务端同步。</p>
 <h2 id="Usage-1"><a href="#Usage-1" class="headerlink" title="Usage"></a>Usage</h2><p>上一章中，介绍了通过 Xcode 插件来实现利用 Cocoapods 引入第三方库的方法。然而很多程序员觉得还是用命令行界面去操作这一切才更 Cool。</p>
 <p>下文以 <code>YOUR_PROJECT</code>代替项目路径为例，介绍下命令行中 Cocoapods 的使用方法。 </p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cd YOUR_PROJECT</span><br><span class="line"><span class="variable">$ </span>touch Podfile</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line"><span class="variable">$ </span>cd YOUR_PROJECT</div><div class="line"><span class="variable">$ </span>touch Podfile</div></pre></td></tr></table></figure>
 <p>打开你的 Xcode 或者 其他编辑器也行，开始编辑 Podfile，此处依旧以 <code>AFNetworking</code>为例</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></span><br><span class="line"></span><br><span class="line">pod <span class="string">"AFNetworking"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line">platform <span class="symbol">:ios</span>, <span class="string">"7.0"</span></div><div class="line"></div><div class="line">pod <span class="string">"AFNetworking"</span></div></pre></td></tr></table></figure>
 <p>编辑好后，还在<code>YOUR_PROJECT</code>路径下，执行</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">$ pod <span class="keyword">install</span></div></pre></td></tr></table></figure>
 <p>正常情况下将会出现如下提示</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">Updating local specs <span class="keyword">repositories</span></span><br><span class="line">Analyzing <span class="keyword">dependencies</span></span><br><span class="line">Downloading <span class="keyword">dependencies</span></span><br><span class="line">Installing AFNetworking (<span class="number">2.5</span>.<span class="number">4</span>)</span><br><span class="line">Generating Pods <span class="keyword">project</span></span><br><span class="line">Integrating client <span class="keyword">project</span></span><br><span class="line">Sending stats</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><div class="line">Updating local specs <span class="keyword">repositories</span></div><div class="line">Analyzing <span class="keyword">dependencies</span></div><div class="line">Downloading <span class="keyword">dependencies</span></div><div class="line">Installing AFNetworking (<span class="number">2.5</span>.<span class="number">4</span>)</div><div class="line">Generating Pods <span class="keyword">project</span></div><div class="line">Integrating client <span class="keyword">project</span></div><div class="line">Sending stats</div></pre></td></tr></table></figure>
 <p>然后打开你项目的 <code>.workspace</code>文件，就可以轻松的使用第三方库了。</p>
 <h2 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h2><p>为什么我们执行这几条指令就可以使用第三方库了？</p>
 <p>首先我们注意到，用 Cocoapods 安装第三方库后，不再打开原工程文件，而是打开一个<code>.workspace</code>的文件。实际上在 Cocoapods 为我们安装第三方库的过程中，它做了如下几件事：</p>
@@ -419,10 +442,10 @@
 <h2 id="Podfile"><a href="#Podfile" class="headerlink" title="Podfile"></a>Podfile</h2><p>Podfile 就是用来描述一个或者多个 Xcode 工程中 targets 和第三方库的依赖关系。默认情况下只在用户工程的<em>第一个 target</em>中生效。</p>
 <p><strong>1. 多个 target 共用依赖 Pods</strong></p>
 <p>以两个 target 分别为 MyApp1 和 MyApp2 为例，用<code>link_with</code>即可。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:osx</span>, <span class="string">'10.7'</span></span><br><span class="line"></span><br><span class="line">link_with <span class="string">'MyApp1'</span>, <span class="string">'MyApp2'</span></span><br><span class="line">pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span></span><br><span class="line">pod <span class="string">'Objection'</span>, <span class="string">'0.9'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><div class="line"><span class="keyword">platform</span> :osx, <span class="string">'10.7'</span></div><div class="line"></div><div class="line">link_with <span class="string">'MyApp1'</span>, <span class="string">'MyApp2'</span></div><div class="line">pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span></div><div class="line">pod <span class="string">'Objection'</span>, <span class="string">'0.9'</span></div></pre></td></tr></table></figure>
 <p><strong>2. 多个 target 依赖不同 Pods</strong></p>
 <p>第一个名为 MyApp1 的 target 依赖于 ObjectiveSugar 和 Artsy+UILabels，第二个名为 MyApp2 的 target 依赖于 OCMock。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></span><br><span class="line"></span><br><span class="line">target <span class="symbol">:MyApp1</span> <span class="keyword">do</span></span><br><span class="line">  pod <span class="string">'ObjectiveSugar'</span>, <span class="string">'~&gt; 0.5'</span></span><br><span class="line">  pod <span class="string">'Artsy+UILabels'</span>, <span class="string">'~&gt; 1.0'</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">target <span class="symbol">:MyApp2</span> <span class="keyword">do</span></span><br><span class="line">    pod <span class="string">'OCMock'</span>, <span class="string">'~&gt; 2.0.1'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line">platform <span class="symbol">:ios</span>, <span class="string">'8.0'</span></div><div class="line"></div><div class="line">target <span class="symbol">:MyApp1</span> <span class="keyword">do</span></div><div class="line">  pod <span class="string">'ObjectiveSugar'</span>, <span class="string">'~&gt; 0.5'</span></div><div class="line">  pod <span class="string">'Artsy+UILabels'</span>, <span class="string">'~&gt; 1.0'</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">target <span class="symbol">:MyApp2</span> <span class="keyword">do</span></div><div class="line">    pod <span class="string">'OCMock'</span>, <span class="string">'~&gt; 2.0.1'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
 <p><strong>3. 关于版本</strong></p>
 <p>可以不写版本，也可以指定某个版本，当然也可以使用一些逻辑运算符。</p>
 <ul>
@@ -443,56 +466,56 @@
 <li><a href="http://guides.rubygems.org/patterns/#semantic-versioning" target="_blank" rel="external">RubyGems Versioning Policies</a></li>
 </ul>
 <h2 id="Podfile-lock"><a href="#Podfile-lock" class="headerlink" title="Podfile.lock"></a>Podfile.lock</h2><h3 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h3><p>很多人都有一种困惑，从 GitHub 行 clone 下来别人的工程，看 Podfile 中对 <code>AFNetworking</code>这个第三方库的描述是这样</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> <span class="string">"AFNetworking"</span>, <span class="string">'~&gt; 2.5.2'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><div class="line">pod <span class="string">"AFNetworking"</span>, '~&gt; <span class="number">2.5</span><span class="number">.2</span>'</div></pre></td></tr></table></figure>
 <p>而经过</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> search afnetworking</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">pod search afnetworking</span></div></pre></td></tr></table></figure>
 <p>发现当前最新的版本已经是 2.5.6</p>
 <p>这时当你在项目目录下执行了</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">pod <span class="keyword">install</span></div></pre></td></tr></table></figure>
 <p>按理说应该安装 2.6.0 版本以内的最近版本，也就是 2.5.6，实际上发现还是安装了 2.5.2 ，这就是 Podfile.lock 存在的意义。</p>
 <h3 id="Necessity"><a href="#Necessity" class="headerlink" title="Necessity"></a>Necessity</h3><p>假如没有 Podfile.lock，那么在团队开发中绝对是一种灾难。假设 A 君和 B 君在协作开发同一个项目。A君作为这个项目的创建者，在 Podfile 中对<code>AFNetworking</code>的描述是</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> <span class="string">"AFNetworking"</span>, <span class="string">'~&gt; 2.5.2'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><div class="line">pod <span class="string">"AFNetworking"</span>, '~&gt; <span class="number">2.5</span><span class="number">.2</span>'</div></pre></td></tr></table></figure>
 <p>当 B 君 check out 这个项目时，<code>AFNetworking</code>这个库已经更新到了 2.5.5，那他在</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">pod <span class="keyword">install</span></div></pre></td></tr></table></figure>
 <p>之后，他本地的这个项目就会依赖于 2.5.5 版本的 <code>AFNetworking</code>。如果这几代版本更迭修改了一些方法的名称，那项目里将会各种 error。</p>
 <p>很多人会说，那直接锁定某个版本的<code>AFNetworking</code>，不就不会出现这个问题了？但是开源库的优化是随时进行的，同时还伴随修复 Bug 等操作，所以锁定某个版本的行为是不可取的。</p>
 <p>好在有 Podfile.lock，在 A 君第一次执行</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">pod <span class="keyword">install</span></div></pre></td></tr></table></figure>
 <p>之后，会在 Podfile.lock 中生成如下描述</p>
-<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">PODS:</span><br><span class="line">  -<span class="ruby"> AFNetworking (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLConnection (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLSession (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/UIKit (= <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/NSURLConnection (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/NSURLSession (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Reachability</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Security</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/Serialization</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Reachability (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Security (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/Serialization (<span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span>  -<span class="ruby"> AFNetworking/UIKit (<span class="number">2.5</span>.<span class="number">2</span>):</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLConnection</span><br><span class="line"></span>    -<span class="ruby"> AFNetworking/NSURLSession</span><br><span class="line"></span></span><br><span class="line">DEPENDENCIES:</span><br><span class="line">  -<span class="ruby"> AFNetworking (~&gt; <span class="number">2.5</span>.<span class="number">2</span>)</span><br><span class="line"></span></span><br><span class="line">SPEC CHECKSUMS:</span><br><span class="line">  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36</span><br><span class="line"></span><br><span class="line">COCOAPODS: 0.38.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight haml"><table><tr><td class="code"><pre><div class="line">PODS:</div><div class="line">  -<span class="ruby"> AFNetworking (<span class="number">2.5</span>.<span class="number">2</span>):</span></div><div class="line">    -<span class="ruby"> AFNetworking/NSURLConnection (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">    -<span class="ruby"> AFNetworking/NSURLSession (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">    -<span class="ruby"> AFNetworking/Reachability (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">    -<span class="ruby"> AFNetworking/Security (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">    -<span class="ruby"> AFNetworking/Serialization (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">    -<span class="ruby"> AFNetworking/UIKit (= <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">  -<span class="ruby"> AFNetworking/NSURLConnection (<span class="number">2.5</span>.<span class="number">2</span>):</span></div><div class="line">    -<span class="ruby"> AFNetworking/Reachability</span></div><div class="line">    -<span class="ruby"> AFNetworking/Security</span></div><div class="line">    -<span class="ruby"> AFNetworking/Serialization</span></div><div class="line">  -<span class="ruby"> AFNetworking/NSURLSession (<span class="number">2.5</span>.<span class="number">2</span>):</span></div><div class="line">    -<span class="ruby"> AFNetworking/Reachability</span></div><div class="line">    -<span class="ruby"> AFNetworking/Security</span></div><div class="line">    -<span class="ruby"> AFNetworking/Serialization</span></div><div class="line">  -<span class="ruby"> AFNetworking/Reachability (<span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">  -<span class="ruby"> AFNetworking/Security (<span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">  -<span class="ruby"> AFNetworking/Serialization (<span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line">  -<span class="ruby"> AFNetworking/UIKit (<span class="number">2.5</span>.<span class="number">2</span>):</span></div><div class="line">    -<span class="ruby"> AFNetworking/NSURLConnection</span></div><div class="line">    -<span class="ruby"> AFNetworking/NSURLSession</span></div><div class="line"></div><div class="line">DEPENDENCIES:</div><div class="line">  -<span class="ruby"> AFNetworking (~&gt; <span class="number">2.5</span>.<span class="number">2</span>)</span></div><div class="line"></div><div class="line">SPEC CHECKSUMS:</div><div class="line">  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36</div><div class="line"></div><div class="line">COCOAPODS: 0.38.2</div></pre></td></tr></table></figure>
 <p>这时 B 君 check out  此项目之后，执行</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">pod <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">pod <span class="keyword">install</span></div></pre></td></tr></table></figure>
 <p>Cocoapods 会安装在 Podfile.lock 中描述的版本，而不会按照 Podfile 中的逻辑运算安装最新的 2.5.5 。</p>
 <p>在协同开发的时候，记得要一并同步 Podfile.lock，它会保证在 Podfile 中描述逻辑允许的情况下，锁定安装 Podfile.lock 描述中的版本。</p>
 <p>只有在</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">pod</span> update</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><div class="line"><span class="attribute">pod update</span></div></pre></td></tr></table></figure>
 <p>之后，才会检查最新的版本，并且重写 Podfile.lock 中对第三方库的版本描述。</p>
 <p>通常情况下，我们无必要手动修改 Podfile.lock 中的内容，但是将它从<code>.gitignore</code>中移除是十分必要的。</p>
 <h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q &amp; A"></a>Q &amp; A</h1><p>一些可能遇到的问题和对应的解决答案，我踩过的坑，你就别踩了。</p>
 <p><strong>Q1: 用 gem 安装 Cocoapods 提示 gem 版本过老怎么办</strong></p>
 <p><strong>A1:</strong> 请升级 gem </p>
-<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> sudo gem update --<span class="keyword">system</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gams"><table><tr><td class="code"><pre><div class="line"><span class="symbol">$</span> sudo gem update --<span class="keyword">system</span></div></pre></td></tr></table></figure>
 <p><strong>Q2: 如何升级 Cocoapods 的版本？</strong></p>
 <p><strong>A2:</strong> 升级 Cocoapods 的版本其实和安装是一样的</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ sudo gem <span class="keyword">install</span> cocoapods</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><div class="line">$ sudo gem <span class="keyword">install</span> cocoapods</div></pre></td></tr></table></figure>
 <p><strong>Q3: 多个版本的 Cocoapods 如何卸载？</strong></p>
 <p><strong>A3:</strong> 终端输入</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">$ gem <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><div class="line">$ gem <span class="built_in">list</span></div></pre></td></tr></table></figure>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/6.png" alt=""></p>
 <p>如果你安装（也可能是升级导致）了多个版本的 Cocoapods，本例中如图，安装了 0.38.2 和 0.36.3 两个版本。想卸载其中的旧版本，0.36.3</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gem uninstall cocoapods</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line"><span class="variable">$ </span>sudo gem uninstall cocoapods</div></pre></td></tr></table></figure>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/7.png" alt=""></p>
 <p>选择 1，更低的版本就被卸载掉了。</p>
 <p>或者直接执行如下命令，老版本的都都被卸载了。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo gem clean</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line"><span class="variable">$ </span>sudo gem clean</div></pre></td></tr></table></figure>
 <p><strong>Q4: 我怎么搜索不到某个第三方库的最新版本？</strong></p>
 <p><strong>A4：</strong>可能是你的 Cocoapods 的版本低或者你本地的依赖库 tree 较旧所致。参见 <strong>Q2</strong> 和 <code>pod setup</code> 的使用。</p>
 <p><strong>Q5: 错误ERROR:  While executing gem … (Gem::FilePermissionError) You don’t have write permissions for the /Library/Ruby/Gems/2.0.0 directory</strong></p>
 <p><strong>A5:</strong> 这个错误往往出现在安装 Cocoapods 或者删除某个版本的 Cocoapods 的情况下，简单粗暴就是修改权限</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo chmod <span class="number">777</span> <span class="regexp">/Library/</span>Ruby<span class="regexp">/Gems/</span><span class="number">2.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><div class="line">sudo chmod <span class="number">777</span> /Library/Ruby/Gems/<span class="number">2.0</span><span class="number">.0</span></div></pre></td></tr></table></figure>
 <p><strong>Q6: 为什么 Pods 导入成功了但是无法引用头文件？</strong></p>
 <p><strong>A6:</strong> Cocoapods 把第三方库以多个 target 形式组成一个名为 Pods 的工程，编译为静态库，所以我们其实可以像引用系统框架一样来引入他们的头文件。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AFNetworking&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;AFNetworking&gt;</span></span></div></pre></td></tr></table></figure>
 <p>如果一定要使用双引号的形式，那就设置目标项目 target 中的 User Header Search Paths，双击此选项，添加一个 <code>${SRCROOT}</code>的键，值设定为<code>recursive</code>，这样就可以递归搜索全部目录。</p>
 <p><img src="http://7xkgg5.com1.z0.glb.clouddn.com/2015-08-10-Cocoapods/8.png" alt=""></p>
 
@@ -715,7 +738,7 @@
         <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -847,6 +870,135 @@
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
   
 
   
